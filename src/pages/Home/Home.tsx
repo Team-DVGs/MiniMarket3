@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Sliders from '../../components/Sliders';
 import Features from '../../components/Features';
 import Popular from '../../components/Popular';
+import DailyBest from '../../components/DailyBest';
+import DayDeals from '../../components/DayDeals';
 
 
 
@@ -138,6 +140,8 @@ const Home = () => {
       <Sliders banners={banners} />
       <Features />
       <Popular popProducts={popProducts} />
+      <DailyBest dailybest={popProducts} />
+      <DayDeals />
     </div>
   );
 }

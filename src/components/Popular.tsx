@@ -26,8 +26,10 @@ const Popular = (props: popularProps) : JSX.Element => {
       </div>
       {/* Product List */}
       <div className="row mt-2 gy-3">
-        {props.popProducts.map(item => (
-            <Product product={item}/>
+        {props.popProducts.map((item) => (
+          <div className="col-6 col-md-4 col-lg-2">
+            <Product product={item} />
+          </div>
         ))}
       </div>
     </div>

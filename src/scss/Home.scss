@@ -6,53 +6,12 @@
     margin: 0 15px;
 }
 
-.deals__item{
-    position: relative;
-    padding-bottom: 100px;
-}
-.deals__item-img{
-    width: 100%;
-    padding-top: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
+
 .hover-animation{
     transition: all .2s;
 }
 .hover-animation:hover{
     transform: translateY(-3px);
-}
-.deals__item-info{
-    background-color: white;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1),
-    -2px -2px 5px rgba(0,0,0,0.1) ;
-    padding: 1rem;
-    border-radius: 6px;
-    position: absolute;
-    bottom: 0;
-    left: 20px;
-    right: 20px;
-}
-.deals__item-info a{
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 0;
-}
-.deals__item-info a:hover{
-    color: var(--green-text);
-}
-.deals__item-price-first{
-    font-weight: 600;
-    font-size: 1.2rem;
-    color: var(--green-text);
-    margin-right: .5rem;
-}
-.deals__item-price-second{
-    color: #ccc;
-    text-decoration: line-through;
-    font-weight: 500;
-    font-size: .8rem;
 }
 
 .trending__header{
@@ -373,13 +332,12 @@
 .menu-arrow {
     margin-left: 4.8px;
     font-size: 10px;
-    font-weight: 300;
+    // font-weight: 300;
 }
 
 .menu-fire {
     margin-right: 5px;
     font-size: 23px;
-    font-weight: 300;
     color: var(--red-color);
 }
 
@@ -976,20 +934,46 @@ h2 {
 
 
 .product{
-    & > div{
-        border: 1px solid #ececec;
-        border-radius: .4rem;
-        padding: 0 .8rem .8rem .8rem
+    border: 1px solid #ececec;
+    border-radius: .6rem;
+    padding: 0 .8rem .8rem .8rem;
+    overflow: hidden;
+    transition: all .3s;
+    &:hover{
+        border-color: #87ebbc;
+        box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    &__banner{
+        color: white;
+        font-family: $main-font;
+        font-size: .6rem;
+        font-weight: 700;
+        background-color: rgb(226, 112, 112);
+        top: 0;
+        left: -5px;
+        border-bottom-right-radius: .6rem;
+        z-index: 3;
+        padding: .2rem .9rem;
     }
     &__img{
         width: 100%;
         padding-top: 100%;
         background-position: center;
         background-size: cover;
+        transition: all .8s ;
+        &:hover{
+            transform: scale(1.08);
+        }
     }
     &__name{
         @include name-style;
         font-size: .8rem;
+        line-height: 1rem;
+        height: 2rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
     }
     &__rating{
         display: flex;
@@ -1023,6 +1007,144 @@ h2 {
     }
     &__btn{
         font-family: $main-font;
+        font-size: .8rem;
+        background-color: #D9F7E9;
+        transition: all .3s ;
+        border: none;
+        color: var(--green-text);
+        font-weight: 500;
+        padding: .4rem .3rem;
+        margin: 0 auto;
+        border-radius: 4px;
 
+        i{
+            margin-right: .4rem;
+        }
+        &:hover{
+            color: white;
+            background-color: var(--green-text);
+            transform: translateY(-2px);
+        }
     }
+}
+
+.dailybest{
+    nav > a{
+        font-family: $main-font;
+        text-decoration: none;
+        color: var(--navy-text);
+        font-weight: 700;
+        font-size: .8rem;
+        margin: 0 .7rem;
+        &:hover{
+            color: var(--green-text);
+        }
+    }
+    &__banner{
+        background-position: center;
+        background-size: cover;
+        border-radius: 4px;
+        padding: 1rem;
+        h1{
+            font-family: $main-font;
+            @include name-style;
+            font-size: 1.5rem;
+            &:hover{
+                color: var(--navy-text);
+            }
+        }   
+        button{
+            outline: none;
+            position: relative;
+            border: none;
+            padding: .3rem 1.5rem .3rem .4rem;
+            color: white;
+            font-size: .8rem;
+            background-color: var(--green-text);
+            border-radius: 4px;
+            font-weight: 700;
+            font-family: $main-font;
+            transition: padding .3s ease-out;
+            &:hover{
+                background-color: orange;
+                padding-right: 2rem;
+            }
+            i{
+                position: absolute;
+                right: 5px;
+                font-size: .7rem;
+                color: white;
+            }
+        }
+    }
+    .products{
+        .btn-left, .btn-right{
+        background-color: white;
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+        color: var(--green-text);
+        border: 1px solid var(--green-text);
+        position: absolute;
+        &:hover{
+            background-color: var(--green-text);
+            color: white;
+         }
+        
+        }
+        .btn-left   {
+            left: 10px;
+        }
+        .btn-right{
+            right: 0;
+
+        }
+    }
+}
+
+
+.deals{
+    &__item{
+        position: relative;
+        padding-bottom: 100px;
+    }
+    &__item-img{
+        width: 100%;
+        padding-top: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    &__item-info{
+        background-color: white;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1),
+        -2px -2px 5px rgba(0,0,0,0.1) ;
+        padding: 1rem;
+        border-radius: 6px;
+        position: absolute;
+        bottom: 0;
+        left: 20px;
+        right: 20px;
+    }
+    &__item-info a{
+        color: var(--text);
+        font-size: 1rem;
+        line-height: 0;
+    }
+    &__item-info a:hover{
+        color: var(--green-text);
+    }
+    &__item-price-first{
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: var(--green-text);
+        margin-right: .5rem;
+    }
+    &__item-price-second{
+        color: #ccc;
+        text-decoration: line-through;
+        font-weight: 500;
+        font-size: .8rem;
+    }
+
 }
