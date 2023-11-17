@@ -1,0 +1,28 @@
+$main-font: "Quicksand", sans-serif;
+
+:root{
+    --green-text: #3BB77E;
+    --navy-text: #253D4E;
+    --gray-text: #7E7E7E;
+    --yellow-text: #FDC643;
+    --green-btn: #DEF9EC;
+    --text: #121212;
+    --text-darkblue: #253D4E;
+    --gray-text: #7e7e7e;
+    --text-seperator: #e5e5e5;
+    --line-seperator: #ececec;
+    --red-color: #fc2738;
+}
+*, *::after, *::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.section-margin{ 
+    margin: .8rem 0 .4rem 0;
+}
+
+
+
+

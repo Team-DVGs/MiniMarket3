@@ -1,0 +1,23 @@
+@import './base.scss';
+@mixin mobile{
+    @media only screen and (max-width: 767px){
+        @content;
+    }
+}
+
+@mixin tablet{
+    @media only screen and (min-width: 768px) and (max-width: 991px){
+        @content;
+    }
+}
+
+@mixin name-style{
+    font-family: $main-font;
+    font-size: .9rem;
+    font-weight: 700;
+    color: var(--navy-text);
+    &:hover{
+        color: var(--green-text);
+        cursor: pointer;
+    }
+}
