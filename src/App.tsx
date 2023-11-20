@@ -1,5 +1,8 @@
 import React from 'react';
+import "./scss/__component.scss";
 import "./scss/Home.scss";
+import "./scss/Collection.scss"
+
 
 import { 
   RouterProvider,
@@ -12,11 +15,13 @@ import {
   
 import Layout from './components/Layout';
 import Home from './pages/Home/Home';
+import Collection from './pages/Collection';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Layout/>}>
-      <Route path='/' element={<Home />}/>
+      <Route index element={<Home />}/>
+      <Route path='/danhmuc' element={<Collection />}/>
     </Route>
   )
 )

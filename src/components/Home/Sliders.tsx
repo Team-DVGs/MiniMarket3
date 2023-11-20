@@ -27,7 +27,7 @@ const Sliders = (props: SlidersProps) => {
     return () =>{
       clearTimeout(timeoutID);
     }
-  })
+  },[bannerIndex])
   return (
     <div className="sliders w-100 position-relative d-flex section-margin">
       {props.banners.map((banner) => (

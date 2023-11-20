@@ -1,4 +1,5 @@
 import React , {useState, useRef, useEffect} from 'react'
+import { Link } from 'react-router-dom';
 
 
 const Features = () => {
@@ -9,7 +10,6 @@ const Features = () => {
         if (screenWidth < 767) setNumberShown(4);
         else if (screenWidth > 767 && screenWidth <= 991) setNumberShown(6);
         else setNumberShown(8);
-        console.log(screenWidth, numberShown);
     },[window.innerWidth])
 
     const handleClicked = (isRight: boolean) => {
@@ -119,8 +119,9 @@ const Features = () => {
       <div className="feature section-margin">
         {/* Header and navigation */}
         <div className="d-flex justify-content-between align-items-center">
-          <h1 className="section-header">Featured Categories</h1>
+          <h1 className="section-header">Danh mục</h1>
           <div>
+            <Link className='text-decoration-none text-secondary me-4' to='danhmuc'>Xem tất cả</Link>
             <button className="arrow" onClick={() => handleClicked(false)}>
               <i className="fa-solid fa-arrow-left"></i>
             </button>
@@ -181,7 +182,10 @@ const Features = () => {
                 "https://boostify-nesst.myshopify.com/cdn/shop/files/banner-3.png?v=1659491181&width=768",
             },
           ].map((item) => (
-            <div className="banner-item col-12 col-md-6 col-lg-4 mx-auto">
+            <div
+              className="banner-item col-12 col-md-6 col-lg-4 mx-auto"
+              key={item.id}
+            >
               <div
                 className="d-flex flex-column justify-content-center p-3 rounded-3"
                 style={{ backgroundImage: `url(${item.imgUrl})` }}

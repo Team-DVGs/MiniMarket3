@@ -2,7 +2,7 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div className="nav">
+    <div className="nav header">
       <div className="top-bar">
         <div className="top-bar-left">
           <a href="#!">
@@ -100,41 +100,14 @@ const Header = () => {
             <li className="menu-item">
               <a className="menu-item-link" href="#!">
                 <span className="menu-text">Home</span>
-                <i className="menu-arrow fa-solid fa-chevron-down"></i>
               </a>
-              <ul className="sub-menu">
-                <li>
-                  <a href="#!">Home 1</a>
-                </li>
-                <li>
-                  <a href="#!">Home 2</a>
-                </li>
-                <li>
-                  <a href="#!">Home 3</a>
-                </li>
-                <li>
-                  <a href="#!">Home 4</a>
-                </li>
-                <li>
-                  <a href="#!">Home 5</a>
-                </li>
-                <li>
-                  <a href="#!">Home 6</a>
-                </li>
-                <li>
-                  <a href="#!">Home 7</a>
-                </li>
-                <li>
-                  <a href="#!">Home 8</a>
-                </li>
-              </ul>
             </li>
             <li className="menu-item">
               <a className="menu-item-link" href="#!">
                 <span className="menu-text">Blog</span>
-                <i className="menu-arrow fa-solid fa-chevron-down"></i>
+                {/* <i className="menu-arrow fa-solid fa-chevron-down"></i> */}
               </a>
-              <ul className="sub-menu">
+              {/* <ul className="sub-menu">
                 <li>
                   <a href="#!">Blog Category Grid</a>
                 </li>
@@ -181,7 +154,7 @@ const Header = () => {
                     </li>
                   </ul>
                 </li>
-              </ul>
+              </ul> */}
             </li>
             <li className="menu-item">
               <a className="menu-item-link" href="#!">

@@ -1,0 +1,55 @@
+@import './_base';
+@import './_mixins';
+
+
+
+
+.categories{
+    > div:first-child{
+        text-decoration: none;
+        color: var(--gray-text);
+        cursor: pointer;
+        // margin-bottom: 1rem;
+    }
+    &__item{
+        text-decoration: none;
+        display: block;
+        // border: 1px solid black;
+        @include transition-fast;
+        &-imgcontainer{
+            width: 100%;
+            > div{
+                width: 100%;
+                padding-top: 100%;
+                background-size: contain;
+                background-position: center;
+
+            }
+        }
+        
+        > div:nth-child(1){
+            // border: 1px solid #cecece;
+        }
+        > div:nth-child(2){
+            background-color: #ece7e7;
+            > p{
+                text-decoration: none;
+                margin-bottom: .5rem;
+            }
+            > p:nth-child(1){
+                color: var(--navy-text);
+                font-weight: 700;
+                font-size: 1rem;
+            }
+            > p:nth-child(2){
+                color: var(--gray-text);
+                font-size: .8rem;
+            }
+
+        }
+        &:hover{
+            transform: translateY(-2px);
+            box-shadow: 0 4px 4px rgba(0,0,0,.15);
+        }
+    }
+}

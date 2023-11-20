@@ -1,14 +1,22 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Header from './Header'
 import Footer from './Footer'
-import {Outlet} from "react-router-dom"
+import {Outlet, useLocation} from "react-router-dom"
+import MailFeature from './Home/MailFeature'
 
 
 const Layout = () => {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, [location])
   return (
     <div className="page">
         <Header />
-        <Outlet />
+        <div className='container-md'>
+          <Outlet />
+          <MailFeature />
+        </div>
         <Footer />
     </div>
   )

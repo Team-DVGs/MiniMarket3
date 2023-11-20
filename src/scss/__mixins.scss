@@ -1,4 +1,4 @@
-@import './base.scss';
+@import './__base.scss';
 @mixin mobile{
     @media only screen and (max-width: 767px){
         @content;
@@ -20,4 +20,30 @@
         color: var(--green-text);
         cursor: pointer;
     }
+}
+
+@mixin btn-arrow{
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    color: var(--green-text);
+    // margin-right: .5rem;
+    // padding: 1rem;
+    &:hover{
+        background-color: var(--green-text);
+        color: white;
+    }
+}
+
+
+@mixin transition-fast{
+    transition: all .3s;
+}
+@mixin transition-medium{
+    transition: all .8s;
+}
+@mixin transition-slow{
+    transition: all 1s;
 }

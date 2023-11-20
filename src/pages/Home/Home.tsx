@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import Sliders from '../../components/Sliders';
-import Features from '../../components/Features';
-import Popular from '../../components/Popular';
-import DailyBest from '../../components/DailyBest';
-import DayDeals from '../../components/DayDeals';
+import Sliders from '../../components/Home/Sliders';
+import Features from '../../components/Home/Features';
+import Popular from '../../components/Home/Popular';
+import DailyBest from '../../components/Home/DailyBest';
+import DayDeals from '../../components/Home/DayDeals';
+import MailFeature from '../../components/Home/MailFeature';
 
 
 
@@ -39,7 +40,7 @@ const Home = () => {
       imgUrl:
         "https://boostify-nesst.myshopify.com/cdn/shop/products/thumbnail-3.jpg?v=1663128562&width=360",
       name: "Nestle Original Coffee-Mate Coffee Creamer",
-      rating: 5,
+      rating: 4,
       price: 32.45,
       oldPrice: 37.96,
     },
@@ -48,7 +49,7 @@ const Home = () => {
       imgUrl:
         "https://boostify-nesst.myshopify.com/cdn/shop/products/thumbnail-5.jpg?v=1663128373&width=360",
       name: "Seeds of Change Brown & Red Rice",
-      rating: 5,
+      rating: 3.7,
       price: 72,
       oldPrice: 80,
     },
@@ -57,7 +58,7 @@ const Home = () => {
       imgUrl:
         "https://boostify-nesst.myshopify.com/cdn/shop/products/product-2-2_3f29934d-43f4-497f-a3c5-56b7159c91af.jpg?v=1663051490&width=360",
       name: "Sahale Crumble Cashew Mix Snacks",
-      rating: 5,
+      rating: 2,
       price: 45.3,
       oldPrice: 40
     },
@@ -66,7 +67,7 @@ const Home = () => {
       imgUrl:
         "https://boostify-nesst.myshopify.com/cdn/shop/products/product-9-2.jpg?v=1656924060&width=360",
       name: "Gorton’s Beer Battered Fish Fillets",
-      rating: 4.5,
+      rating: 4.8,
       price: 23.85,
       oldPrice: 28,
     },
@@ -84,7 +85,7 @@ const Home = () => {
       imgUrl:
         "https://boostify-nesst.myshopify.com/cdn/shop/products/thumbnail-5.jpg?v=1663128373&width=360",
       name: "Seeds of Change Brown & Red Rice",
-      rating: 5,
+      rating: 4.1,
       price: 72,
       oldPrice: 80,
     },
@@ -93,7 +94,7 @@ const Home = () => {
       imgUrl:
         "https://boostify-nesst.myshopify.com/cdn/shop/products/product-2-2_3f29934d-43f4-497f-a3c5-56b7159c91af.jpg?v=1663051490&width=360",
       name: "Sahale Crumble Cashew Mix Snacks",
-      rating: 5,
+      rating: 3.9,
       price: 45.3,
       oldPrice: 40
     },{
@@ -136,13 +137,13 @@ const Home = () => {
 
   
   return (
-    <div className="container-md">
+    <>
       <Sliders banners={banners} />
+      <DayDeals />
       <Features />
       <Popular popProducts={popProducts} />
       <DailyBest dailybest={popProducts} />
-      <DayDeals />
-    </div>
+    </>
   );
 }
 

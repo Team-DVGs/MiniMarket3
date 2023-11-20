@@ -1,5 +1,5 @@
 import React from 'react'
-import Product from './Product';
+import Product from '../Product';
 
 interface popularProps {
   popProducts: {
@@ -14,7 +14,7 @@ interface popularProps {
 const Popular = (props: popularProps) : JSX.Element => {
   return (
     <div className="popular section-margin">
-      <div className="d-flex justify-content-between align-items-center">
+      <div className="d-flex justify-content-between align-items-center header-margin">
         <h1 className="section-header">Popular Products</h1>
         <nav className="">
           <a href="#">All</a>
@@ -25,9 +25,9 @@ const Popular = (props: popularProps) : JSX.Element => {
         </nav>
       </div>
       {/* Product List */}
-      <div className="row mt-2 gy-3">
+      <div className="row gy-3">
         {props.popProducts.map((item) => (
-          <div className="col-6 col-md-4 col-lg-2">
+          <div className="col-6 col-md-4 col-lg-2" key={item.id}>
             <Product product={item} />
           </div>
         ))}
