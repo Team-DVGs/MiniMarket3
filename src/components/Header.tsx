@@ -99,12 +99,12 @@ const Header = () => {
           <ul className="header-navigation">
             <li className="menu-item">
               <a className="menu-item-link" href="#!">
-                <span className="menu-text">Home</span>
+                <span className="menu-text">Trang chủ</span>
               </a>
             </li>
             <li className="menu-item">
               <a className="menu-item-link" href="#!">
-                <span className="menu-text">Blog</span>
+                <span className="menu-text">Danh mục</span>
                 {/* <i className="menu-arrow fa-solid fa-chevron-down"></i> */}
               </a>
               {/* <ul className="sub-menu">
@@ -158,7 +158,7 @@ const Header = () => {
             </li>
             <li className="menu-item">
               <a className="menu-item-link" href="#!">
-                <span className="menu-text">Mega menu</span>
+                <span className="menu-text">Danh mục lớn</span>
                 <i className="menu-arrow fa-solid fa-chevron-down"></i>
               </a>
               <ul className="sub-menu sub-menu--mega">
@@ -245,12 +245,12 @@ const Header = () => {
             <li className="menu-item">
               <a className="menu-item-link" href="#!">
                 <i className="menu-fire fa-solid fa-fire"></i>
-                <span className="menu-text">Deals</span>
+                <span className="menu-text">Sales</span>
               </a>
             </li>
             <li className="menu-item">
               <a className="menu-item-link" href="#!">
-                <span className="menu-text">Contact</span>
+                <span className="menu-text">Liên hệ</span>
               </a>
             </li>
           </ul>

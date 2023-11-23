@@ -63,7 +63,7 @@ const Footer = () => {
                 <a href="#">
                   <img
                     src={
-                      process.env.PUBLIC_URL + "assets/img/logo/app-store.jpg"
+                      process.env.PUBLIC_URL + "/assets/img/logo/app-store.jpg"
                     }
                     alt=""
                   />
@@ -71,7 +71,7 @@ const Footer = () => {
                 <a href="#">
                   <img
                     src={
-                      process.env.PUBLIC_URL + "assets/img/logo/google-play.png"
+                      process.env.PUBLIC_URL + "/assets/img/logo/google-play.png"
                     }
                     alt=""
                   />
@@ -81,21 +81,21 @@ const Footer = () => {
               <div className="info__nav-payment d-flex justify-content-between">
                 <a href="#">
                   <img
-                    src={process.env.PUBLIC_URL + "assets/img/logo/visa.png"}
+                    src={process.env.PUBLIC_URL + "/assets/img/logo/visa.png"}
                     alt=""
                   />
                 </a>
                 <a href="#">
                   <img
                     src={
-                      process.env.PUBLIC_URL + "assets/img/logo/mastercard.png"
+                      process.env.PUBLIC_URL + "/assets/img/logo/mastercard.png"
                     }
                     alt=""
                   />
                 </a>
                 <a href="#">
                   <img
-                    src={process.env.PUBLIC_URL + "assets/img/logo/maestro.png"}
+                    src={process.env.PUBLIC_URL + "/assets/img/logo/maestro.png"}
                     alt=""
                   />
                 </a>

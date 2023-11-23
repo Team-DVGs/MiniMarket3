@@ -2,8 +2,10 @@ $main-font: "Quicksand", sans-serif;
 
 :root{
     --green-text: #3BB77E;
+    --green-light-bg: #D7F2E7;
     --navy-text: #253D4E;
     --gray-text: #7E7E7E;
+    --gray-light-text: 126, 126, 126;
     --yellow-text: #FDC643;
     --green-btn: #DEF9EC;
     --text: #121212;
@@ -15,6 +17,7 @@ $main-font: "Quicksand", sans-serif;
     --red-color: #fc2738;
     --sale-bg: #e06a6a;
     --sale-bg-light: #e49191;
+    --gray-border: #ececec;
 }
 *, *::after, *::before{
     margin: 0;

@@ -47,3 +47,8 @@
 @mixin transition-slow{
     transition: all 1s;
 }
+
+@mixin border-gray{
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+}
