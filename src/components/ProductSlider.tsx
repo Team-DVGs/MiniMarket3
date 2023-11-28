@@ -46,7 +46,8 @@ const ProductSlider = (props: sliderProps) => {
       directDivChildren.forEach((div) => {
         (div as HTMLElement).style.transform = `translateX(${-100 * index}%)`;
         // (div as HTMLElement).style.width = `calc(100% / ${numberShown})%`;
-        (div as HTMLElement).style.minWidth = `calc(100% / ${numberShown})`;
+        // (div as HTMLElement).style.width = `calc(100% / ${numberShown})`;
+        (div as HTMLElement).style.flexBasis = `calc(100% / ${numberShown})`;
         (div as HTMLElement).classList.add("productslider__item");
       });
     }
@@ -78,18 +79,23 @@ const ProductSlider = (props: sliderProps) => {
         {props.productsJSX}
       </div>
       {/* Buttons */}
-      <button
-        className="productslider__btn productslider__btn-left"
-        onClick={() => handleClicked(false)}
-      >
-        <i className="fa-solid fa-arrow-left"></i>
-      </button>
-      <button
-        className="productslider__btn productslider__btn-right"
-        onClick={() => handleClicked(true)}
-      >
-        <i className="fa-solid fa-arrow-right"></i>
-      </button>
+      {
+        numberShown<props.length &&
+        <>
+          <button
+            className="productslider__btn productslider__btn-left"
+            onClick={() => handleClicked(false)}
+          >
+            <i className="fa-solid fa-arrow-left"></i>
+          </button>
+          <button
+            className="productslider__btn productslider__btn-right"
+            onClick={() => handleClicked(true)}
+          >
+            <i className="fa-solid fa-arrow-right"></i>
+          </button>
+        </>
+      }
     </div>
   );
 };

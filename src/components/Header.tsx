@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link, NavLink} from "react-router-dom";
 
 const Header = () => {
   return (
@@ -68,13 +69,13 @@ const Header = () => {
             </form>
           </div>
           <div className="header-inner-center">
-            <a href="index.html">
+            <Link to="/">
               <img
                 src={process.env.PUBLIC_URL + "/assets/img/brand-logo.png"}
                 alt="Green Mart logo"
                 width="100"
               />
-            </a>
+            </Link>
           </div>
           <div className="header-inner-right">
             <a href="#!">

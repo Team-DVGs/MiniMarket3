@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { JsxElement } from 'typescript';
+
 
 interface productsProps {
   product: {
@@ -13,6 +14,7 @@ interface productsProps {
   children?: JSX.Element
 }
 const Product = (props: productsProps) : JSX.Element => {
+  
   return (
     <div className="product d-flex flex-column position-relative">
       {/* Sales Banner */}

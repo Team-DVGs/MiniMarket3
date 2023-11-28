@@ -1,0 +1,177 @@
+@import "./_base";
+@import "./_mixins";
+
+
+.product-detail{
+    &__info{
+        > div:nth-child(1){
+            img{
+                width: 100%;
+                @include border-gray;
+            }
+            .imgoption{
+                flex-basis: calc(100% /6); 
+                @include mobile{
+                    flex-basis: calc(100% / 3);
+                }
+                @include tablet{
+                    flex-basis: calc(100% / 4);
+                }
+            }
+
+        }
+
+        &-desc{
+            > span:nth-child(1){
+                font-size: 2rem;
+                line-height:normal;
+                height: auto;
+                &:hover{
+                    color: var(--navy-text);
+                    cursor: default;
+                }
+            }
+            > span:nth-child(2){
+                font-size: 1rem;
+            }
+            .product__rating{
+                font-size: 1rem;
+                &-outer, &-inner, &-score{
+                    font-size: .9rem;
+                }
+            }
+            .product__price{
+                span{
+                    font-size: 2.8rem;
+                }
+                s{
+                    font-size: 1.5rem;
+                    margin-left: 1.2rem;
+                    font-weight: bold;
+                }
+            }
+            &-notice{
+                > ul{
+                    list-style: none;
+                    padding :0;
+                    margin: 0;
+                    font-family: $main-font;
+                    > li{
+                        font-size: 1rem;
+                        font-weight: 400;
+                        color: var(--gray-text);
+                        display: flex;
+                        align-items: center;
+                        i{
+                            margin-right: 1rem;
+                            width: 1rem;
+                            height: 1rem;
+                            border-radius: 50%;
+                            background-color: var(--green-text);
+                            color: white;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                    }
+                }
+                p{
+                    font-family: $main-font;
+                    color: var(--gray-text);
+                    font-size: 1rem;
+                    margin-top: .5rem;
+                    a{
+                        text-decoration: none;
+                        color: var(--green-text);
+                        &:hover{
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+            &-btns{
+                display: flex;
+                height: 3rem;
+                width: 60%;
+                justify-content: space-between;
+                font-family: $main-font;
+                // Input holder
+                > div:nth-child(1){
+                    display: flex;
+                    justify-content: start;
+                    border: 1px solid var(--green-text);
+                    border-radius: .3rem;
+                    color: var(--green-text);
+                    background-color: transparent;
+                    input{
+                        width: 3.5rem;
+                        flex: 1;
+                        outline: none;
+                        border: none;
+                        background-color: transparent;
+                        color: var(--green-text);
+                        text-align: center;
+                        font-weight: 700;
+                    }
+                    .arrow_btns{
+                        display: flex;
+                        flex-direction: column;
+                        > button{
+                            border:none;
+                            color: var(--green-text);
+                            background-color: transparent;
+                            flex: 1 1 50%;
+                            padding: 0 .3rem;
+                            font-size: .8rem;
+                        }
+                    }
+
+
+                }
+                .product__btn{
+                    margin: 0;
+                    font-size: 1rem;
+                }
+                .option__btn{
+                    width: 3rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 1.2rem;
+                    color: var(--gray-text);
+                    background-color: white;
+                    border: 1px solid var(--gray-light-text);
+                    border-radius: 4px;
+                    text-decoration: none;
+                    @include transition-fast;
+                    &:hover{
+                        background-color: var(--green-text);
+                        color: white;
+                        transform: translateY(-3px);
+                    }
+                }
+            }
+            &-cate{
+                > div{
+                    span{
+                        color: var(--gray-text);
+                        font-size: .9rem;
+                    }
+                    a{
+                        text-decoration: none;
+                        color: var(--green-text);
+                        font-size: 1rem;
+                        &:hover{
+                            color: var(--yellow-text);
+                        }
+                    }
+                }
+            }
+        }
+
+
+    }
+
+
+}
