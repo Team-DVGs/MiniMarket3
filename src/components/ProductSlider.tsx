@@ -3,7 +3,8 @@ interface sliderProps {
     length: number,
     numberShown: [number,number,number], 
     productsJSX: JSX.Element, // products jsx map (every <Product> must be wrapped by a div (productslider__inner-item))
-    sliding: boolean
+    sliding: boolean,
+    loading: boolean
 }
 const ProductSlider = (props: sliderProps) => {
   const [index, setIndex] = useState<number>(0);
@@ -18,7 +19,7 @@ const ProductSlider = (props: sliderProps) => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [index]);
+  }, [index,props.loading]);
   useEffect(() => {
     // Set numberShown
     let n = numberShown;
@@ -67,7 +68,9 @@ const ProductSlider = (props: sliderProps) => {
   return (
     <div className="position-relative productslider">
       {/* Product List */}
-      <div className="d-flex overflow-hidden productslider-inner">
+      <div
+        className={`d-flex overflow-hidden productslider-inner ${numberShown>=props.length && "justify-content-center"}`}
+      >
         {/* {props.dailybest.map((item) => (
           <div
             className="col-6 col-lg-3 px-1 transition-fast"
@@ -79,8 +82,7 @@ const ProductSlider = (props: sliderProps) => {
         {props.productsJSX}
       </div>
       {/* Buttons */}
-      {
-        numberShown<props.length &&
+      {numberShown < props.length && (
         <>
           <button
             className="productslider__btn productslider__btn-left"
@@ -95,7 +97,7 @@ const ProductSlider = (props: sliderProps) => {
             <i className="fa-solid fa-arrow-right"></i>
           </button>
         </>
-      }
+      )}
     </div>
   );
 };

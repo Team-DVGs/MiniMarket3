@@ -57,7 +57,14 @@ $main-font: "Quicksand", sans-serif;
 }
 
 
-
+.box-shadow-style{
+    box-shadow:
+    1px 0 1px 0px rgba(0, 0, 0, .15),    /* Right shadow */
+    -1px 0 1px 0px rgba(0, 0, 0, .15),   /* Left shadow */
+    0 1px 1px 0px rgba(0, 0, 0, .15),     /* Bottom shadow */
+    0 -1px 1px 0px rgba(0, 0, 0, .15);
+    border-radius: .3rem;
+}
 
 
 

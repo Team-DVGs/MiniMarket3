@@ -146,6 +146,7 @@ const DayDeals = () => {
             )
             }
             sliding={true}
+            loading={false}
           
           />
         {/* <ul className="deals__list list-unstyled">
