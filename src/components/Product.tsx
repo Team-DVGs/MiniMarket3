@@ -1,16 +1,17 @@
 import React, {useEffect} from 'react'
 import { JsxElement } from 'typescript';
 
-
-interface productsProps {
-  product: {
-    id: number;
-    imgUrl: string;
-    name: string;
-    rating: number;
-    price: number;
-    oldPrice: number;
-  },
+export interface productProps {
+  id: number;
+  thumbnail: string;
+  name: string;
+  rating: number;
+  reg_price: number;
+  discount_price: number;
+  category: string
+}
+export interface productsProps {
+  product: productProps,
   children?: JSX.Element
 }
 const Product = (props: productsProps) : JSX.Element => {
@@ -18,17 +19,17 @@ const Product = (props: productsProps) : JSX.Element => {
   return (
     <div className="product d-flex flex-column position-relative">
       {/* Sales Banner */}
-      <div className="product__banner position-absolute">-7%</div>
+      <div className="product__banner position-absolute">-{Math.round((props.product.reg_price - props.product.discount_price) * 100 / props.product.reg_price )}%</div>
       <div className="product__img-container mb-2">
         <div
           className="product__img"
-          style={{ backgroundImage: `url(${props.product.imgUrl})` }}
+          style={{ backgroundImage: `url(${props.product.thumbnail})` }}
         ></div>
       </div>
 
       <div className='product__info d-flex flex-column'>
         <span className="product__categories text-secondary my-1">
-          Trái cây, nước ngọt
+          {props.product.category}
         </span>
         <span className="product__name my-1">{props.product.name}</span>
         <div className="product__rating my-1 d-flex align-items-center">
@@ -45,8 +46,8 @@ const Product = (props: productsProps) : JSX.Element => {
           </span>
         </div>
         <div className="product__price my-1">
-          <span>{props.product.price.toFixed(2)}$</span>
-          <s>{props.product.oldPrice.toFixed(2)}$</s>
+          <span>{props.product.discount_price.toFixed(2)}$</span>
+          <s>{props.product.reg_price.toFixed(2)}$</s>
         </div>
         <button className="product__btn">
           <i className="fa-solid fa-cart-shopping"></i>

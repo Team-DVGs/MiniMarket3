@@ -1,6 +1,12 @@
 
 
 
+export function priceFormatter(price: number): string {
+  return price.toLocaleString("en-US", {
+    maximumFractionDigits: 0,
+  });
+}
+
 
 // Thunk patterns
 export const fetchingDataFromApi = async (url: string) =>{

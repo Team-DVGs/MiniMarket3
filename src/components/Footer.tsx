@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React from 'react';
+import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <div className="footer w-100 mt-5">
@@ -34,12 +34,11 @@ const Footer = () => {
             </div>
             <div className="info__nav col-6 col-md-4 col-lg-2">
               <h2>Giới thiệu</h2>
-              <a href="#">Về chúng tôi</a>
-              <a href="#">Thông tin vận chuyển</a>
-              <a href="#">Điều khoản và chính sách</a>
-              <a href="#">Liên hệ</a>
-              <a href="#">Hỗ trợ khách hàng</a>
-              <a href="#">Tuyển dụng</a>
+              <Link to="/vechungtoi">Về chúng tôi</Link>
+              <Link to="/vanchuyen">Thông tin vận chuyển</Link>
+              <Link to="/chinhsach">Điều khoản và chính sách</Link>
+              <Link to="/lienhe">Hỗ trợ khách hàng</Link>
+              <Link to="/tuyendung">Tuyển dụng</Link>
             </div>
             <div className="info__nav col-6 col-md-4 col-lg-2">
               <h2>Tài khoản</h2>
@@ -71,7 +70,8 @@ const Footer = () => {
                 <a href="#">
                   <img
                     src={
-                      process.env.PUBLIC_URL + "/assets/img/logo/google-play.png"
+                      process.env.PUBLIC_URL +
+                      "/assets/img/logo/google-play.png"
                     }
                     alt=""
                   />
@@ -95,7 +95,9 @@ const Footer = () => {
                 </a>
                 <a href="#">
                   <img
-                    src={process.env.PUBLIC_URL + "/assets/img/logo/maestro.png"}
+                    src={
+                      process.env.PUBLIC_URL + "/assets/img/logo/maestro.png"
+                    }
                     alt=""
                   />
                 </a>
@@ -107,12 +109,11 @@ const Footer = () => {
 
       <div className="contact">
         <div className="container-md d-flex flex-wrap justify-content-between">
-
           <div className="contact__section ">
             <p>@2023 - Developed by DVGs</p>
             <p>All rights reserved</p>
           </div>
-          
+
           <div className="d-flex align-items-center flex-row contact__section">
             <i className="fa-solid fa-phone"></i>
             <div>
@@ -121,23 +122,21 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className='contact__section '>
+          <div className="contact__section ">
             <span>
-              Theo dõi: 
-              <a href='#'>
+              Theo dõi:
+              <a href="#">
                 <i className="fa-brands fa-facebook-f"></i>
               </a>
-              <a href='#'>
+              <a href="#">
                 <i className="fa-brands fa-x-twitter"></i>
               </a>
-              <a href='#'>
+              <a href="#">
                 <i className="fa-brands fa-instagram"></i>
               </a>
             </span>
             <p>Khuyến mãi lên đến 15% cho lần đăng ký đầu tiên</p>
           </div>
-
-
         </div>
       </div>
     </div>

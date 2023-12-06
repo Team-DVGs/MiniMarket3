@@ -12,6 +12,7 @@ interface productDetailState {
     price: number,
     discount_percent: number,
     discount_price: number,
+    shortdesc: string,
     description: string,
     rating: number,
     gallery: string[],
@@ -45,6 +46,7 @@ const initialState: productDetailState = {
     price: 0,
     discount_percent: 0,
     discount_price: 0,
+    shortdesc: "",
     description: "",
     rating: 0,
     gallery: [],
@@ -101,6 +103,7 @@ const productDetailSlice = createSlice({
         price: 34,
         discount_percent: 2,
         discount_price: 30,
+        shortdesc: `Cải thìa của Bách hóa Xanh được nuôi trồng và đóng gói theo những tiêu chuẩn nghiêm ngặt, bảo đảm các tiêu chuẩn xanh - sach, chất lượng và an toàn với người dùng. Vị cải giòn, ngọt, mát và chứa nhiều chất xơ, hàm lượng dinh dưỡng cao nên thường được dùng để chế biến các món rau xào hoặc luộc.`,
         description: `Đôi nét về thương hiệu\nKiddy là thương hiệu dầu ăn cho trẻ em thuộc Công ty TNHH CALOFIC, thấu hiểu được những nỗi lo lắng của các bậc phụ huynh về việc sử dụng dầu ăn tốt và an toàn cho sức khỏe của trẻ, thương hiệu Kiddy đã ra đời nhằm cung cấp cho thị trường một dòng sản phẩm cao cấp, bổ sung đầy đủ các loại dinh dưỡng cần thiết cho sự phát triển toàn diện của trẻ nhỏ. Thành phần dinh dưỡng trong sản phẩm
           Thành phần dinh dưỡng trong dầu cá hồi Kiddy bao gồm các loại dầu đậu nành tinh luyện, dầu gạo lứt, dầu hạt cải tinh luyện và dầu mè thơm, ngoài ra dầu cá hồi Kiddy còn chứa nhiều chất dinh dưỡng rất cần thiết như Omega 3,6,9, Vitamin A, Vitamin E và các axit béo.
 

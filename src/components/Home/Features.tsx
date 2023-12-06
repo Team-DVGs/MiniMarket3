@@ -136,8 +136,9 @@ const Features = () => {
         {/* Features */}
         <div className="feature__content mt-2 d-flex overflow-hidden">
           {categories.map((item, idx) => (
-            <div
-              className="feature__item"
+            <Link
+              to="danhmuc/suatuoi"
+              className="feature__item text-decoration-none"
               style={{
                 transform: `translateX(${-100 * index}%)`,
                 minWidth: `calc(100% / ${numberShown})`,
@@ -156,7 +157,7 @@ const Features = () => {
                 <h3 className="text-center">{item.name}</h3>
                 <span className="text-center">{item.n} items</span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -165,19 +166,19 @@ const Features = () => {
           {[
             {
               id: 1,
-              title: "Everyday Fresh & Clean with Our Products",
+              title: "Mỗi ngày sống khoẻ với sản phẩm của chúng tôi",
               imgUrl:
                 "https://boostify-nesst.myshopify.com/cdn/shop/files/banner-1.png?v=1659435495&width=768",
             },
             {
               id: 2,
-              title: "Make your Breakfast Healthy and Easy",
+              title: "Nguyên liệu cho một buổi sáng lành mạnh và dinh dưỡng",
               imgUrl:
                 "https://boostify-nesst.myshopify.com/cdn/shop/files/banner-2.png?v=1659491181&width=768",
             },
             {
               id: 3,
-              title: "The best organic products online",
+              title: "Cung cấp các sản phẩm hữu cơ tốt nhất",
               imgUrl:
                 "https://boostify-nesst.myshopify.com/cdn/shop/files/banner-3.png?v=1659491181&width=768",
             },
@@ -193,7 +194,7 @@ const Features = () => {
                 <div className="banner-item__info w-75">
                   <h3 className="">{item.title}</h3>
                   <button className="mt-2">
-                    Shop now
+                    Mua sắm ngay
                     <i className="fa-solid fa-arrow-right top-50 translate-middle"></i>
                   </button>
                 </div>

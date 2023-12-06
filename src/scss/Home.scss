@@ -392,6 +392,7 @@
             font-family: $main-font;
         }
         &__mailform{
+            font-family: $main-font;
             background-color: white;
             width: 100%;
             max-width: 400px;
@@ -683,57 +684,5 @@
     }
 }
 
-.mailform{
-    width: 100%;
-    background-image: url('https://boostify-nesst.myshopify.com/cdn/shop/files/bg-newletter.png?v=1684467574&width=15844');
-    background-size: cover;
-    background-position: center;
-    border-radius: 6px;
-    height: 350px;
-    .mailform__info{
-        width: 100%;
-        max-width: 600px;
-    }
-    .mailform__info h1{
-        color: var(--text-darkblue);
-    }
-    .mailform__box{
-        background-color: white;
-        width: 100%;
-        max-width: 400px;
-        border-radius: 26px;
-        display: flex;
-        align-items: center;
-    }
-    .mailform__box-input{
-        margin: 15px 0px;
-        padding: 5px 0;
-        flex-grow: 1;
-        border: none;
-    }
-    .mailform__box-input:focus{
-        outline: none;
-    }
-    .mailform__box-btn{
-        color: white;
-        background-color: var(--green-text);
-        border: none;
-        margin-left: auto;
-        padding: 21px;
-        border-radius: 25px;
-        flex-grow: 0;
-    }
-}
 
-.services{
-    &__item{
-        background-color: #F4F6FA;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        i{
-            color: var(--green-text);
-            margin-right: 1rem;
-            font-size: 50px;
-        }
-    }
-}
+

@@ -7,10 +7,10 @@ const MailFeature = () => {
       <div className="mailform d-flex p-5 section-margin">
         <div className="mailform__info my-auto">
           <h1 className="mb-3">
-            Stay home and get your daily needs from our shop
+            Dịch vụ vận chuyển tại nhà nhanh chóng và tiện lợi
           </h1>
           <p className="text-secondary fw-italic mb-3">
-            Need help? Contact hotline: 18001091
+            Cần hỗ trợ? Liên hệ hotline: 18001091
           </p>
           <div className="mailform__box">
             <i className="fa-solid fa-paper-plane mx-2 texts text-secondary"></i>
@@ -19,7 +19,7 @@ const MailFeature = () => {
               className="mailform__box-input ms-1"
               placeholder="Email"
             />
-            <button className="mailform__box-btn">Subscribe</button>
+            <button className="mailform__box-btn">Đăng ký</button>
           </div>
         </div>
       </div>
@@ -30,10 +30,10 @@ const MailFeature = () => {
               <i className="fa-solid fa-tag"></i>
               <div className="my-auto">
                 <p className="fw-bold m-0 text-center">
-                  Best prices and offers
+                  Giá tốt và ưu đãi
                 </p>
                 <p className="m-0 text-secondary fw-italic text-center">
-                  Order $50 or more
+                  Với đơn hàng từ 200.000đ
                 </p>
               </div>
             </div>
@@ -42,9 +42,9 @@ const MailFeature = () => {
             <div className="services__item h-100 px-3 py-4 d-flex align-items-center justify-content-center">
               <i className="fa-solid fa-handshake"></i>
               <div className="my-auto">
-                <p className="fw-bold m-0 text-center">Free Delivery</p>
+                <p className="fw-bold m-0 text-center">Miễn phí giao vận</p>
                 <p className="m-0 text-secondary fw-italic text-center">
-                  24/7 amazing services
+                  Trong bán kính tới 5km
                 </p>
               </div>
             </div>
@@ -53,9 +53,9 @@ const MailFeature = () => {
             <div className="services__item h-100 px-3 py-4 d-flex align-items-center justify-content-center">
               <i className="fa-solid fa-shield"></i>
               <div className="my-auto">
-                <p className="fw-bold m-0 text-center">Quality Secure</p>
+                <p className="fw-bold m-0 text-center">Chất lượng đảm bảo</p>
                 <p className="m-0 text-secondary fw-italic text-center">
-                  Ensure the best products
+                  Hàng luôn mới và tươi ngon mỗi ngày
                 </p>
               </div>
             </div>
@@ -64,9 +64,9 @@ const MailFeature = () => {
             <div className="services__item h-100 px-3 py-4 d-flex align-items-center justify-content-center">
               <i className="fa-solid fa-bolt-lightning"></i>
               <div className="my-auto">
-                <p className="fw-bold m-0 text-center">Fast forward</p>
+                <p className="fw-bold m-0 text-center">Nhanh chóng</p>
                 <p className="m-0 text-secondary fw-italic text-center">
-                  Quick response and delivery
+                  Phản hồi và vận chuyển siêu tốc
                 </p>
               </div>
             </div>

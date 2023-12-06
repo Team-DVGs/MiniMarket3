@@ -251,15 +251,84 @@
                     border-radius: 1rem;
                     color: var(--green-text);
                     font-weight: 700;
-                    margin-right: 1.2rem;              }
-                    background-color: white;
-                    border: none;
-
+                    margin-right: 1.2rem;  
+                    background-color: white;        
+                }
+                button:hover, .button-selected{
+                    background-color: var(--green-text);
+                    color: white;
+                }
             };
+            .nav__description, .nav__reviews{
+
+            }
+            .nav__description{
+                font-size: .95rem;
+            }
+            .nav__reviews{
+                .product__rating-outer,.product__rating-inner,.product__rating-score{
+                    font-size: .8rem;
+                }
+                &-list{
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    &-item{
+                        font-family: $main-font;
+                        border: 1px solid var(--gray-border);
+                        padding: .2rem 1.4rem;
+                        border-radius: .3rem;
+                        display: flex;
+                        flex-direction: column;
+                        margin-bottom: 1rem;
+                        .product__rating-outer,.product__rating-inner,.product__rating-score{
+                            font-size: .7rem;
+                        }
+                        > div:nth-child(2){
+                            span{
+                                font-size: .8rem;
+                            }
+                            > span:nth-child(2){
+                                font-size: .7rem;
+                                color: var(--gray-text);
+                            }
+                        }
+                        h4{
+                            font-size: 1rem;
+                            font-weight: 700;
+                            margin-top: .3rem;
+                        }
+                        p{
+                            font-size: .8rem;
+                            color: var(--gray-text);
+                            margin-bottom: .3rem;
+                        }
+                        
+
+                    }
+                }
+            }
         }
         &-relate{
-
+            
         }
+        &-right{
+            position: relative;
+            .products__links{
+                position: relative;
+            }
+            @supports (position: sticky){
+                .products__links{
+                    position: sticky;
+                    top: 1.5rem;
+                }    
+            }
+        }
+
+
+
+
     }
 
 }
+

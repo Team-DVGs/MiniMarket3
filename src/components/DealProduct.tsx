@@ -1,22 +1,13 @@
 import React from 'react'
 import Product from './Product'
 import { JsxElement } from 'typescript';
+import { productsProps } from './Product';
 
-interface dealProductProps {
-  dealProduct: {
-    id: number;
-    imgUrl: string;
-    name: string;
-    rating: number;
-    price: number;
-    oldPrice: number;
-  },
-}
 
-const DealProduct = (props :dealProductProps ): JSX.Element => {
+const DealProduct = ( props :productsProps ): JSX.Element => {
   return (
     <>
-        <Product product={props.dealProduct} children={
+        <Product product={props.product} children={
             (<div className='slider mt-2'>
                 <span className='top-50 start-50 translate-middle'>Đã bán 173</span>
                 <i className="fa-solid fa-fire-flame-curved"></i>

@@ -67,7 +67,6 @@
     &__links{
         padding:1rem;
         border-radius: .8rem;
-        border: 1px solid var(--gray-border);
         box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
         h1{
             @include name-style;

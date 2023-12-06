@@ -5,11 +5,15 @@ import { useSelector } from "react-redux";
 import { useAppSelector, useAppDispatch } from '../../store';
 import { fetchProductDetail } from '../../store/features/productDetailSlice';
 import { transform } from 'typescript';
+import ReadMore from '../../components/ReadMore';
+import ProductTemplate from '../../components/Product';
 
 const Product = () => {
     const [value, setValue] = useState<number>(1);
     const loading = useAppSelector((state => state.productDetail.loading));
     const productDetail = useAppSelector((state) => state.productDetail.info);
+    const productsList = useAppSelector(state => state.productList);
+    const productsRelated = productsList.info.slice(0,4);
     const [currentThumb, setCurrentThumb] = useState<number>(0);
     const [tempCurrentThumb, setTempCurrentThumb] = useState<number>(currentThumb);
     const [modal, setModal] = useState<boolean>(false);
@@ -106,7 +110,7 @@ const Product = () => {
       )}
       <div className="product-detail page-margin">
         {/* Main info */}
-        <div className="product-detail__info row box-shadow-style px-1 py-3">
+        <div className="product-detail__info row w-100 mx-0 box-shadow-style px-1 py-3">
           {/* Image */}
           <div className="col-12 col-md-5">
             <div className="overflow-hidden product-detail__info-img-container">
@@ -169,6 +173,7 @@ const Product = () => {
                 <s>{productDetail.price.toFixed(2)}$</s>
               </div>
               <div className="product-detail__info-desc-notice">
+                <p>{productDetail.shortdesc}</p>
                 <ul>
                   <li>
                     <i className="fa-solid fa-check"></i>
@@ -236,32 +241,160 @@ const Product = () => {
           </div>
         </div>
         {/* Description and Right side bar */}
-        <div className="product-detail__more row mt-3" style={{ marginRight: "-12px" }}>
+        <div
+          className="product-detail__more row w-full mx-0 mt-3"
+          style={{ marginRight: "-12px" }}
+        >
           {/* Left Main column */}
-          <div className="col-12 col-md-9 ps-0">
+          <div className="col-12 col-md-9 ps-md-0">
+            {/* Product detail */}
             <div className="product-detail__more-desc box-shadow-style py-2 px-3">
-                    <nav>
-                        <button className={`bg-white border-0 rounded-5`} onClick={() => setNav(0)}>Thông tin sản phẩm</button>
-                        <button className={`bg-white border-0 rounded-5`} onClick={() => setNav(1)}>Đánh giá</button>
-                    </nav>
-                    {
-                        !nav ?
-                        <div className='nav__description'>
-                            {productDetail.description}
+              <nav>
+                <button
+                  className={` ${
+                    nav === 0 && "button-selected"
+                  } border-0 rounded-5`}
+                  onClick={() => setNav(0)}
+                >
+                  Thông tin sản phẩm
+                </button>
+                <button
+                  className={` ${
+                    nav === 1 && "button-selected"
+                  } border-0 rounded-5`}
+                  onClick={() => setNav(1)}
+                >
+                  Đánh giá
+                </button>
+              </nav>
+              {!nav ? (
+                // Description
+                <div className="nav__description">
+                  {productDetail.description}
+                </div>
+              ) : (
+                // Reviews
+                <div className="nav__reviews">
+                  <strong>Thêm một đánh giá</strong>
+                  {/* rating */}
+                  <div className="product__rating my-2 d-flex align-items-center">
+                    <div className="product__rating-outer d-flex align-items-center">
+                      <div
+                        className="product__rating-inner"
+                        style={{
+                          width: `${
+                            Math.round((productDetail.rating * 20) / 10) * 10
+                          }%`,
+                        }}
+                      ></div>
+                    </div>
+                    <span className="product__rating-score">
+                      ({productDetail.rating})
+                    </span>
+                  </div>
+                  {/* button */}
+                  <button className="btn-normal" style={{ fontSize: ".9rem" }}>
+                    Write a review
+                  </button>
+                  {/* list reviews */}
+                  <ul className="nav__reviews-list mt-3">
+                    <li className="nav__reviews-list-item">
+                      <div className="product__rating my-2 d-flex align-items-center">
+                        <div className="product__rating-outer d-flex align-items-center">
+                          <div
+                            className="product__rating-inner"
+                            style={{
+                              width: `${
+                                Math.round((productDetail.rating * 20) / 10) *
+                                10
+                              }%`,
+                            }}
+                          ></div>
                         </div>
-                        :
-                        <div className='nav__reviews'>
-                            Đánh giá ở đây
+                        <span className="product__rating-score">
+                          ({productDetail.rating})
+                        </span>
+                      </div>
+                      <div>
+                        <span className="fw-bold">Lâm Thị Hương</span>
+                        <span> - 30/11/2023</span>
+                      </div>
+                      <h4>Sản phẩm sử dụng tốt</h4>
+                      <ReadMore
+                        lineShown={2}
+                        txtElement={
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit. Recusandae, ducimus suscipit. Est, ratione
+                            voluptates voluptatibus perferendis tenetur hic sed
+                            maiores recusandae, ad consequatur veniam totam
+                            aliquam minus, error voluptate voluptatem. ad
+                            consequatur veniam totam aliquam minus, error
+                            voluptate voluptatem.
+                          </p>
+                        }
+                      />
+                    </li>
+                    <li className="nav__reviews-list-item">
+                      <div className="product__rating my-2 d-flex align-items-center">
+                        <div className="product__rating-outer d-flex align-items-center">
+                          <div
+                            className="product__rating-inner"
+                            style={{
+                              width: `${
+                                Math.round((productDetail.rating * 20) / 10) *
+                                10
+                              }%`,
+                            }}
+                          ></div>
                         </div>
-                    }
-
+                        <span className="product__rating-score">
+                          ({productDetail.rating})
+                        </span>
+                      </div>
+                      <div>
+                        <span className="fw-bold">Lâm Thị Hương</span>
+                        <span> - 30/11/2023</span>
+                      </div>
+                      <h4>Sản phẩm sử dụng tốt</h4>
+                      <ReadMore
+                        lineShown={2}
+                        txtElement={
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit.
+                          </p>
+                        }
+                      />
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
-            <div className="product-detail__more-relate"></div>
+            {/* Related products */}
+            <div className="product-detail__more-relate mt-3">
+              <h1 className="section-header mb-3">Sản phẩm liên quan</h1>
+              <ProductSlider
+                length={productsRelated.length}
+                numberShown={[2, 3, 4]}
+                sliding={false}
+                loading={productsList.loading}
+                productsJSX={
+                  <>
+                    {productsRelated.map((product) => (
+                      <div className="px-1" key={product.id}>
+                        <ProductTemplate product={product} />
+                      </div>
+                    ))}
+                  </>
+                }
+              />
+            </div>
           </div>
           {/* Right Column*/}
-          <div className="col-12 col-md-3 pe-0">
+          <div className="col-12 col-md-3 pe-md-0 mt-3 mt-md-0 product-detail__more-right">
             <div className="products__links box-shadow-style">
-              <h1>Categories</h1>
+              <h1>Danh mục</h1>
               <div className="seperate"></div>
               <ul>
                 <li>

@@ -94,12 +94,13 @@ const Products = () => {
               <Product
                 product={{
                   id: 1,
-                  imgUrl:
+                  thumbnail:
                     "https://boostify-nesst.myshopify.com/cdn/shop/products/product-5-2_ca6f1747-004b-474b-a977-0e0e954e9e35.jpg?v=1663051692&width=360",
                   name: "Modern Dadua Camera 4K 2022EF",
                   rating: 4.5,
-                  price: 43.28,
-                  oldPrice: 44,
+                  discount_price: 43.28,
+                  reg_price: 44,
+                  category: "Trái cây"
                 }}
               />
             </div>
@@ -107,12 +108,13 @@ const Products = () => {
               <Product
                 product={{
                   id: 1,
-                  imgUrl:
+                  thumbnail:
                     "https://boostify-nesst.myshopify.com/cdn/shop/products/product-5-2_ca6f1747-004b-474b-a977-0e0e954e9e35.jpg?v=1663051692&width=360",
                   name: "Modern Dadua Camera 4K 2022EF",
                   rating: 4.5,
-                  price: 43.28,
-                  oldPrice: 44,
+                  discount_price: 43.28,
+                  reg_price: 44,
+                  category: "Trái cây"
                 }}
               />
             </div>
@@ -120,12 +122,13 @@ const Products = () => {
               <Product
                 product={{
                   id: 1,
-                  imgUrl:
+                  thumbnail:
                     "https://boostify-nesst.myshopify.com/cdn/shop/products/product-5-2_ca6f1747-004b-474b-a977-0e0e954e9e35.jpg?v=1663051692&width=360",
                   name: "Modern Dadua Camera 4K 2022EF",
                   rating: 4.5,
-                  price: 43.28,
-                  oldPrice: 44,
+                  discount_price: 43.28,
+                  reg_price: 44,
+                  category: "Trái cây"
                 }}
               />
             </div>
@@ -133,7 +136,7 @@ const Products = () => {
         </div>
         {/* Categories Link Navs */}
         <div className="col-0 col-md-3">
-          <div className="products__links">
+          <div className="products__links box-shadow-style">
             <h1>Categories</h1>
             <div className="seperate"></div>
             <ul>

@@ -1,0 +1,19 @@
+@import "./_base";
+@import "./_mixins";
+
+.infopage{
+    font-family: $main-font;
+    > div{
+        margin-bottom: 1.4rem
+    }
+    h1{
+        @include section-header;
+        font-size: 2rem;
+
+    }
+    p{
+        color: var(--gray-text);
+        font-size: 1rem;
+    }
+}
+

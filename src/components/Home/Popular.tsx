@@ -1,27 +1,21 @@
 import React from 'react'
 import Product from '../Product';
+import { productProps } from '../Product';
 
 interface popularProps {
-  popProducts: {
-    id: number;
-    imgUrl: string;
-    name: string;
-    rating: number;
-    price: number;
-    oldPrice: number;
-  }[];
+  popProducts: productProps[];
 };
-const Popular = (props: popularProps) : JSX.Element => {
+const Popular = (props: popularProps): JSX.Element => {
   return (
     <div className="popular section-margin">
       <div className="d-flex justify-content-between align-items-center header-margin">
-        <h1 className="section-header">Popular Products</h1>
+        <h1 className="section-header">Sản phẩm phổ biến</h1>
         <nav className="">
-          <a href="#">All</a>
-          <a href="#">Milk & Diaries</a>
-          <a href="#">Coffees and Teas</a>
-          <a href="#">Pet Foods</a>
-          <a href="#">Meats</a>
+          <a href="#">Tất cả</a>
+          <a href="#">Sữa và phô mai</a>
+          <a href="#">Cà phê và trà</a>
+          <a href="#">Trái cây</a>
+          <a href="#">Thịt</a>
         </nav>
       </div>
       {/* Product List */}
@@ -34,6 +28,6 @@ const Popular = (props: popularProps) : JSX.Element => {
       </div>
     </div>
   );
-}
+};
 
 export default Popular
