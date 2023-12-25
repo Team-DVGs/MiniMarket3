@@ -7,6 +7,8 @@ import "./scss/Product.scss";
 import "./scss/Info.scss";
 import "./scss/Auth.scss";
 import "./scss/Payment.scss";
+import "./scss/Others.scss";
+
 
 import { 
   RouterProvider,
@@ -32,6 +34,9 @@ import Contact from './pages/Info/Contact';
 import Recruitment from './pages/Info/Recruitment';
 import Cart from './pages/Payment/Cart';
 import Payment from './pages/Payment/Payment';
+import NotFound from './pages/Others/NotFound';
+import AllProducts from './pages/Products/AllProducts';
+// import { SkeletonTheme } from 'react-loading-skeleton/dist/SkeletonTheme';
 
 
 const router = createBrowserRouter(
@@ -39,25 +44,34 @@ const router = createBrowserRouter(
     <Route element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="/danhmuc" element={<Collection />} />
-      <Route path="/danhmuc/suatuoi" element={<Products />} />
-      <Route path="/sp" element={<Product />} />
+      <Route path="/danhmuc/:id" element={<Products />} />
+      {/* All Products List, Searching, Sales */}
+      <Route path="/search" element={<AllProducts />} />
+      {/* Product Detail */}
+      <Route path="/sanpham/:id" element={<Product />} />
+
       <Route path="/taikhoan/dangnhap" element={<Login />} />
       <Route path="/taikhoan/dangky" element={<Register />} />
-      <Route path='/giohang' element={<Cart />}/>
-      <Route path='/giohang/thanhtoan' element={<Payment/>} />
+      <Route path="/giohang" element={<Cart />} />
+      <Route path="/giohang/thanhtoan" element={<Payment />} />
+
       {/* Info pages */}
       <Route path="/vechungtoi" element={<About />} />
       <Route path="/vanchuyen" element={<Delivery />} />
       <Route path="/chinhsach" element={<Policies />} />
       <Route path="/lienhe" element={<Contact />} />
       <Route path="/tuyendung" element={<Recruitment />} />
+      {/* 404 */}
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );
 
 const App: React.FC = () => {
   return (
-    <RouterProvider router={router} />
+    // <SkeletonTheme baseColor="#313131" highlightColor="#525252">
+      <RouterProvider router={router} />
+    // </SkeletonTheme>
   );
 }
 

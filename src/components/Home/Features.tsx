@@ -1,10 +1,18 @@
 import React , {useState, useRef, useEffect} from 'react'
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { fetchCategoryGroup } from '../../store/features/temp';
+import Skeleton from 'react-loading-skeleton';
 
 
 const Features = () => {
     const [index, setIndex] = useState<number>(0);
     const [numberShown, setNumberShown] = useState<number>(0);
+    const categoryGroup = useAppSelector(state=>state.categoryGroup);
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+      dispatch(fetchCategoryGroup());
+    },[] )
     useEffect(() => {
         const screenWidth = window.innerWidth;
         if (screenWidth < 767) setNumberShown(4);
@@ -13,7 +21,7 @@ const Features = () => {
     },[window.innerWidth])
 
     const handleClicked = (isRight: boolean) => {
-      const n = categories.length - numberShown;
+      const n = categoryGroup.data.length - numberShown;
       if (n < 0) return;
       if (!isRight) {
         if (!index) setIndex(n);
@@ -23,92 +31,7 @@ const Features = () => {
         else setIndex((prev) => prev + 1);
       }
     };
-    const categories = [
-      {
-        id: 1,
-        imgUrl:
-          "https://boostify-nesst.myshopify.com/cdn/shop/collections/Picture1.png?v=1661419633&width=768",
-        name: "Cake and Milk",
-        n: 3,
-      },
-      {
-        id: 2,
-        imgUrl:
-          "https://boostify-nesst.myshopify.com/cdn/shop/collections/cat-12.webp?v=1663814824&width=768",
-        name: "Organic Kiwi",
-        n: 15,
-      },
-      {
-        id: 3,
-        imgUrl:
-          "https://boostify-nesst.myshopify.com/cdn/shop/collections/cat-11.png?v=1661419091&width=768",
-        name: "Peach",
-        n: 5,
-      },
-      {
-        id: 4,
-        imgUrl:
-          "https://boostify-nesst.myshopify.com/cdn/shop/collections/Picture1.png?v=1661419633&width=768",
-        name: "Cake and Milk",
-        n: 3,
-      },
-      {
-        id: 5,
-        imgUrl:
-          "https://boostify-nesst.myshopify.com/cdn/shop/collections/cat-12.webp?v=1663814824&width=768",
-        name: "Organic Kiwi",
-        n: 15,
-      },
-      {
-        id: 6,
-        imgUrl:
-          "https://boostify-nesst.myshopify.com/cdn/shop/collections/cat-11.png?v=1661419091&width=768",
-        name: "Peach",
-        n: 5,
-      },
-      {
-        id: 7,
-        imgUrl:
-          "https://boostify-nesst.myshopify.com/cdn/shop/collections/Picture1.png?v=1661419633&width=768",
-        name: "Cake and Milk",
-        n: 3,
-      },
-      {
-        id: 8,
-        imgUrl:
-          "https://boostify-nesst.myshopify.com/cdn/shop/collections/cat-12.webp?v=1663814824&width=768",
-        name: "Organic Kiwi",
-        n: 15,
-      },
-      {
-        id: 9,
-        imgUrl:
-          "https://boostify-nesst.myshopify.com/cdn/shop/collections/cat-11.png?v=1661419091&width=768",
-        name: "Peach",
-        n: 5,
-      },
-      {
-        id: 10,
-        imgUrl:
-          "https://boostify-nesst.myshopify.com/cdn/shop/collections/Picture1.png?v=1661419633&width=768",
-        name: "Cake and Milk",
-        n: 3,
-      },
-      {
-        id: 11,
-        imgUrl:
-          "https://boostify-nesst.myshopify.com/cdn/shop/collections/cat-12.webp?v=1663814824&width=768",
-        name: "Organic Kiwi",
-        n: 15,
-      },
-      {
-        id: 12,
-        imgUrl:
-          "https://boostify-nesst.myshopify.com/cdn/shop/collections/cat-11.png?v=1661419091&width=768",
-        name: "Peach",
-        n: 5,
-      },
-    ];
+    
     const categoryColors: string[] = [
       "#F2FCE4",
       "#FFFCEB",
@@ -121,7 +44,12 @@ const Features = () => {
         <div className="d-flex justify-content-between align-items-center">
           <h1 className="section-header">Danh mục</h1>
           <div>
-            <Link className='text-decoration-none text-secondary me-4' to='danhmuc'>Xem tất cả</Link>
+            <Link
+              className="text-decoration-none text-secondary me-4"
+              to="danhmuc"
+            >
+              Xem tất cả
+            </Link>
             <button className="arrow" onClick={() => handleClicked(false)}>
               <i className="fa-solid fa-arrow-left"></i>
             </button>
@@ -135,30 +63,44 @@ const Features = () => {
         </div>
         {/* Features */}
         <div className="feature__content mt-2 d-flex overflow-hidden">
-          {categories.map((item, idx) => (
-            <Link
-              to="danhmuc/suatuoi"
-              className="feature__item text-decoration-none"
-              style={{
-                transform: `translateX(${-100 * index}%)`,
-                minWidth: `calc(100% / ${numberShown})`,
-              }}
-              key={idx}
-            >
-              <div
-                className="feature__item-inner d-flex flex-column"
-                style={{
-                  backgroundColor: `${
-                    categoryColors[idx % categoryColors.length]
-                  }`,
-                }}
-              >
-                <img src={item.imgUrl} alt="" />
-                <h3 className="text-center">{item.name}</h3>
-                <span className="text-center">{item.n} items</span>
-              </div>
-            </Link>
-          ))}
+          {categoryGroup.loading
+            ? Array(8)
+                .fill(0)
+                .map((item) => (
+                  <div
+                    className="px-2"
+                    style={{
+                      width: `calc(100% / 8)`,
+                      height: '120px'
+                    }}
+                  >
+                    <Skeleton height={120}/>
+                  </div>
+                ))
+            : categoryGroup.data.map((item, idx) => (
+                <Link
+                  to={`danhmuc/${item.id}`}
+                  className="feature__item text-decoration-none"
+                  style={{
+                    transform: `translateX(${-100 * index}%)`,
+                    minWidth: `calc(100% / ${numberShown})`,
+                  }}
+                  key={idx}
+                >
+                  <div
+                    className="feature__item-inner d-flex flex-column"
+                    style={{
+                      backgroundColor: `${
+                        categoryColors[idx % categoryColors.length]
+                      }`,
+                    }}
+                  >
+                    <img src={item.thumbnail} alt="" />
+                    <h3 className="text-center">{item.name}</h3>
+                    {/* <span className="text-center">{item.quantity} items</span> */}
+                  </div>
+                </Link>
+              ))}
         </div>
 
         {/* Banner Items */}
@@ -194,8 +136,13 @@ const Features = () => {
                 <div className="banner-item__info w-75">
                   <h3 className="">{item.title}</h3>
                   <button className="mt-2">
-                    Mua sắm ngay
-                    <i className="fa-solid fa-arrow-right top-50 translate-middle"></i>
+                    <Link
+                      to={"/sanpham"}
+                      className="text-decoration-none text-white"
+                    >
+                      Mua sắm ngay
+                      <i className="fa-solid fa-arrow-right top-50 translate-middle"></i>
+                    </Link>
                   </button>
                 </div>
               </div>

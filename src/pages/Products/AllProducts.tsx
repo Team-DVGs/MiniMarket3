@@ -1,27 +1,37 @@
-import React from 'react'
-import Dropdown from '../../components/Products/Dropdown';
-import { Link, NavLink, useSearchParams } from 'react-router-dom';
-import Product from '../../components/Product';
-import { useAppSelector, useAppDispatch } from '../../store';
-import { fetchCategoryGroupProducts } from '../../store/features/Products/productListSlice';
-import { fetchBrandCate, fetchBrandCateGroup } from '../../store/features/CategoryProducts/brandSlice';
-import { useParams } from 'react-router-dom';
-import PageNav from '../../components/Products/PageNav';
-import Skeleton from 'react-loading-skeleton';
-import { getNewSearchParamString } from '../../utils';
-import { useDispatch } from 'react-redux';
-import ProductSkeleton from '../../components/ProductSkeleton';
-import CategoryGroupRight from '../../components/Products/CategoryGroupRight';
-import BreadCrumbs from '../../components/BreadCrumbs';
-const Products = () => {
-  const productList = useAppSelector(state => state.productList);
-  const category = useAppSelector(state => state.category);
-  const brand = useAppSelector(state => state.brand);
+import React, {useState} from "react";
+import Dropdown from "../../components/Products/Dropdown";
+import { Link, useSearchParams } from "react-router-dom";
+import Product from "../../components/Product";
+import { useAppSelector, useAppDispatch } from "../../store";
+import { fetchCategoryGroupProducts } from "../../store/features/Products/productListSlice";
+import {
+  fetchBrandCate,
+  fetchBrandCateGroup,
+} from "../../store/features/CategoryProducts/brandSlice";
+import { useParams } from "react-router-dom";
+import PageNav from "../../components/Products/PageNav";
+import Skeleton from "react-loading-skeleton";
+import { getNewSearchParamString } from "../../utils";
+import { useDispatch } from "react-redux";
+import ProductSkeleton from "../../components/ProductSkeleton";
+import CategoryGroupRight from "../../components/Products/CategoryGroupRight";
+import BreadCrumbs from "../../components/BreadCrumbs";
+
+const AllProducts = () => {
+  const productList = useAppSelector((state) => state.productList);
+  const category = useAppSelector((state) => state.category);
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [heading, setHeading]  = useState<string>("Thông tin");
   const params = useParams();
   function clearFilter() {
-    setSearchParams({"page": "1"});
+    setSearchParams(prev => {
+      const keyword = prev.get('keyword');
+      const newSearchParams = new URLSearchParams();
+      newSearchParams.set('keyword', keyword || "");
+      // newSearchParams.set('page', "1");
+      return newSearchParams;
+    });
   }
   React.useEffect(() => {
     dispatch(
@@ -29,26 +39,34 @@ const Products = () => {
         id: parseInt(params.id || ""),
         query: searchParams.toString(),
       }) as any
-      );
-    }, [searchParams]);
+    );
+    const keywordVal = searchParams.get("keyword");
+    if (keywordVal==="*"){
+      setHeading("Tất cả sản phẩm")
+    }
+    else if (keywordVal==="sales"){
+      setHeading("Sales")
+    }
+    else{
+      setHeading("Kết quả tìm kiếm: "+keywordVal);
+    }
+  }, [searchParams]);
 
   React.useEffect(() => {
-      setSearchParams(prev => {
-        prev.delete("brand");
-        return prev;
-      });
-      if (!searchParams.get("categoryId")){
-        dispatch(fetchBrandCateGroup(parseInt(params.id || "")) as any);
-      }
-      else{
-        dispatch(fetchBrandCate(parseInt(params.id || "")) as any);
-      }
-  }, [searchParams.get('categoryId')])
-
+    setSearchParams((prev) => {
+      prev.delete("brand");
+      return prev;
+    });
+    if (!searchParams.get("categoryId")) {
+      dispatch(fetchBrandCateGroup(parseInt(params.id || "")) as any);
+    } else {
+      dispatch(fetchBrandCate(parseInt(params.id || "")) as any);
+    }
+  }, [searchParams.get("categoryId")]);
 
   return (
     <>
-      <BreadCrumbs crumbTitles={["Danh mục", category.data.categoryGroupName || "Thông tin"]}/>
+      <BreadCrumbs crumbTitles={[heading]}/>
       <div className="products page-margin">
         {category.loading ? (
           <Skeleton height={70} className="mb-2" />
@@ -61,38 +79,12 @@ const Products = () => {
               })`,
             }}
           >
-            <h1>{category.data.categoryGroupName}</h1>
+            <h1>{heading}</h1>
           </div>
         )}
 
         <div className="row">
           <div className="col-12 col-md-9">
-            {category.loading ? (
-              <Skeleton height={80} />
-            ) : (
-              <div className="products__categories">
-                {category.data.list.map((item) => (
-                  <Link
-                    className={`${
-                      (searchParams.get("categoryId") || "") ===
-                        item.id.toString() && "selected"
-                    }`}
-                    to={getNewSearchParamString(
-                      "categoryId",
-                      item.id.toString(),
-                      searchParams.toString()
-                    )}
-                  >
-                    <div
-                      style={{
-                        backgroundImage: `url(${item.thumbnail})`,
-                      }}
-                    ></div>
-                    <p>{item.name}</p>
-                  </Link>
-                ))}
-              </div>
-            )}
             <div className="products__options d-flex py-2 align-items-center">
               <Dropdown
                 dropDownInfo={{
@@ -127,26 +119,6 @@ const Products = () => {
                   ],
                 }}
               />
-              {!brand.loading && (
-                <Dropdown
-                  dropDownInfo={{
-                    icon: <i className="fa-solid fa-copyright"></i>,
-                    title: "Thương hiệu",
-                    queryType: "brand",
-                    options: [
-                      {
-                        optionName: "Tất cả",
-                        query: "",
-                      },
-                      ...brand.data.map((brand) => ({
-                        optionName: brand.name,
-                        query: brand.id.toString(),
-                      })),
-                    ],
-                  }}
-                />
-              )}
-
               <Dropdown
                 dropDownInfo={{
                   icon: <i className="fa-solid fa-dollar-sign"></i>,
@@ -223,6 +195,6 @@ const Products = () => {
       </div>
     </>
   );
-}
+};
 
-export default Products
+export default AllProducts;

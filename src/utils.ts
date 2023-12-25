@@ -1,11 +1,58 @@
+// Variables
+export const tenmien: string = "http://192.168.98.10:5020/";
+
+// Intefaces
+export interface productHomeInterface { // product xuat hien o home, khong can thong tin ve brand
+  id: number;
+  name: string;
+  thumbnail: string;
+  reg_price: number;
+  discount_price: number;
+  discount_percent?: number,
+  rating: number,
+  category_name?: string
+}
+export interface productInfoInterface extends productHomeInterface{
+    canonical?: string,
+    quantity?: number,
+    // category_id?:number,
+    description: string;
+    article: string,
+    galleries: {
+        thumbnail: string,
+        sort: number,
+        product_id?:1000
+    }[],
+    brand: {
+        id: number,
+        name:string,
+        thumbnail: string,
+    }
+    category:{
+        id: number,
+        name: string
+    }
+}
 
 
 
+
+// Functions
 export function priceFormatter(price: number): string {
   return price.toLocaleString("en-US", {
     maximumFractionDigits: 0,
   });
 }
+export function getNewSearchParamString(key: string, value: string, searchParams: string) {
+  const sp = new URLSearchParams(searchParams);
+  if (!value) {
+    sp.delete(key);
+  } else {
+    sp.set(key, value);
+  }
+  return `?${sp.toString()}`;
+}
+
 
 
 // Thunk patterns
@@ -24,9 +71,6 @@ export const fetchingDataFromApi = async (url: string) =>{
         throw new Error();
     }
 }
-
-
-
 // For storing utils function
 export const debounce = <T extends (...args: any[]) => any>(func:T, delay:number =1000) => {
     let timeoutId: NodeJS.Timeout;

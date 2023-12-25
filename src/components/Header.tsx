@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import {Link, NavLink} from "react-router-dom";
-import { fetchCart } from '../store/features/cartSlice';
+import { fetchCart } from '../store/features/Cart/cartSlice';
 import { useAppSelector, useAppDispatch } from '../store';
 import { priceFormatter } from '../utils';
+import Modal from './Modal';
+import SearchBox from './SearchBox';
 
 const Header = (): JSX.Element=> {
   const links: {
@@ -23,7 +25,7 @@ const Header = (): JSX.Element=> {
     },
     {
       name: "Các sản phẩm",
-      link: "/danhmuc/suatuoi",
+      link: "/search?keyword=*",
       submenu: false,
       sublinks: [],
     },
@@ -111,7 +113,7 @@ const Header = (): JSX.Element=> {
     },
     {
       name: "Sales",
-      link: "/danhmuc/suatuoi",
+      link: "/search?keyword=sales",
       submenu: false,
       icon: <i className="menu-fire fa-solid fa-fire"></i>,
       sublinks: [],
@@ -149,15 +151,22 @@ const Header = (): JSX.Element=> {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [heading, setHeading] = useState<string>("");
+  const [wishModal, setWishModal] = useState<boolean>(false);
+  const openWish = () => {
+    setWishModal(true);
+  }
+  const closeWish = (): void => {
+    setWishModal(false);
+  }
   useEffect(() => {
     dispatch(fetchCart());
     return () =>{
-      console.log('unmount')
     }
   },[])
+
   return (
     <div className="nav header position-relative">
-      {/* Top nav */} 
+      {/* Top nav */}
       <div className="top-bar d-none d-lg-flex">
         <div className="top-bar-left">
           <Link to="/vechungtoi">
@@ -200,26 +209,7 @@ const Header = (): JSX.Element=> {
         {/* Center */}
         <div className="header-inner container-md">
           <div className="header-inner-left d-none d-lg-flex">
-            <form
-              action="https://www.google.com/search"
-              method="GET"
-              className="search-bar"
-            >
-              <input
-                type="text"
-                name="q"
-                id="search-product"
-                placeholder="Tìm kiếm sản phẩm"
-              />
-              <button type="submit">
-                <img
-                  width="23"
-                  height="23"
-                  src="https://img.icons8.com/ios/50/search--v1.png"
-                  alt="search--v1"
-                />
-              </button>
-            </form>
+            <SearchBox type='normal' />
           </div>
           <div className="header-inner-left d-flex d-lg-none align-items-center">
             <div onClick={() => setMenuOpen((prev) => !prev)}>
@@ -246,20 +236,88 @@ const Header = (): JSX.Element=> {
             >
               <i className="header-inner-right-icon fa-solid fa-magnifying-glass"></i>
             </a>
-            <Link to="#!">
+            <Link to="#" onClick={() => setWishModal(true)}>
               <i className="header-inner-right-icon fa-regular fa-heart"></i>
               <span className="d-none d-lg-block">Yêu thích</span>
             </Link>
-            <Link to="/giohang" className="position-relative header-inner-right-cartlink">
+            {wishModal && (
+              <Modal
+                isOpen={wishModal}
+                width={800}
+                minHeight={500}
+                onClose={closeWish}
+                children={
+                  <div className='cart__list d-flex flex-column h-100'>
+                    <h1 className="text-center section-header ">
+                      Danh sách yêu thích
+                    </h1>
+                    <div className='flex-grow-1 overflow-y-auto overflow-x-hidden'>
+                      <table>
+                        <thead className="">
+                          <tr>
+                            <td>Sản phẩm</td>
+                            <td>Giá</td>
+                            <td>Xoá</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {cartData.data.data.map((item) => (
+                            <tr className="cart__product">
+                              {/* Ten va anh*/}
+                              <td className="cart__product-name row g-3">
+                                {/* Holder */}
+                                <div className="">
+                                  <Link to="/">
+                                    <img
+                                      className="w-100"
+                                      src={item.thumbnail}
+                                      alt=""
+                                    />
+                                  </Link>
+                                  <div>
+                                    <span>{item.name}</span>
+                                  </div>
+                                </div>
+                              </td>
+                              {/* Tong gia tien */}
+                              <td className="cart__product-total">
+                                <span>
+                                  đ{priceFormatter(cartData.data.total)}
+                                </span>
+                              </td>
+                              <td className="cart__product-delete">
+                                <Link to="/">
+                                  <i className="fa-solid fa-trash"></i>
+                                </Link>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                }
+              />
+            )}
+            <Link
+              to="/giohang"
+              className="position-relative header-inner-right-cartlink"
+            >
               <i className="header-inner-right-icon fa-solid fa-cart-shopping"></i>
               <span className="d-none d-lg-block">Giỏ hàng</span>
               {/* Gio hang hover */}
-              <div className="header-inner-right-cart" onClick={(event) => {event.preventDefault(); event.stopPropagation()}}>
+              <div
+                className="header-inner-right-cart"
+                onClick={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }}
+              >
                 <p className="m-0">Giỏ hàng</p>
-                {cartData.info.list.length ? (
+                {cartData.data.data.length ? (
                   <>
                     <ul>
-                      {cartData.info.list.map((item) => (
+                      {cartData.data.data.map((item) => (
                         <li className="row">
                           <div className="col-3">
                             <div
@@ -283,7 +341,7 @@ const Header = (): JSX.Element=> {
                     </ul>
                     <div className="">
                       <span>Total</span>
-                      <span>đ{priceFormatter(cartData.info.total)}</span>
+                      <span>đ{priceFormatter(cartData.data.total)}</span>
                     </div>
                     <div>
                       <Link to="/giohang" className="btn-normal">
@@ -352,32 +410,7 @@ const Header = (): JSX.Element=> {
         </nav>
       </header>
       {/* Mobile search */}
-      <div
-        className={`nav__mobile-search ${
-          searchOpen && "nav__mobile-search-open"
-        }`}
-      >
-        <form
-          action="https://www.google.com/search"
-          method="GET"
-          className="search-bar"
-        >
-          <input
-            type="text"
-            name="q"
-            id="search-product"
-            placeholder="Tìm kiếm sản phẩm"
-          />
-          <button type="submit">
-            <img
-              width="23"
-              height="23"
-              src="https://img.icons8.com/ios/50/search--v1.png"
-              alt="search--v1"
-            />
-          </button>
-        </form>
-      </div>
+      <SearchBox type='mobile' searchOpen={searchOpen} />
 
       {/* Mobile nav */}
       <div

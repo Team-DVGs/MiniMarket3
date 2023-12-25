@@ -566,6 +566,7 @@
         visibility: visible;
         opacity: 1;
         transition: all ease-in 0.3s;
+        z-index: 100;
     }
 
     .sub-menu li a {
@@ -1148,4 +1149,96 @@
             text-decoration: none;
         }
     }
+}
+
+
+.modal-component{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    font-family: $main-font;
+    z-index: 8;
+    &-open{
+        display: block;
+    }
+    .modal{
+        &__layer{
+            position: absolute;
+            background-color: rgba(0,0,0,.5);
+            // background-color: red;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom :0;
+            // z-index: 8;
+        }   
+        &__container{
+            position: absolute;
+            background-color: white;
+            border-radius: .3rem;
+            left: 50%;
+            top: 50%;
+            // transform: translate(-50%, calc(-50% + 1rem));
+            z-index: 10;
+            padding: 1.5rem;
+            max-width: 95vw;
+            transition-delay: 1s;
+            animation: modalSlideUp linear .3s forwards;
+            // display: flex;
+            // flex-direction: column;
+            // align-items: center;
+            > button{
+                position: absolute;
+                right: .5rem;
+                top: .5rem;
+                @include btn-arrow;
+            }
+            > h1{
+                
+            }
+        }
+    }
+
+}
+
+
+.pagenav{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: $main-font;
+    margin: 1rem 0;
+    > a, >div{
+        width: 2.3rem;
+        height: 2.3rem;
+        margin: .5rem 1rem;
+        background-color: white;
+    }
+    > a{
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--green-text);
+        font-size: 1rem;
+        border: 1px solid var(--line-seperator);
+        border-radius: .3rem;
+        font-weight: 700;
+    }
+    .selected{
+        background-color: var(--green-text);
+        color: white;
+    }
+}
+
+.reviewform{
+    > *{
+        font-family: $main-font;
+
+    }
+
 }

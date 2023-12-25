@@ -1,32 +1,33 @@
 import {PayloadAction, createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { error } from "console";
+import { tenmien } from "../../../utils";
 
 // import { createJsxSelfClosingElement } from "typescript";
 
 
 
-
+interface categoryGroupData {
+  id: number,
+  name: string,
+  thumbnail: string
+}
 interface categoryGroupState {
-    loading: Boolean,
+    loading: boolean,
     error: string,
-    list: {
-        id: number,
-        name: string,
-        thumbnail: string
-    }[]
+    data: categoryGroupData[]
 }
 // Thunk functions
 export const fetchCategoryGroup = createAsyncThunk('danhmuctong/fetchStatus', 
     () => {
         return axios
-            .get('localhost/api/danhmuctonng')
+            .get(tenmien + '/api/danhmuc')
             .then((response) => response.data);
     }
 )   
 
 const initialState: categoryGroupState = {
-    list: [],
+    data: [],
     loading: false,
     error: ''
 }
@@ -34,19 +35,19 @@ const categoryGroupSlice = createSlice({
     name: 'categoryGroup',
     initialState,
     reducers:{
-        update(state, action: PayloadAction<{list: {id: number, name:string, thumbnail: string}[]}>){
-            state.list  = action.payload.list;
+        update(state, action: PayloadAction<{data: {id: number, name:string, thumbnail: string}[]}>){
+            state.data  = action.payload.data;
         },
         add(state, action: PayloadAction<{name: string, thumbnail:string}>){
-            state.list.push({
-                ...state.list,
-                id: state.list.length+1,
+            state.data.push({
+                ...state.data,
+                id: state.data.length+1,
                 name: action.payload.name,
                 thumbnail: action.payload.thumbnail
             })
         },
         delete(state, action: PayloadAction<{id: number}>){
-            state.list.filter(item => item.id!==action.payload.id);
+            state.data.filter(item => item.id!==action.payload.id);
         }
 
     },
@@ -57,11 +58,11 @@ const categoryGroupSlice = createSlice({
         })
         builder.addCase(fetchCategoryGroup.fulfilled, (state, action) => {
             state.loading = false;
-            state.list = action.payload;
+            state.data = action.payload;
         })
         builder.addCase(fetchCategoryGroup.rejected, (state ,action) => {
             state.loading = false;
-            state.list = [
+            state.data = [
               {
                 id: 1,
                 thumbnail:

@@ -17,6 +17,7 @@
     }
 }
 
+// TEXT ----------------
 @mixin section-header{
     font-family: $main-font;
     // font-size: ;
@@ -41,7 +42,14 @@
     font-weight: 700;
     color: var(--navy-text);
 }
+@mixin desc-normal{
+    font-family: $main-font;
+    font-weight: 1rem;
+    color: var(--gray-text);
 
+}
+
+// BUTTONS --------------
 @mixin btn-arrow{
     background-color: white;
     border: none;
@@ -63,9 +71,10 @@
     border: none;
     padding: .3rem .5rem;
     border-radius: 4px;
+    text-decoration: none;
 }
 
-
+// ANIMATION -----------
 @mixin transition-fast{
     transition: all .3s;
 }

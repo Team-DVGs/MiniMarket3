@@ -11,15 +11,15 @@ const BreadCrumbs = (props: breadcrumbsProps): JSX.Element=> {
     .filter(crumb => crumb!=='')
     .map((crumb, idx) => {
         currentLink += `/${crumb}`;
-        return (
+        return props.crumbTitles[idx] ? (
           <span key={idx}>
             <i className="fa-solid fa-chevron-left"></i>
             <Link to={currentLink} className={`${currentLink === location.pathname && "current-selected"}`}>
-              {props.crumbTitles[idx].charAt(0).toUpperCase() +
-                props.crumbTitles[idx].slice(1)}
+              {props.crumbTitles[idx]?.charAt(0).toUpperCase() +
+                props.crumbTitles[idx]?.slice(1)}
             </Link>
           </span>
-        );
+        ) : <></>;
     })
   return (
     <div className='breadcrumbs'>

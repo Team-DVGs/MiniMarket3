@@ -3,7 +3,7 @@ import BreadCrumbs from '../../components/BreadCrumbs';
 import $ from "jquery";
 import axios from 'axios';
 import { useAppSelector, useAppDispatch } from '../../store';
-import { fetchCart } from '../../store/features/cartSlice';
+import { fetchCart } from '../../store/features/Cart/cartSlice';
 import { priceFormatter } from '../../utils';
 
 const Payment = () => {
@@ -91,7 +91,7 @@ const Payment = () => {
         <div className="col-12 col-md-6 payment__info">
           <h1 className="section-header">Kiểm tra thông tin</h1>
           <ul>
-            {cartData.info.list.map((item) => (
+            {cartData.data.data.map((item) => (
               <li>
                 <div>
                   <img src={item.thumbnail} alt="" />
@@ -107,7 +107,7 @@ const Payment = () => {
           <h1 className='section-header mt-2'>Thông tin hoá đơn</h1>
           <div className='payment__info-final'>
             <span>Tiền hàng:</span>
-            <span>đ{priceFormatter(cartData.info.total)}</span>
+            <span>đ{priceFormatter(cartData.data.total)}</span>
           </div>
           <div className='payment__info-final'>
             <span>Phí vận chuyển</span>
@@ -115,7 +115,7 @@ const Payment = () => {
           </div>
           <div className='payment__info-final'>
             <span>Tổng tiền hàng:</span>
-            <span>đ{priceFormatter(cartData.info.total)}</span>
+            <span>đ{priceFormatter(cartData.data.total)}</span>
           </div>
           <button className='w-100 btn-normal font-bold mt-3'>Xác nhận thanh toán</button>
         </div>

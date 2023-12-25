@@ -1,14 +1,16 @@
 import React, { useState, useEffect} from 'react'
 interface sliderProps {
+    id: number,
     length: number,
     numberShown: [number,number,number], 
     productsJSX: JSX.Element, // products jsx map (every <Product> must be wrapped by a div (productslider__inner-item))
     sliding: boolean,
-    loading: boolean
+    loading: boolean,
+    reload?:number
 }
 const ProductSlider = (props: sliderProps) => {
   const [index, setIndex] = useState<number>(0);
-  const [numberShown, setNumberShown] = useState<number>(1);
+  const [numberShown, setNumberShown] = useState<number>(4);
   useEffect(() => {
     updateDivChildren(index, numberShown);
 
@@ -19,7 +21,7 @@ const ProductSlider = (props: sliderProps) => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [index,props.loading]);
+  }, [index,props.loading, props.reload]);
   useEffect(() => {
     // Set numberShown
     let n = numberShown;
@@ -35,13 +37,13 @@ const ProductSlider = (props: sliderProps) => {
   }, [window.innerWidth]);
   useEffect(() => {
     setIndex(0);
-  }, [numberShown])
+  }, [numberShown, props.reload])
   
 
   // Functions 
   const updateDivChildren = (index: number, numberShown: number) => {
     const directDivChildren = document.querySelectorAll(
-      ".productslider-inner > div"
+      `.productslider-inner-${props.id} > div`
     );
     if (directDivChildren) {
       directDivChildren.forEach((div) => {
@@ -66,10 +68,12 @@ const ProductSlider = (props: sliderProps) => {
   };
 
   return (
-    <div className="position-relative productslider">
+    <div className={`position-relative productslider`}>
       {/* Product List */}
       <div
-        className={`d-flex overflow-hidden productslider-inner ${numberShown>=props.length && "justify-content-center"}`}
+        className={`d-flex overflow-hidden productslider-inner-${props.id} ${
+          numberShown >= props.length && "justify-content-center"
+        }`}
       >
         {/* {props.dailybest.map((item) => (
           <div

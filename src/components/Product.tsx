@@ -1,25 +1,28 @@
 import React, {useEffect} from 'react'
 import { JsxElement } from 'typescript';
+import { productHomeInterface } from '../utils';
+import { Link } from 'react-router-dom';
 
-export interface productProps {
-  id: number;
-  thumbnail: string;
-  name: string;
-  rating: number;
-  reg_price: number;
-  discount_price: number;
-  category: string
-}
 export interface productsProps {
-  product: productProps,
+  product: productHomeInterface,
   children?: JSX.Element
 }
 const Product = (props: productsProps) : JSX.Element => {
   
   return (
-    <div className="product d-flex flex-column position-relative">
+    <Link
+      to={`/sanpham/${props.product.id}`}
+      className="product d-flex flex-column position-relative text-decoration-none"
+    >
       {/* Sales Banner */}
-      <div className="product__banner position-absolute">-{Math.round((props.product.reg_price - props.product.discount_price) * 100 / props.product.reg_price )}%</div>
+      <div className="product__banner position-absolute">
+        -
+        {Math.round(
+          ((props.product.reg_price - props.product.discount_price) * 100) /
+            props.product.reg_price
+        )}
+        %
+      </div>
       <div className="product__img-container mb-2">
         <div
           className="product__img"
@@ -27,9 +30,9 @@ const Product = (props: productsProps) : JSX.Element => {
         ></div>
       </div>
 
-      <div className='product__info d-flex flex-column'>
+      <div className="product__info d-flex flex-column">
         <span className="product__categories text-secondary my-1">
-          {props.product.category}
+          {props.product.category_name}
         </span>
         <span className="product__name my-1">{props.product.name}</span>
         <div className="product__rating my-1 d-flex align-items-center">
@@ -50,12 +53,13 @@ const Product = (props: productsProps) : JSX.Element => {
           <s>{props.product.reg_price.toFixed(2)}$</s>
         </div>
         <button className="product__btn">
-          <i className="fa-solid fa-cart-shopping"></i>
-          Add to cart
+          {/* <i className="fa-solid fa-cart-shopping"></i> */}
+          <i className="fa-regular fa-eye"></i>
+          Xem thêm
         </button>
       </div>
       {props.children}
-    </div>
+    </Link>
   );
 }
 

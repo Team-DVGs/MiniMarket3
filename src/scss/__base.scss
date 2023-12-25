@@ -84,6 +84,14 @@ $main-font: "Quicksand", sans-serif;
 
 
 // Animation
+@keyframes fadeIn {
+    from{ 
+        opacity: 0;
+    }
+    to{ 
+        opacity: 1;
+    }
+}
 @keyframes zoomUp {
     from{
         opacity: 0;
@@ -94,7 +102,6 @@ $main-font: "Quicksand", sans-serif;
         transform: scale(1);
     }
 }
-
 @keyframes slideUp {
     from{
         opacity: 0;
@@ -103,5 +110,15 @@ $main-font: "Quicksand", sans-serif;
     to{
         opacity: 1;
         transform: unset;
+    }
+}
+@keyframes modalSlideUp {
+    from{
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + 1rem));
+    }
+    to{
+        opacity: 1;
+        transform: translate(-50%, -50%);
     }
 }

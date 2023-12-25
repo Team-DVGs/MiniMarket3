@@ -1,40 +1,61 @@
 import React, {useEffect, useState} from "react";
 import Product from "../Product";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { fetchProductsBestSell } from "../../store/features/Home/productsBestSellSlice";
+import ProductSkeleton from "../ProductSkeleton";
 import ProductSlider from "../ProductSlider";
-import { productProps } from "../Product";
 
-interface dailybestProps {
-  dailybest: productProps[];
-}
-const DailyBest = (props: dailybestProps): JSX.Element => {
+const DailyBest = (): JSX.Element => {
   const [index, setIndex] = useState<number>(0);
   const [numberShown, setNumberShown] = useState<number>(0);
+  const [type, setType] = useState<string>("Nổi bật");
+  const [reload, setReload] = useState<number>(0);
+  const productsBestSell = useAppSelector(state => state.productsBestSell);
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    const screenWidth = window.innerWidth;
-    if (screenWidth < 767) setNumberShown(2);
-    else if (screenWidth > 767 && screenWidth <= 991) setNumberShown(3);
-    else setNumberShown(4);
-  }, [window.innerWidth]);
+    dispatch(fetchProductsBestSell());
+  }, [])
 
-  const handleClicked = (isRight: boolean) => {
-    const n = props.dailybest.length - numberShown;
-    if (n < 0) return;
-    if (!isRight) {
-      if (!index) setIndex(n);
-      else setIndex((prev) => prev - 1);
-    } else {
-      if (index === n) setIndex(0);
-      else setIndex((prev) => prev + 1);
-    }
+  // useEffect(() => {
+  //   const screenWidth = window.innerWidth;
+  //   if (screenWidth < 767) setNumberShown(2);
+  //   else if (screenWidth > 767 && screenWidth <= 991) setNumberShown(3);
+  //   else setNumberShown(4);
+  // }, [window.innerWidth]);
+
+
+  // const handleClicked = (isRight: boolean) => {
+  //   const n = productsBestSell.data.length - numberShown;
+  //   if (n < 0) return;
+  //   if (!isRight) {
+  //     if (!index) setIndex(n);
+  //     else setIndex((prev) => prev - 1);
+  //   } else {
+  //     if (index === n) setIndex(0);
+  //     else setIndex((prev) => prev + 1);
+  //   }
+  // };
+  const styles = {
+    color: "#3BB77E",
+    cursor: "pointer",
   };
   return (
     <div className="dailybest section-margin">
       <div className="d-flex justify-content-between align-items-center header-margin">
         <h1 className="section-header">Bán chạy</h1>
         <nav className="">
-          <a href="#">Nổi bật</a>
-          <a href="#">Phổ biến</a>
-          <a href="#">Hàng mới</a>
+          {productsBestSell.data.map((category) => (
+            <a
+              onClick={() => {
+                setType(category.type);
+                setReload(prev => prev+1);
+              }}
+              className="cursor-pointer"
+              style={category.type === type ? styles : { cursor: "pointer" }}
+            >
+              {category.type}
+            </a>
+          ))}
         </nav>
       </div>
       {/* List */}
@@ -54,18 +75,57 @@ const DailyBest = (props: dailybestProps): JSX.Element => {
           </div>
         </div>
         <div className="col-12 col-md-9 products position-relative">
-          <div className="d-flex overflow-hidden">
-            {props.dailybest.map((item) => (
+          <ProductSlider
+            id={1}
+            length={productsBestSell.data.find(item => item.type === type)?.products.length || 4}
+            numberShown={[2, 3, 4]}
+            sliding={false}
+            loading={productsBestSell.loading}
+            reload={reload}
+            productsJSX={
+              <>
+                {productsBestSell.loading
+                  ? Array(4)
+                      .fill(0)
+                      .map((el) => (
+                        <div className="px-1">
+                          <ProductSkeleton />
+                        </div>
+                      ))
+                  : productsBestSell.data
+                      .find((item) => item.type === type)
+                      ?.products.map((productItem) => (
+                        <div className="px-1" key={productItem.id}>
+                          <Product product={productItem} />
+                        </div>
+                      ))}
+              </>
+            }
+          />
+          {/* <div className="d-flex overflow-hidden">
+            {productsBestSell.loading ? (Array(4).fill(0).map(item => (
               <div
                 className="col-6 col-lg-3 px-1 transition-fast"
-                style={{ transform: `translateX(${-100 * index}%)` }}
-                key={item.id}
               >
-                <Product product={item} />
+                <ProductSkeleton />
               </div>
-            ))}
-          </div>
-          <button
+            ))
+            ) : (
+              productsBestSell.data.length &&
+              productsBestSell.data
+                .find((item) => item.type === type)
+                ?.products.map((item) => (
+                  <div
+                    className="col-6 col-lg-3 px-1 transition-fast"
+                    style={{ transform: `translateX(${-100 * index}%)` }}
+                    key={item.id}
+                  >
+                    <Product product={item} />
+                  </div>
+                ))
+            )}
+          </div> */}
+          {/* <button
             className="arrow-btn left"
             onClick={() => handleClicked(false)}
           >
@@ -76,7 +136,7 @@ const DailyBest = (props: dailybestProps): JSX.Element => {
             onClick={() => handleClicked(true)}
           >
             <i className="fa-solid fa-arrow-right"></i>
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -93,7 +153,6 @@ const DailyBest = (props: dailybestProps): JSX.Element => {
           </>
         }
       /> */}
-
     </div>
   );
 };

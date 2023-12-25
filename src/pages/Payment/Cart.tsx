@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import BreadCrumbs from '../../components/BreadCrumbs';
 import { useAppSelector, useAppDispatch } from '../../store';
-import { fetchCart } from '../../store/features/cartSlice';
+import { fetchCart } from '../../store/features/Cart/cartSlice';
 import { Link } from 'react-router-dom';
 import { priceFormatter } from '../../utils';
 
@@ -15,10 +15,10 @@ const Cart = () => {
     <>
       <BreadCrumbs crumbTitles={["Giỏ hàng"]} />
       <div className="cart">
-        {cartData.info.list.length ? (
+        {cartData.data.data.length ? (
           <>
             {/* <h1>Giỏ hàng</h1> */}
-            <div className="cart__list">
+            <div className="cart__data">
               <div className="row gy-3">
                 <div className="col-12 col-lg-9">
                   <table>
@@ -32,7 +32,7 @@ const Cart = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {cartData.info.list.map((item) => (
+                      {cartData.data.data.map((item) => (
                         <tr className="cart__product">
                           {/* Ten va anh*/}
                           <td className="cart__product-name row g-3">
@@ -101,7 +101,7 @@ const Cart = () => {
                           </td>
                           {/* Tong gia tien */}
                           <td className="cart__product-total">
-                            <span>đ{priceFormatter(cartData.info.total)}</span>
+                            <span>đ{priceFormatter(cartData.data.total)}</span>
                           </td>
                           <td className="cart__product-delete">
                             <Link to="/">
@@ -119,10 +119,10 @@ const Cart = () => {
                     <textarea name="" id=""></textarea>
                     <div className="cart__list-rightbar-total">
                       <span>Tổng tiền hàng:</span>
-                      <span>đ{priceFormatter(cartData.info.total)}</span>
+                      <span>đ{priceFormatter(cartData.data.total)}</span>
                     </div>
                     <div className="text-end cart__list-rightbar-saved">
-                      Tiết kiệm đ{priceFormatter(cartData.info.saved)}
+                      Tiết kiệm đ{priceFormatter(cartData.data.saved)}
                     </div>
                     <div className="text-end ">
                       Thông tin vận chuyển và các thông tin khác hiện ở bước
