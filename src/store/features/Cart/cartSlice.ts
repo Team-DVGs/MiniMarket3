@@ -24,13 +24,14 @@ interface cartState {
 }
 
 // Thunk functions
-export const fetchCart = createAsyncThunk('danhmuctong/fetchStatus', 
-    () => {
-        return axios
-            .get(tenmien+'/api/danhmuctonng')
-            .then((response) => response.data);
-    }
-)  
+export const fetchCart = createAsyncThunk("cartSlice/fetchCart", async (cartId) => {
+  try {
+    const response = await axios.get(tenmien + "/api/giohang/"+cartId);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+});  
 
 const initialState: cartState = {
     loading: false, 

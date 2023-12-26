@@ -5,7 +5,6 @@ import productListSlice from "./features/Products/productListSlice";
 import cartSlice from "./features/Cart/cartSlice";
 import salesSlice from "./features/Sales/salesSlice";
 import productsSalesSlice from "./features/Sales/productsSalesSlice";
-import categoryGroupProductsSlice from "./features/Collection/categoryGroupProductsSlice";
 import productsBestSellSlice from "./features/Home/productsBestSellSlice";
 import productsPopularSlice from "./features/Home/productsPopularSlice";
 import brandSlice from "./features/CategoryProducts/brandSlice";
@@ -25,13 +24,13 @@ export const store = configureStore({
     cart: cartSlice.reducer,
     sales: salesSlice.reducer,
     productsSales: productsSalesSlice.reducer,
-    categoryGroupProducts: categoryGroupProductsSlice.reducer,
     productsBestSell: productsBestSellSlice.reducer,
     productsPopular: productsPopularSlice.reducer,
     brand: brandSlice.reducer,
     categoryGroupRand: categoryGroupRandSlice.reducer,
     productReview: productReviewSlice.reducer
   },
+  devTools: process.env.NODE_ENV==="development",
 });
 
 export const useAppDispatch: () => typeof store.dispatch = useDispatch;

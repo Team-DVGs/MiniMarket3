@@ -1,7 +1,7 @@
 import React , {useState, useRef, useEffect} from 'react'
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { fetchCategoryGroup } from '../../store/features/temp';
+import { fetchCategoryGroup } from '../../store/features/Collection/categoryGroupSlice';
 import Skeleton from 'react-loading-skeleton';
 
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "./scss/__component.scss";
 import "./scss/Home.scss";
 import "./scss/Collection.scss";
@@ -36,6 +36,7 @@ import Cart from './pages/Payment/Cart';
 import Payment from './pages/Payment/Payment';
 import NotFound from './pages/Others/NotFound';
 import AllProducts from './pages/Products/AllProducts';
+import MyComponent from './Test';
 // import { SkeletonTheme } from 'react-loading-skeleton/dist/SkeletonTheme';
 
 
@@ -68,10 +69,30 @@ const router = createBrowserRouter(
 );
 
 const App: React.FC = () => {
+  useEffect(() => {
+     async function getVans(url: string) {
+      const res = await fetch(url);
+      // Checking if the request is good to go
+      if (!res.ok) {
+        // Throw errow and log into the console
+        console.log("Failed a lot fuck");
+        throw {
+          message: "Failed to fetch vans",
+          statusText: res.statusText,
+          status: res.status,
+        };
+      }
+
+      const data = await res.json();
+      console.log(data);
+      return data;
+    }
+    getVans("/api/danhmuc");
+  }, [])
+
   return (
-    // <SkeletonTheme baseColor="#313131" highlightColor="#525252">
       <RouterProvider router={router} />
-    // </SkeletonTheme>
+      // <MyComponent />
   );
 }
 

@@ -20,20 +20,33 @@ interface productListState {
 
 // Lay danh sach cac san pham theo danh muc (:id danh muc)
 export const fetchCategoryGroupProducts = createAsyncThunk(
-  "danhmuctong/fetchCategoryGroupProducts",
-  ({ id, query }: { id: number; query: string }) => {
+  "productListSlice/fetchCategoryGroupProducts",
+  async ({ id, query }: { id: number; query: string }) => {
     // console.log(`${tenmien}/api/danhmuc/${id}?${query}`);
-    return axios
-      .get(`${tenmien}/api/danhmuc/${id}?${query}`)
-      .then((response) => response.data);
+    // return axios
+    //   .get(`${tenmien}/api/danhmuc/${id}?${query}`)
+    //   .then((response) => response.data);
+    try {
+      const response = await axios.get(
+        `${tenmien}/api/danhmuc/${id}?${query}`
+      );
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   }
 );
+
+
 export const fetchRelatedProducts = createAsyncThunk(
-  "danhmuctong/fetchRelatedProducts",
-  (id: string) => {
-    return axios
-      .get(`${tenmien}/api/sanpham/` + id + "/lienquan")
-      .then((response) => response.data);
+  "productListSlice/fetchRelatedProducts",
+  async (id:string) => {
+    try {
+      const response = await axios.get(tenmien + "/api/sanpham/"+id+"/lienquan");
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   }
 );
 

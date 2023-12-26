@@ -16,12 +16,14 @@ interface salesState {
   };
 }
 // Thunk functions
-export const fetchSales = createAsyncThunk(
-  "danhmuctong/fetchStatus",
-  () => {
-    return axios.get(tenmien + "/api/sales").then((response) => response.data);
+export const fetchSales = createAsyncThunk("salesSlice/fetchSales", async () => {
+  try {
+    const response = await axios.get(tenmien + "/api/sales");
+    return response.data;
+  } catch (err) {
+    throw err;
   }
-);
+});
 
 const initialState: salesState = {
   data: {

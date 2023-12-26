@@ -55,7 +55,7 @@ const Product = () => {
     const handleClicked = (isRight: boolean) => {
     //   const n = props.length - numberShown;
     //   if (n < 0) return;
-      const n = productDetail.data.galleries.length;
+      const n = productDetail.data.galleries?.length || 0;
       if (!isRight) {
         if (tempCurrentThumb < n-1) setTempCurrentThumb(prev => prev+1);
         else setTempCurrentThumb(0);
@@ -178,7 +178,7 @@ const Product = () => {
               <div className="w-100 mt-3">
                 <ProductSlider
                   id={1}
-                  length={productDetail.data.galleries.length}
+                  length={productDetail.data.galleries?. length || 0}
                   numberShown={[3, 4, 5]}
                   productsJSX={
                     <>
@@ -409,7 +409,7 @@ const Product = () => {
               <h1 className="section-header mb-3">Sản phẩm liên quan</h1>
               <ProductSlider
                 id={2}
-                length={relatedProducts.data.length}
+                length={relatedProducts.data?.length || 0 }
                 numberShown={[2, 3, 4]}
                 sliding={false}
                 loading={relatedProducts.loading}

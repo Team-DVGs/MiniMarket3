@@ -10,27 +10,37 @@ interface productsBestSellState {
   error: string;
   data: [
     {
+      id?: number;
       type: "Nổi bật";
-      query: 'noibat';
+      query: "noibat";
       products: productHomeInterface[];
     },
     {
+      id?: number;
       type: "Phổ biến";
-      query: 'phobien';
+      query: "phobien";
       products: productHomeInterface[];
     },
     {
+      id?: number;
       type: "Hàng mới";
-      query: 'hangmoi';
+      query: "hangmoi";
       products: productHomeInterface[];
     }
   ];
 }
 // Thunk functions
 export const fetchProductsBestSell = createAsyncThunk(
-  "danhmuctong/fetchStatus",
-  () => {
-    return axios.get(tenmien+"/api/sanpham/banchay").then((response) => response.data);
+  "productsBestSellSlice/fetchProductsBestSell",
+  async () => {
+    try {
+      const response = await axios.get(
+        tenmien+"/api/sanpham/banchay"
+      );
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   }
 );
 

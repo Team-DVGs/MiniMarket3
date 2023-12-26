@@ -19,11 +19,14 @@ interface categoryState {
 }
 // Thunk functions
 export const fetchCategory = createAsyncThunk(
-  "danhmuctong/fetchStatus",
-  (id) => {
-    return axios
-      .get(tenmien + "/api/danhmuc/"+id+"/danhmucnho")
-      .then((response) => response.data);
+  "categorySlice/fetchCategory",
+  async (id: string) => {
+    try {
+      const response = await axios.get(tenmien + "/api/danhmuc/"+id+"/danhmucnho");
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   }
 );
 

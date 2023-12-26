@@ -16,11 +16,14 @@ interface productReviewState {
 }
 // Thunk functions
 export const fetchProductReview = createAsyncThunk(
-  "danhmuctong/fetchProductReview",
-  (id: string) => {
-    return axios
-      .get(tenmien + "/api/sanpham/" + id+"/danhgia")
-      .then((response) => response.data);
+  "productReview/fetchProductReview",
+  async (id:string) => {
+    try {
+      const response = await axios.get(tenmien + "/api/sanpham/"+id+"/danhgia");
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   }
 );
 

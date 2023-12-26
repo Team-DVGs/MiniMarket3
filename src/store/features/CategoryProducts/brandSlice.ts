@@ -16,7 +16,7 @@ interface brandState {
 }
 // Fetch tat ca branch cua danh muc lon
 export const fetchBrandCateGroup = createAsyncThunk(
-  "danhmuctong/fetchBrandCateGroup",
+  "brandSlice/fetchBrandCateGroup",
   (id: number) => {
     return axios
       .get(tenmien + "/api/danhmuc/" + id + "/thuonghieu")
@@ -25,11 +25,14 @@ export const fetchBrandCateGroup = createAsyncThunk(
 );
 
 export const fetchBrandCate = createAsyncThunk(
-  "danhmuctong/fetchBrandCate",
-  (id: number) => {
-    return axios
-      .get(tenmien + "/api/danhmucnho/" + id + "/thuonghieu")
-      .then((response) => response.data);
+  "brandSlice/fetchBrandCate",
+  async (id:number) => {
+    try {
+      const response = await axios.get(tenmien + "/api/danhmucnho/"+id+"/thuonghieu");
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   }
 );
 

@@ -10,11 +10,14 @@ interface productDetailState {
 }
 // Thunk functions
 export const fetchProductDetail = createAsyncThunk(
-  "danhmuctong/fetchProductDetail",
-  (id: string) => {
-    return axios
-      .get(tenmien + "/api/sanpham/"+ id)
-      .then((response) => response.data);
+  "productDetailSlice/fetchProductDetail",
+  async (id: string) => {
+    try {
+      const response = await axios.get(tenmien + "/api/sanpham/"+id);
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   }
 );
 

@@ -15,11 +15,14 @@ interface categoryGroupRandState {
 }
 // Thunk functions
 export const fetchCategoryGroupRand = createAsyncThunk(
-  "danhmuctong/fetchCategoryGroupRand",
-  (id: number) => {
-    return axios
-      .get(tenmien + "/api/danhmuc/" + id + "/random")
-      .then((response) => response.data);
+  "categoryGroupRandSlice/fetchCategoryGroupRand",
+  async (id:number) => {
+    try {
+      const response = await axios.get(tenmien + "/api/danhmuc/"+id+"/random");
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   }
 );
 

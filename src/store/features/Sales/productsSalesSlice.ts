@@ -13,9 +13,14 @@ interface productsSalesState {
 }
 // Thunk functions
 export const fetchProductSales = createAsyncThunk(
-  "danhmuctong/fetchStatus",
-  () => {
-    return axios.get(tenmien + "/api/sales/sanpham").then((response) => response.data);
+  "productsSalesSlice/fetchProductSales",
+  async () => {
+    try {
+      const response = await axios.get(tenmien + "/api/sales/sanpham");
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   }
 );
 
