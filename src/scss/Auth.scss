@@ -13,7 +13,8 @@
         width: 100%;
         border-radius: 1rem;
         object-fit: cover;
-        object-position: center
+        object-position: center;
+        min-height:320px;
     }
     form{
         h1{
@@ -53,7 +54,15 @@
             border: none;
             color: white;
             font-weight: 700;
-            
+            min-width: 130px;
+        }
+        span.error{
+            font-size: 1rem;
+            font-style: italic;
+            @include mobile{
+                display: block;
+                margin: 1rem 0;
+            }
         }
     }
 }

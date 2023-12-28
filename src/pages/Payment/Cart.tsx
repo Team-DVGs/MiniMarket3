@@ -4,24 +4,40 @@ import { useAppSelector, useAppDispatch } from '../../store';
 import { fetchCart } from '../../store/features/Cart/cartSlice';
 import { Link } from 'react-router-dom';
 import { priceFormatter } from '../../utils';
+import Skeleton from 'react-loading-skeleton';
+import { deleteCart, updateQuantityCart } from '../../store/features/Cart/cartSlice';
 
 const Cart = () => {
-    const cartData = useAppSelector(state => state.cart);
+    const cart = useAppSelector(state => state.cart);
+    const user = useAppSelector(state => state.user);
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(fetchCart());
+        dispatch(fetchCart(user.data.cartId.toString()));
     },[])
+    function handleIncrement(isUp: boolean, quantity:number, cartItemId: number){
+      if (isUp){
+        dispatch(updateQuantityCart({cartItemId, quantity: quantity+1}));
+      }
+      else{
+        dispatch(updateQuantityCart({cartItemId, quantity: quantity-1}))
+      }
+    }
+    function handleDelete(cartItemId: number){
+      dispatch(
+        updateQuantityCart({ cartItemId, quantity: 0 })
+      );
+
+    }
   return (
     <>
       <BreadCrumbs crumbTitles={["Giỏ hàng"]} />
       <div className="cart">
-        {cartData.data.data.length ? (
+        {cart.data.list.length ? (
           <>
-            {/* <h1>Giỏ hàng</h1> */}
-            <div className="cart__data">
+            <div className="cart__data cart__list">
               <div className="row gy-3">
                 <div className="col-12 col-lg-9">
-                  <table>
+                  <table className='w-100'>
                     <thead className="">
                       <tr>
                         <td>Sản phẩm</td>
@@ -32,49 +48,64 @@ const Cart = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {cartData.data.data.map((item) => (
+                      {cart.data.list.map((item) => (
                         <tr className="cart__product">
                           {/* Ten va anh*/}
                           <td className="cart__product-name row g-3">
                             {/* Holder */}
                             <div className="">
-                                <Link to="/">
-                                  <img
-                                    className="w-100"
-                                    src={item.thumbnail}
-                                    alt=""
-                                  />
-                                </Link>
-                                <div>
-                                    <span>{item.name}</span>
-                                    {/* Hien thi tren mobile */}
-                                    <div className="cart__product-name-mobile cart__product-name-mobile-price">
-                                        <s>đ{priceFormatter(item.reg_price)}</s>
-                                        <span>
-                                            đ{priceFormatter(item.discount_price)}
-                                        </span>
-                                    </div>
-                                    <div className="cart__product-name-mobile cart__product-name-mobile-quantity">
-                                        <input
-                                            type="text"
-                                            value={item.quanity}
-                                        />
-                                        <div className="arrow_btns">
-                                            <button>
-                                            <i className="fa-solid fa-chevron-up"></i>
-                                            </button>
-                                            <button>
-                                            <i className="fa-solid fa-chevron-down"></i>
-                                            </button>
-                                        </div>
-                                        </div>
+                              <Link to={`/sanpham/${item.productId}`}>
+                                <img
+                                  className="w-100"
+                                  src={item.thumbnail}
+                                  alt=""
+                                />
+                              </Link>
+                              <div>
+                                <span>{item.name}</span>
+                                {/* Hien thi tren mobile */}
+                                <div className="cart__product-name-mobile cart__product-name-mobile-price">
+                                  <s>đ{priceFormatter(item.reg_price)}</s>
+                                  <span>
+                                    đ{priceFormatter(item.discount_price)}
+                                  </span>
+                                </div>
+                                <div className="cart__product-name-mobile cart__product-name-mobile-quantity">
+                                  <input type="text" value={item.quantity} />
+                                  <div className="arrow_btns">
+                                    <button
+                                      onClick={() =>
+                                        handleIncrement(
+                                          true,
+                                          item.quantity,
+                                          item.cartItemId
+                                        )
+                                      }
+                                    >
+                                      <i className="fa-solid fa-chevron-up"></i>
+                                    </button>
+                                    <button
+                                      onClick={() =>
+                                        handleIncrement(
+                                          false,
+                                          item.quantity,
+                                          item.cartItemId
+                                        )
+                                      }
+                                    >
+                                      <i className="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
+                            </div>
                           </td>
                           {/* Gia */}
                           <td className="cart__product-price">
                             <div>
-                              <s>đ{priceFormatter(item.reg_price)}</s>
+                              {item.reg_price !== item.discount_price && (
+                                <s>đ{priceFormatter(item.reg_price)}</s>
+                              )}
                               <span>
                                 đ{priceFormatter(item.discount_price)}
                               </span>
@@ -85,15 +116,31 @@ const Cart = () => {
                             <div>
                               <input
                                 type="text"
-                                value={item.quanity}
+                                value={item.quantity}
                                 // onChange={handleInputChange}
                               />
                               {/* <div className="bg-dark">sdsdsd</div> */}
                               <div className="arrow_btns">
-                                <button>
+                                <button
+                                  onClick={() =>
+                                    handleIncrement(
+                                      true,
+                                      item.quantity,
+                                      item.cartItemId
+                                    )
+                                  }
+                                >
                                   <i className="fa-solid fa-chevron-up"></i>
                                 </button>
-                                <button>
+                                <button
+                                  onClick={() =>
+                                    handleIncrement(
+                                      false,
+                                      item.quantity,
+                                      item.cartItemId
+                                    )
+                                  }
+                                >
                                   <i className="fa-solid fa-chevron-down"></i>
                                 </button>
                               </div>
@@ -101,12 +148,20 @@ const Cart = () => {
                           </td>
                           {/* Tong gia tien */}
                           <td className="cart__product-total">
-                            <span>đ{priceFormatter(cartData.data.total)}</span>
+                            <span>
+                              đ
+                              {priceFormatter(
+                                item.discount_price * item.quantity
+                              )}
+                            </span>
                           </td>
                           <td className="cart__product-delete">
-                            <Link to="/">
+                            <div
+                              onClick={() => handleDelete(item.cartItemId)}
+                              style={{ cursor: "pointer" }}
+                            >
                               <i className="fa-solid fa-trash"></i>
-                            </Link>
+                            </div>
                           </td>
                         </tr>
                       ))}
@@ -119,16 +174,20 @@ const Cart = () => {
                     <textarea name="" id=""></textarea>
                     <div className="cart__list-rightbar-total">
                       <span>Tổng tiền hàng:</span>
-                      <span>đ{priceFormatter(cartData.data.total)}</span>
+                      <span>đ{priceFormatter(cart.data.total)}</span>
                     </div>
-                    <div className="text-end cart__list-rightbar-saved">
-                      Tiết kiệm đ{priceFormatter(cartData.data.saved)}
-                    </div>
-                    <div className="text-end ">
+                    {cart.data.savings ? (
+                      <div className="text-end cart__list-rightbar-saved">
+                        Tiết kiệm đ{priceFormatter(cart.data.savings)}
+                      </div>
+                    ): <></>}
+                    <div className="text-end cart__list-rightbar-more">
                       Thông tin vận chuyển và các thông tin khác hiện ở bước
                       thanh toán
                     </div>
-                    <Link to="/giohang/thanhtoan" className="btn-normal">Đi đến thanh toán</Link>
+                    <Link to="/giohang/thanhtoan" className="btn-normal">
+                      Đi đến thanh toán
+                    </Link>
                   </div>
                 </div>
               </div>

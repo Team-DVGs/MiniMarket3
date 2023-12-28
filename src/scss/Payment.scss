@@ -223,6 +223,8 @@
         &-rightbar{
             font-family: $main-font;
             padding: 1rem;
+            position: sticky;
+            top: 1.5rem;
             @include box-shadow-style;
             > p{
                 font-size: .8rem;
@@ -258,11 +260,11 @@
             &-saved{
                 color: var(--green-text);
                 font-size: .9rem;
-                + div{
-                    font-size: .7rem;
-                    font-style: italic;
-                    color: var(--gray-light-text);
-                }
+            }
+            &-more{
+                font-size: .7rem;
+                font-style: italic;
+                color: var(--gray-light-text);
             }
             > a{
                 display: inline-block;

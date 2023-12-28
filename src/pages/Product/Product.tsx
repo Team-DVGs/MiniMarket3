@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useNavigate} from "react-router-dom";
 import ProductSlider from '../../components/ProductSlider';
 import { useAppSelector, useAppDispatch } from '../../store';
 import { fetchProductDetail } from '../../store/features/Product/productDetailSlice';
 import { fetchRelatedProducts } from '../../store/features/Products/productListSlice';
 import { fetchProductReview } from '../../store/features/Product/productReviewSlice';
+import { addToCart } from '../../store/features/Cart/cartSlice';
 import ReadMore from '../../components/ReadMore';
 import ProductTemplate from '../../components/Product';
 import CategoryGroupRight from '../../components/Products/CategoryGroupRight';
@@ -18,9 +19,8 @@ const Product = () => {
   const productDetail = useAppSelector((state) => state.productDetail);
   const relatedProducts = useAppSelector(state => state.productList);
   const productReview = useAppSelector(state => state.productReview);
+  const user = useAppSelector(state => state.user);
   // Related Products
-  const productsList = useAppSelector(state => state.productList);
-  const productsRelated = productsList.data.slice(0,4);
   const [value, setValue] = useState<number>(1);
     const [currentThumb, setCurrentThumb] = useState<number>(0);
     const [tempCurrentThumb, setTempCurrentThumb] = useState<number>(currentThumb);
@@ -30,6 +30,7 @@ const Product = () => {
     const [addReview, setAddReview] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const params = useParams();
+    const navigate = useNavigate();
 
 
     const handleIncrease = () => {
@@ -69,11 +70,27 @@ const Product = () => {
         setModal(true);
     }
 
-  
+    const handleAddToCart = () => {
+      if (!user.data.isLoggedIn) {
+        navigate('/dangnhap');
+        return ;
+      }
+      dispatch(addToCart({cartId: user.data.cartId, productId: productDetail.data.id, quantity: value })).then(res => {
+        if (res.payload){
+          alert("Thêm vào giỏ hàng thành công");
+        }
+        else{
+          alert("Thêm thất bại");
+        }
+      });
+    }
     useEffect(() => {
-      dispatch(fetchProductDetail(params?.id || "-1") as any);
       dispatch(fetchRelatedProducts(params?.id || "-1") as any);
-    }, [])
+    },[])
+    useEffect(() => {
+      setCurrentThumb(0);
+      dispatch(fetchProductDetail(params?.id || "-1") as any);
+    }, [params.id])
     useEffect(() => {
       if (nav===1 && !flag){
         dispatch(fetchProductReview(params?.id || "-1") as any);
@@ -206,7 +223,7 @@ const Product = () => {
             {/* Info Desc */}
             <div className="col-12 col-md-7">
               <div className="product-detail__info-desc d-flex flex-column">
-                <span className="product-detail__info-desc-name my-2">
+                <span className="product-detail__info-desc-name">
                   {productDetail.data.name}
                 </span>
                 <div className="product__rating my-2 d-flex align-items-center">
@@ -273,9 +290,9 @@ const Product = () => {
                     </div>
                   </div>
                   {/* Others Buttons */}
-                  <button className="product__btn">
+                  <button className="product__btn" onClick={handleAddToCart}>
                     <i className="fa-solid fa-cart-shopping"></i>
-                    Add to cart
+                    Thêm vào giỏ hàng
                   </button>
                   <Link className="option__btn" to="/">
                     <i className="fa-regular fa-heart"></i>

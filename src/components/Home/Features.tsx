@@ -95,7 +95,8 @@ const Features = () => {
                       }`,
                     }}
                   >
-                    <img src={item.thumbnail} alt="" />
+                    <div className='feature__item-inner-img' style={{backgroundImage: `url(${item.thumbnail})`}}></div>
+
                     <h3 className="text-center">{item.name}</h3>
                     {/* <span className="text-center">{item.quantity} items</span> */}
                   </div>

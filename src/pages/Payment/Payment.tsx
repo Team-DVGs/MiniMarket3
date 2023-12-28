@@ -8,9 +8,10 @@ import { priceFormatter } from '../../utils';
 
 const Payment = () => {
     const cartData = useAppSelector(state => state.cart);
+    const user = useAppSelector((state) => state.user);
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(fetchCart());
+        dispatch(fetchCart(user.data.cartId.toString()));
     },[])
     // Location API handling
     useEffect(() => {
@@ -91,15 +92,15 @@ const Payment = () => {
         <div className="col-12 col-md-6 payment__info">
           <h1 className="section-header">Kiểm tra thông tin</h1>
           <ul>
-            {cartData.data.data.map((item) => (
+            {cartData.data.list.map((item) => (
               <li>
                 <div>
                   <img src={item.thumbnail} alt="" />
-                  <span>{item.quanity}</span>
+                  <span>{item.quantity}</span>
                 </div>
                 <p>{item.name}</p>
                 <span>
-                  đ{priceFormatter(item.quanity * item.discount_price)}
+                  đ{priceFormatter(item.quantity * item.discount_price)}
                 </span>
               </li>
             ))}

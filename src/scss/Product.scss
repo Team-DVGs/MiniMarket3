@@ -57,9 +57,7 @@
             padding-top: 100%;
             cursor: pointer;
             @include border-gray;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            @include bg-contain;
         }
         .imgoption{
             flex-basis: calc(100% /6); 
@@ -75,9 +73,7 @@
             > div{
                 width: 100%;
                 padding-top: 100%;
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center;
+                @include bg-contain;
             }
             &:hover{
                 border: 1px solid var(--green-text);
@@ -101,6 +97,10 @@
                 &:hover{
                     color: var(--navy-text);
                     cursor: default;
+                }
+                margin: .5rem 0;
+                @include mobile{
+                    margin: 1.5rem 0 1rem;
                 }
             }
             > span:nth-child(2){

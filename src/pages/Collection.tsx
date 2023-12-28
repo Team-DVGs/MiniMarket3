@@ -44,8 +44,7 @@ const Collection = () :JSX.Element => {
                       />
                     </div>
                     <div className="d-flex flex-column justify-content-between align-items-center">
-                      <p>{item.name}</p>
-                      <p>{3} products</p>
+                      <p className='mt-2'>{item.name}</p>
                     </div>
                   </Link>
                 </div>

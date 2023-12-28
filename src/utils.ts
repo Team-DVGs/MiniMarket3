@@ -1,5 +1,5 @@
 // Variables
-export const tenmien: string = "http://192.168.98.10:5020/";
+export const tenmien: string = "http://127.0.0.1:8000";
 
 // Intefaces
 export interface productHomeInterface { // product xuat hien o home, khong can thong tin ve brand
@@ -15,18 +15,18 @@ export interface productHomeInterface { // product xuat hien o home, khong can t
 export interface productInfoInterface extends productHomeInterface{
     canonical?: string,
     quantity?: number,
-    // category_id?:number,
+    category_id?:number,
     description: string;
     article: string,
     galleries: {
         thumbnail: string,
         sort: number,
-        product_id?:1000
+        product_id?: number
     }[],
     brand: {
         id: number,
         name:string,
-        thumbnail: string,
+        // thumbnail: string,
     }
     category:{
         id: number,

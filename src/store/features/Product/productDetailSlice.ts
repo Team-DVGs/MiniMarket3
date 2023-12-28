@@ -40,7 +40,7 @@ const initialState: productDetailState = {
     brand: {
       id: 0,
       name: "",
-      thumbnail: "",
+      // thumbnail: "",
     },
     category: {
       id: 0,
@@ -70,7 +70,7 @@ const productDetailSlice = createSlice({
         thumbnail:
           "https://cdn.tgdd.vn/Products/Images/7618/286781/bhx/sellingpoint.jpg",
         name: "Xúc xích hồ lô C.P gói 500g",
-        reg_price: 106000.00,
+        reg_price: 106000,
         discount_percent: 0,
         discount_price: 106000.00,
         canonical: "500g",
@@ -137,8 +137,6 @@ const productDetailSlice = createSlice({
         brand: {
           id: 2,
           name: "C.P",
-          thumbnail:
-            "https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100,s_104x59/https://cdn.tgdd.vn/Brand/11/cp-14032021212030.jpg",
         },
         category: {
           id: 15,

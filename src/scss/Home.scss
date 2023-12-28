@@ -482,13 +482,18 @@
             border: solid 1px #ccc;
             border-radius: .5rem;
             padding: .5rem;
-            img{
-                width: 80%;
+            &-img{
+                width: 90%;
+                padding-top: 90%;
+                @include bg-cover;
+                border-radius: .3rem;
                 margin: 0 auto;
+                margin-bottom: .3rem;
             }
             h3, span{
                 font-family: $main-font;
                 font-weight: 700;
+                min-height: 3rem;
             }
             h3{
                 font-size: .9rem;

@@ -36,7 +36,7 @@ import Cart from './pages/Payment/Cart';
 import Payment from './pages/Payment/Payment';
 import NotFound from './pages/Others/NotFound';
 import AllProducts from './pages/Products/AllProducts';
-import MyComponent from './Test';
+import User from './pages/User/User';
 // import { SkeletonTheme } from 'react-loading-skeleton/dist/SkeletonTheme';
 
 
@@ -50,9 +50,14 @@ const router = createBrowserRouter(
       <Route path="/search" element={<AllProducts />} />
       {/* Product Detail */}
       <Route path="/sanpham/:id" element={<Product />} />
+      {/* Auth */}
+      <Route path="/dangnhap" element={<Login />} />
+      <Route path="/dangky" element={<Register />} />
+      <Route path="/taikhoan" element={<User />}>
+        <Route path="donhang" element={<div>Lịch sử đơn hàng</div>} />
+        <Route path="donhang/:id" element={<div>Thông tin đơn hàng</div>} />
+      </Route>
 
-      <Route path="/taikhoan/dangnhap" element={<Login />} />
-      <Route path="/taikhoan/dangky" element={<Register />} />
       <Route path="/giohang" element={<Cart />} />
       <Route path="/giohang/thanhtoan" element={<Payment />} />
 

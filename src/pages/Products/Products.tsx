@@ -50,6 +50,7 @@ const Products = () => {
     <>
       <BreadCrumbs crumbTitles={["Danh mục", category.data.categoryGroupName || "Thông tin"]}/>
       <div className="products page-margin">
+        {/* Header */}
         {category.loading ? (
           <Skeleton height={70} className="mb-2" />
         ) : (
@@ -64,7 +65,7 @@ const Products = () => {
             <h1>{category.data.categoryGroupName}</h1>
           </div>
         )}
-
+        {/* Products and Sidebar */}
         <div className="row">
           <div className="col-12 col-md-9">
             {category.loading ? (

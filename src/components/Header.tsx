@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react'
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useLocation} from "react-router-dom";
 import { fetchCart } from '../store/features/Cart/cartSlice';
 import { useAppSelector, useAppDispatch } from '../store';
 import { priceFormatter } from '../utils';
+
 import Modal from './Modal';
 import SearchBox from './SearchBox';
+import Skeleton from 'react-loading-skeleton';
 
 const Header = (): JSX.Element=> {
   const links: {
@@ -148,21 +150,25 @@ const Header = (): JSX.Element=> {
   ];
   const cartData = useAppSelector(state => state.cart);
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [heading, setHeading] = useState<string>("");
   const [wishModal, setWishModal] = useState<boolean>(false);
-  const openWish = () => {
-    setWishModal(true);
+  const user = useAppSelector(state => state.user);
+  const getName = ():string => {
+    const arrName = user.data.fullname.split(" ");
+    return arrName[arrName.length - 1];
   }
   const closeWish = (): void => {
     setWishModal(false);
   }
   useEffect(() => {
-    dispatch(fetchCart());
+    dispatch(fetchCart(user.data.cartId.toString()));
     return () =>{
     }
   },[])
+  
 
   return (
     <div className="nav header position-relative">
@@ -172,7 +178,7 @@ const Header = (): JSX.Element=> {
           <Link to="/vechungtoi">
             <span>Về chúng tôi</span>
           </Link>
-          <Link to="/taikhoan/dangnhap">
+          <Link to="/taikhoan">
             <span>Tài khoản</span>
           </Link>
           <Link to="/about">
@@ -209,7 +215,7 @@ const Header = (): JSX.Element=> {
         {/* Center */}
         <div className="header-inner container-md">
           <div className="header-inner-left d-none d-lg-flex">
-            <SearchBox type='normal' />
+            <SearchBox type="normal" />
           </div>
           <div className="header-inner-left d-flex d-lg-none align-items-center">
             <div onClick={() => setMenuOpen((prev) => !prev)}>
@@ -247,11 +253,11 @@ const Header = (): JSX.Element=> {
                 minHeight={500}
                 onClose={closeWish}
                 children={
-                  <div className='cart__list d-flex flex-column h-100'>
+                  <div className="cart__list d-flex flex-column h-100">
                     <h1 className="text-center section-header ">
                       Danh sách yêu thích
                     </h1>
-                    <div className='flex-grow-1 overflow-y-auto overflow-x-hidden'>
+                    <div className="flex-grow-1 overflow-y-auto overflow-x-hidden">
                       <table>
                         <thead className="">
                           <tr>
@@ -261,7 +267,7 @@ const Header = (): JSX.Element=> {
                           </tr>
                         </thead>
                         <tbody>
-                          {cartData.data.data.map((item) => (
+                          {cartData.data.list.map((item) => (
                             <tr className="cart__product">
                               {/* Ten va anh*/}
                               <td className="cart__product-name row g-3">
@@ -299,68 +305,87 @@ const Header = (): JSX.Element=> {
                 }
               />
             )}
-            <Link
-              to="/giohang"
-              className="position-relative header-inner-right-cartlink"
-            >
-              <i className="header-inner-right-icon fa-solid fa-cart-shopping"></i>
-              <span className="d-none d-lg-block">Giỏ hàng</span>
-              {/* Gio hang hover */}
-              <div
-                className="header-inner-right-cart"
-                onClick={(event) => {
-                  event.preventDefault();
-                  event.stopPropagation();
-                }}
+            {location.pathname!=='/giohang' &&
+              <Link
+                to={`${user.data.isLoggedIn ? "/giohang" : "/dangnhap"}`}
+                className="position-relative header-inner-right-cartlink"
               >
-                <p className="m-0">Giỏ hàng</p>
-                {cartData.data.data.length ? (
-                  <>
-                    <ul>
-                      {cartData.data.data.map((item) => (
-                        <li className="row">
-                          <div className="col-3">
-                            <div
-                              style={{
-                                backgroundImage: `url(${item.thumbnail})`,
-                              }}
-                            ></div>
-                          </div>
-                          <div className="col-9">
-                            <h4>{item.name}</h4>
-                            <div>
-                              <span>
-                                {item.quanity} x đ
-                                {priceFormatter(item.discount_price)}
-                              </span>
-                              <s>đ{priceFormatter(item.reg_price)}</s>
-                            </div>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="">
-                      <span>Total</span>
-                      <span>đ{priceFormatter(cartData.data.total)}</span>
-                    </div>
-                    <div>
-                      <Link to="/giohang" className="btn-normal">
-                        Xem giỏ hàng
-                      </Link>
-                      <Link to="/thanhtoan" className="btn-normal">
-                        Thanh toán
-                      </Link>
-                    </div>
-                  </>
-                ) : (
-                  <span>Giỏ hàng trống</span>
-                )}
-              </div>
-            </Link>
-            <Link to="/taikhoan/dangnhap">
-              <i className="header-inner-right-icon fa-regular fa-user"></i>
-              <span className="d-none d-lg-block">Đăng nhập</span>
-            </Link>
+                <i className="header-inner-right-icon fa-solid fa-cart-shopping"></i>
+                <span className="d-none d-lg-block">Giỏ hàng</span>
+                {/* Gio hang hover */}
+                <div
+                  className="header-inner-right-cart"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                  }}
+                >
+                  <p className="m-0">Giỏ hàng</p>
+                  {user.data.isLoggedIn ? (
+                    cartData.loading ? (
+                      <ul>
+                        <Skeleton height={50} className='my-2' />
+                        <Skeleton height={50} className='my-2' />
+                        <Skeleton height={50} className='my-2' />
+                      </ul>
+                    ) : cartData.data.list.length ? (
+                      <>
+                        <ul>
+                          {cartData.data.list.map((item) => (
+                            <li className="row">
+                              <div className="col-3">
+                                <div
+                                  style={{
+                                    backgroundImage: `url(${item.thumbnail})`,
+                                  }}
+                                ></div>
+                              </div>
+                              <div className="col-9">
+                                <h4>{item.name}</h4>
+                                <div>
+                                  <span>
+                                    {item.quantity} x đ
+                                    {priceFormatter(item.discount_price)}
+                                  </span>
+                                  <s>đ{priceFormatter(item.reg_price)}</s>
+                                </div>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="">
+                          <span>Tổng tiền</span>
+                          <span>đ{priceFormatter(cartData.data.total)}</span>
+                        </div>
+                        <div>
+                          <Link to="/giohang" className="btn-normal">
+                            Xem giỏ hàng
+                          </Link>
+                          <Link to="/thanhtoan" className="btn-normal">
+                            Thanh toán
+                          </Link>
+                        </div>
+                      </>
+                    ) : (
+                      <span>Giỏ hàng trống</span>
+                    )
+                  ) : (
+                    <span>Bạn chưa đăng nhập</span>
+                  )}
+                </div>
+              </Link>
+            }
+            {user.data.isLoggedIn ? (
+              <Link to="/taikhoan">
+                <i className="header-inner-right-icon fa-regular fa-user"></i>
+                <span className="d-none d-lg-block">Xin chào, {getName()}</span>
+              </Link>
+            ) : (
+              <Link to="/dangnhap">
+                <i className="header-inner-right-icon fa-regular fa-user"></i>
+                <span className="d-none d-lg-block">Đăng nhập</span>
+              </Link>
+            )}
           </div>
         </div>
         {/* Bottom */}
@@ -410,7 +435,7 @@ const Header = (): JSX.Element=> {
         </nav>
       </header>
       {/* Mobile search */}
-      <SearchBox type='mobile' searchOpen={searchOpen} />
+      <SearchBox type="mobile" searchOpen={searchOpen} />
 
       {/* Mobile nav */}
       <div

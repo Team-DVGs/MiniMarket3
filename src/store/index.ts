@@ -10,6 +10,7 @@ import productsPopularSlice from "./features/Home/productsPopularSlice";
 import brandSlice from "./features/CategoryProducts/brandSlice";
 import categorySlice from "./features/CategoryProducts/categorySlice";
 import categoryGroupRandSlice from "./features/CategoryProducts/categoryGroupRandSlice";
+import userSlice from "./features/Auth/userSlice";
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import productReviewSlice from "./features/Product/productReviewSlice";
@@ -28,7 +29,8 @@ export const store = configureStore({
     productsPopular: productsPopularSlice.reducer,
     brand: brandSlice.reducer,
     categoryGroupRand: categoryGroupRandSlice.reducer,
-    productReview: productReviewSlice.reducer
+    productReview: productReviewSlice.reducer,
+    user: userSlice.reducer
   },
   devTools: process.env.NODE_ENV==="development",
 });

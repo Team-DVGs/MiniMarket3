@@ -130,3 +130,15 @@
         outline: 1px solid var(--green-text);
     }
 }
+
+@mixin bg-cover{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+@mixin bg-contain{
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
