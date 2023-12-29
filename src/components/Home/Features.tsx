@@ -7,30 +7,30 @@ import Skeleton from 'react-loading-skeleton';
 
 const Features = () => {
     const [index, setIndex] = useState<number>(0);
-    const [numberShown, setNumberShown] = useState<number>(0);
+    const [numberShown, setNumberShown] = useState<number>(4);
     const categoryGroup = useAppSelector(state=>state.categoryGroup);
     const dispatch = useAppDispatch();
     useEffect(() => {
       dispatch(fetchCategoryGroup());
     },[] )
-    useEffect(() => {
-        const screenWidth = window.innerWidth;
-        if (screenWidth < 767) setNumberShown(4);
-        else if (screenWidth > 767 && screenWidth <= 991) setNumberShown(6);
-        else setNumberShown(8);
-    },[window.innerWidth])
+    // useEffect(() => {
+    //     const screenWidth = window.innerWidth;
+    //     if (screenWidth < 767) setNumberShown(4);
+    //     else if (screenWidth > 767 && screenWidth <= 991) setNumberShown(4);
+    //     else setNumberShown(4);
+    // },[window.innerWidth])
 
-    const handleClicked = (isRight: boolean) => {
-      const n = categoryGroup.data.length - numberShown;
-      if (n < 0) return;
-      if (!isRight) {
-        if (!index) setIndex(n);
-        else setIndex((prev) => prev - 1);
-      } else {
-        if (index ===  n) setIndex(0);
-        else setIndex((prev) => prev + 1);
-      }
-    };
+    // const handleClicked = (isRight: boolean) => {
+    //   const n = categoryGroup.data.length - numberShown;
+    //   if (n < 0) return;
+    //   if (!isRight) {
+    //     if (!index) setIndex(n);
+    //     else setIndex((prev) => prev - 1);
+    //   } else {
+    //     if (index ===  n) setIndex(0);
+    //     else setIndex((prev) => prev + 1);
+    //   }
+    // };
     
     const categoryColors: string[] = [
       "#F2FCE4",
@@ -44,13 +44,10 @@ const Features = () => {
         <div className="d-flex justify-content-between align-items-center">
           <h1 className="section-header">Danh mục</h1>
           <div>
-            <Link
-              className="text-decoration-none text-secondary me-4"
-              to="danhmuc"
-            >
+            <Link className="text-decoration-none text-secondary" to="danhmuc">
               Xem tất cả
             </Link>
-            <button className="arrow" onClick={() => handleClicked(false)}>
+            {/* <button className="arrow" onClick={() => handleClicked(false)}>
               <i className="fa-solid fa-arrow-left"></i>
             </button>
             <button
@@ -58,23 +55,23 @@ const Features = () => {
               onClick={() => handleClicked(true)}
             >
               <i className="fa-solid fa-arrow-right"></i>
-            </button>
+            </button> */}
           </div>
         </div>
         {/* Features */}
         <div className="feature__content mt-2 d-flex overflow-hidden">
           {categoryGroup.loading
-            ? Array(8)
+            ? Array(4)
                 .fill(0)
                 .map((item) => (
                   <div
                     className="px-2"
                     style={{
-                      width: `calc(100% / 8)`,
-                      height: '120px'
+                      width: `calc(100% / ${numberShown})`,
+                      height: "500px",
                     }}
                   >
-                    <Skeleton height={120}/>
+                    <Skeleton height={120} />
                   </div>
                 ))
             : categoryGroup.data.map((item, idx) => (
@@ -88,16 +85,18 @@ const Features = () => {
                   key={idx}
                 >
                   <div
-                    className="feature__item-inner d-flex flex-column"
+                    className="feature__item-inner d-flex flex-column "
                     style={{
                       backgroundColor: `${
                         categoryColors[idx % categoryColors.length]
                       }`,
                     }}
                   >
-                    <div className='feature__item-inner-img' style={{backgroundImage: `url(${item.thumbnail})`}}></div>
-
-                    <h3 className="text-center">{item.name}</h3>
+                    <div
+                      className="feature__item-inner-img border"
+                      style={{ backgroundImage: `url(${item.thumbnail})`, borderColor: "#ececec" }}
+                    ></div>
+                    <h3 className="text-center mt-1">{item.name}</h3>
                     {/* <span className="text-center">{item.quantity} items</span> */}
                   </div>
                 </Link>

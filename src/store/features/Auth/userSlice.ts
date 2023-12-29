@@ -154,7 +154,7 @@ const userSlice = createSlice({
     builder.addCase(checkLogin.pending, (state) => {
       state.loading = true;
       state.error = "";
-      state.data = initialState.data;
+      // state.data = initialState.data;
     });
     builder.addCase(checkLogin.fulfilled, (state, action) => {
       state.loading = false;
@@ -162,6 +162,7 @@ const userSlice = createSlice({
     });
     builder.addCase(checkLogin.rejected, (state, action) => {
       state.loading = false;
+      state = initialState;
       document.cookie =
         "userId" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     });

@@ -31,6 +31,11 @@ const Login = () => {
     });
   }
 
+  // Set document title
+  React.useEffect(() => {
+    document.title = "Đăng nhập mua sắm online | GreenMart";
+  }, [])
+
 
   return (
     <div className="login">

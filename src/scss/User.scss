@@ -1,0 +1,33 @@
+@import "./_base";
+@import "./_mixins";
+
+.user{
+    .user__orders{
+        &-imgcontainer{
+        }
+        &-img{
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+        .info{
+            width: 60%;
+            padding: 0 .8rem;
+            font-size: .9rem;
+            overflow: hidden;
+            strong{
+                display: inline-block;
+                width: 100%;
+                white-space: nowrap;       /* Prevents the text from wrapping to the next line */
+                overflow: hidden;          /* Hides any overflow beyond the container */
+                text-overflow: ellipsis; 
+            }
+            p.info{
+                line-height:normal;
+                height: auto;
+                font-size: .8rem;
+            }
+
+        }
+    }
+}

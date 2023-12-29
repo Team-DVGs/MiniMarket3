@@ -14,14 +14,14 @@ import ProductSkeleton from '../../components/ProductSkeleton';
 import CategoryGroupRight from '../../components/Products/CategoryGroupRight';
 import BreadCrumbs from '../../components/BreadCrumbs';
 const Products = () => {
-  const productList = useAppSelector(state => state.productList);
-  const category = useAppSelector(state => state.category);
-  const brand = useAppSelector(state => state.brand);
+  const productList = useAppSelector((state) => state.productList);
+  const category = useAppSelector((state) => state.category);
+  const brand = useAppSelector((state) => state.brand);
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const params = useParams();
   function clearFilter() {
-    setSearchParams({"page": "1"});
+    setSearchParams({ page: "1" });
   }
   React.useEffect(() => {
     dispatch(
@@ -29,26 +29,35 @@ const Products = () => {
         id: parseInt(params.id || ""),
         query: searchParams.toString(),
       }) as any
-      );
-    }, [searchParams]);
+    );
+  }, [searchParams]);
 
   React.useEffect(() => {
-      setSearchParams(prev => {
-        prev.delete("brand");
-        return prev;
-      });
-      if (!searchParams.get("categoryId")){
-        dispatch(fetchBrandCateGroup(parseInt(params.id || "")) as any);
-      }
-      else{
-        dispatch(fetchBrandCate(parseInt(params.id || "")) as any);
-      }
-  }, [searchParams.get('categoryId')])
+    setSearchParams((prev) => {
+      prev.delete("brand");
+      return prev;
+    });
+    if (!searchParams.get("categoryId")) {
+      dispatch(fetchBrandCateGroup(parseInt(params.id || "")) as any);
+    } else {
+      dispatch(fetchBrandCate(parseInt(params.id || "")) as any);
+    }
+  }, [searchParams.get("categoryId")]);
 
-
+  // Set document title
+  React.useEffect(() => {
+    document.title = `Danh mục: ${
+      category.data.categoryGroupName || "SP"
+    } | GreenMart`;
+  }, [category.data.categoryGroupName]);
   return (
     <>
-      <BreadCrumbs crumbTitles={["Danh mục", category.data.categoryGroupName || "Thông tin"]}/>
+      <BreadCrumbs
+        crumbTitles={[
+          "Danh mục",
+          category.data.categoryGroupName || "Thông tin",
+        ]}
+      />
       <div className="products page-margin">
         {/* Header */}
         {category.loading ? (
@@ -160,7 +169,7 @@ const Products = () => {
                     },
                     {
                       optionName: "Dưới 50.000đ",
-                      query: "0-20",
+                      query: "0-50",
                     },
                     {
                       optionName: "Từ 50.000đ đến 100.000đ",

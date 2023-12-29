@@ -12,6 +12,7 @@ const Collection = () :JSX.Element => {
     const dispatch = useAppDispatch();
     useEffect(() => {
       dispatch(fetchCategoryGroup());
+      document.title = `Các danh mục | GreenMart`;
     }, [])
   return (
     <>

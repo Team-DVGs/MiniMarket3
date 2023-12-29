@@ -11,9 +11,12 @@ import brandSlice from "./features/CategoryProducts/brandSlice";
 import categorySlice from "./features/CategoryProducts/categorySlice";
 import categoryGroupRandSlice from "./features/CategoryProducts/categoryGroupRandSlice";
 import userSlice from "./features/Auth/userSlice";
+import orderListSlice from "./features/Orders/orderListSlice";
+import orderSlice from "./features/Orders/orderSlice";
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import productReviewSlice from "./features/Product/productReviewSlice";
+import wishlistSlice from "./features/Products/wishlistSlice";
 
 
 export const store = configureStore({
@@ -30,7 +33,10 @@ export const store = configureStore({
     brand: brandSlice.reducer,
     categoryGroupRand: categoryGroupRandSlice.reducer,
     productReview: productReviewSlice.reducer,
-    user: userSlice.reducer
+    user: userSlice.reducer,
+    order: orderSlice.reducer,
+    orderList: orderListSlice.reducer,
+    wishlist: wishlistSlice.reducer,
   },
   devTools: process.env.NODE_ENV==="development",
 });

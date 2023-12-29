@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { useAppSelector, useAppDispatch } from '../../store';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../store/features/Auth/userSlice';
 import { checkLogin } from '../../store/features/Auth/userSlice';
+import { addNewOrder } from '../../store/features/Orders/orderSlice';
+import { fetchOrderList } from '../../store/features/Orders/orderListSlice';
 import BreadCrumbs from '../../components/BreadCrumbs';
 
 const User = () => {
@@ -67,12 +69,12 @@ const User = () => {
     useEffect(() => {
         const { email, fullname, phone, address } = user.data;
         setFormData({ email, fullname, phone, address });
-    }, [loading])
+    }, [user.data.isLoggedIn])
     
   return !loading ? (
     <>
       <BreadCrumbs crumbTitles={["Thông tin tài khoản"]} />
-      <div className="payment row">
+      <div className="payment row user">
         <div className="col-12 col-md-5 payment__shipinfo">
           <div className="payment__ship">
             <h1 className="section-header">Thông tin cá nhân</h1>
@@ -129,7 +131,7 @@ const User = () => {
               >
                 {user.loading ? "Cập nhật..." : "Cập nhật"}
               </button>
-              <button className="ms-2 btn-login" onClick={handleSignOut}>
+              <button className=" btn-login" onClick={handleSignOut}>
                 <i className="fa-solid fa-chevron-left me-2"></i>
                 Đăng xuất
               </button>
@@ -152,27 +154,8 @@ const User = () => {
             </span>
           </div> */}
         </div>
-        <div className="col-12 col-md-7 payment__info">
-          <h1 className="section-header">Lịch sử mua hàng</h1>
-          <ul>
-
-          </ul>
-          {/* <h1 className="section-header mt-2">Thông tin hoá đơn</h1>
-          <div className="payment__info-final">
-            <span>Tiền hàng:</span>
-            <span>đ</span>
-          </div>
-          <div className="payment__info-final">
-            <span>Phí vận chuyển</span>
-            <span>Miễn phí</span>
-          </div>
-          <div className="payment__info-final">
-            <span>Tổng tiền hàng:</span>
-            <span>đ</span>
-          </div>
-          <button className="w-100 btn-normal font-bold mt-3">
-            Xác nhận thanh toán
-          </button> */}
+        <div className="col-12 col-md-7 payment__info user__orders">
+          <Outlet />
         </div>
       </div>
     </>

@@ -8,6 +8,7 @@ import "./scss/Info.scss";
 import "./scss/Auth.scss";
 import "./scss/Payment.scss";
 import "./scss/Others.scss";
+import "./scss/User.scss";
 
 
 import { 
@@ -37,6 +38,8 @@ import Payment from './pages/Payment/Payment';
 import NotFound from './pages/Others/NotFound';
 import AllProducts from './pages/Products/AllProducts';
 import User from './pages/User/User';
+import OrderList from './pages/User/OrderList';
+import OrderDetail from './pages/User/OrderDetail';
 // import { SkeletonTheme } from 'react-loading-skeleton/dist/SkeletonTheme';
 
 
@@ -53,11 +56,12 @@ const router = createBrowserRouter(
       {/* Auth */}
       <Route path="/dangnhap" element={<Login />} />
       <Route path="/dangky" element={<Register />} />
+      {/* User Info */}
       <Route path="/taikhoan" element={<User />}>
-        <Route path="donhang" element={<div>Lịch sử đơn hàng</div>} />
-        <Route path="donhang/:id" element={<div>Thông tin đơn hàng</div>} />
+        <Route index element={<OrderList />} />
+        <Route path="donhang/:id" element={<OrderDetail />} />
       </Route>
-
+      {/* Cart and Payment */}
       <Route path="/giohang" element={<Cart />} />
       <Route path="/giohang/thanhtoan" element={<Payment />} />
 

@@ -2,6 +2,10 @@ import React from "react";
 import BreadCrumbs from "../../components/BreadCrumbs";
 
 const Contact = () => {
+  // Set document title
+  React.useEffect(() => {
+    document.title = "Liên hệ | GreenMart";
+  }, []);
   return (
     <>
       <BreadCrumbs crumbTitles={["Thông tin liên hệ"]} />
@@ -24,7 +28,8 @@ const Contact = () => {
                 <strong>Email:</strong> info@greenmart.com
               </li>
               <li className="list-group-item">
-                <strong>Điện Thoại:</strong> +18001091</li>
+                <strong>Điện Thoại:</strong> +18001091
+              </li>
             </ul>
           </section>
 

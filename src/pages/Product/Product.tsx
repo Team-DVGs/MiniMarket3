@@ -6,6 +6,7 @@ import { fetchProductDetail } from '../../store/features/Product/productDetailSl
 import { fetchRelatedProducts } from '../../store/features/Products/productListSlice';
 import { fetchProductReview } from '../../store/features/Product/productReviewSlice';
 import { addToCart } from '../../store/features/Cart/cartSlice';
+import { addToWishList } from '../../store/features/Products/wishlistSlice';
 import ReadMore from '../../components/ReadMore';
 import ProductTemplate from '../../components/Product';
 import CategoryGroupRight from '../../components/Products/CategoryGroupRight';
@@ -13,119 +14,144 @@ import BreadCrumbs from '../../components/BreadCrumbs';
 import Skeleton from 'react-loading-skeleton';
 import ProductSkeleton from '../../components/ProductSkeleton';
 import ReviewForm from '../../components/Product/ReviewForm';
+import { formatDateTime } from '../../utils';
 const Product = () => {
   // Redux state
-  const loading = useAppSelector((state => state.productDetail.loading));
+  const loading = useAppSelector((state) => state.productDetail.loading);
   const productDetail = useAppSelector((state) => state.productDetail);
-  const relatedProducts = useAppSelector(state => state.productList);
-  const productReview = useAppSelector(state => state.productReview);
-  const user = useAppSelector(state => state.user);
+  const relatedProducts = useAppSelector((state) => state.productList);
+  const productReview = useAppSelector((state) => state.productReview);
+  const user = useAppSelector((state) => state.user);
+
   // Related Products
   const [value, setValue] = useState<number>(1);
-    const [currentThumb, setCurrentThumb] = useState<number>(0);
-    const [tempCurrentThumb, setTempCurrentThumb] = useState<number>(currentThumb);
-    const [modal, setModal] = useState<boolean>(false);
-    const [nav, setNav] = useState<number>(0);
-    const [flag, setFlag] = useState<boolean>(false);
-    const [addReview, setAddReview] = useState<boolean>(false);
-    const dispatch = useAppDispatch();
-    const params = useParams();
-    const navigate = useNavigate();
+  const [currentThumb, setCurrentThumb] = useState<number>(0);
+  const [tempCurrentThumb, setTempCurrentThumb] =
+    useState<number>(currentThumb);
+  const [modal, setModal] = useState<boolean>(false);
+  const [nav, setNav] = useState<number>(0);
+  const [flag, setFlag] = useState<boolean>(false);
+  const [addReview, setAddReview] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const params = useParams();
+  const navigate = useNavigate();
 
+  const handleIncrease = () => {
+    setValue(value + 1);
+  };
+  const handleDecrease = () => {
+    if (value > 1) {
+      setValue(value - 1);
+    }
+  };
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
 
-    const handleIncrease = () => {
-      setValue(value + 1);
-    };
-    const handleDecrease = () => {
-      if (value > 1) {
-        setValue(value - 1);
-      }
-    };
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const inputValue = event.target.value;
+    // Allow only positive integer numbers
+    if (!inputValue) {
+      setValue(1);
+    } else if (/^\d+$/.test(inputValue)) {
+      setValue(parseInt(inputValue, 10));
+    }
+  };
 
-      // Allow only positive integer numbers
-      if (!inputValue){
-        setValue(1);
-      }
-      else if (/^\d+$/.test(inputValue)) {
-        setValue(parseInt(inputValue, 10));
-      }
-    };
-
-    const handleClicked = (isRight: boolean) => {
+  const handleClicked = (isRight: boolean) => {
     //   const n = props.length - numberShown;
     //   if (n < 0) return;
-      const n = productDetail.data.galleries?.length || 0;
-      if (!isRight) {
-        if (tempCurrentThumb < n-1) setTempCurrentThumb(prev => prev+1);
-        else setTempCurrentThumb(0);
+    const n = productDetail.data.galleries?.length || 0;
+    if (!isRight) {
+      if (tempCurrentThumb < n - 1) setTempCurrentThumb((prev) => prev + 1);
+      else setTempCurrentThumb(0);
+    } else {
+      if (tempCurrentThumb > 0) setTempCurrentThumb((prev) => prev - 1);
+      else setTempCurrentThumb(n - 1);
+    }
+  };
+  const showModal = () => {
+    setTempCurrentThumb(currentThumb);
+    setModal(true);
+  };
+
+  const handleAddToCart = () => {
+    if (!user.data.isLoggedIn) {
+      navigate("/dangnhap");
+      return;
+    }
+    dispatch(
+      addToCart({
+        cartId: user.data.cartId,
+        productId: productDetail.data.id,
+        quantity: value,
+      })
+    ).then((res) => {
+      if (res.payload) {
+        alert("Thêm vào giỏ hàng thành công");
       } else {
-        if (tempCurrentThumb > 0) setTempCurrentThumb((prev) => prev - 1);
-        else setTempCurrentThumb(n-1);
+        alert("Thêm thất bại");
       }
-    };
-    const showModal = () => {
-        setTempCurrentThumb(currentThumb);
-        setModal(true);
-    }
+    });
+  };
+  function handleAddWishList() {
+    const productId = parseInt(params?.id || "-1");
+    const userId = user.data.id;
+    dispatch(addToWishList({ productId, userId })).then((res) => {
+      if (res.payload) {
+        alert("Thêm vào danh sách yêu thích thành công");
+      } else {
+        alert("Thêm yêu thích thất bại");
+      }
+    });
+  }
 
-    const handleAddToCart = () => {
-      if (!user.data.isLoggedIn) {
-        navigate('/dangnhap');
-        return ;
-      }
-      dispatch(addToCart({cartId: user.data.cartId, productId: productDetail.data.id, quantity: value })).then(res => {
-        if (res.payload){
-          alert("Thêm vào giỏ hàng thành công");
-        }
-        else{
-          alert("Thêm thất bại");
-        }
-      });
+  useEffect(() => {
+    dispatch(fetchRelatedProducts(params?.id || "-1") as any);
+  }, []);
+  useEffect(() => {
+    setCurrentThumb(0);
+    dispatch(fetchProductDetail(params?.id || "-1") as any);
+  }, [params.id]);
+  useEffect(() => {
+    if (nav === 1 && !flag) {
+      dispatch(fetchProductReview(params?.id || "-1") as any);
+      setFlag(true);
     }
-    useEffect(() => {
-      dispatch(fetchRelatedProducts(params?.id || "-1") as any);
-    },[])
-    useEffect(() => {
-      setCurrentThumb(0);
-      dispatch(fetchProductDetail(params?.id || "-1") as any);
-    }, [params.id])
-    useEffect(() => {
-      if (nav===1 && !flag){
-        dispatch(fetchProductReview(params?.id || "-1") as any);
-        setFlag(true);
+  }, [nav]);
+  useEffect(() => {
+    if (!productDetail.loading && productDetail.data.id !== 0) {
+      // Zooming img
+      const img = document.querySelector(
+        ".product-detail__info-img"
+      ) as HTMLElement;
+      const imgContainer = document.querySelector(
+        ".product-detail__info-img-container"
+      ) as HTMLElement;
+      const handleMouseMove = (event: MouseEvent) => {
+        const mouseX = event.clientX - img.getBoundingClientRect().x;
+        const mouseY = event.clientY - img.getBoundingClientRect().y;
+        img.style.transformOrigin = `${mouseX}px ${mouseY}px`;
+        img.style.transform = "scale(1.4)";
+      };
+      const handleMouseLeave = (event: MouseEvent) => {
+        console.log("leave");
+        img.style.transformOrigin = "center";
+        img.style.transform = "scale(1)";
+      };
+      if (img && imgContainer) {
+        img.addEventListener("mousemove", handleMouseMove);
+        imgContainer.addEventListener("mouseleave", handleMouseLeave);
       }
-    }, [nav])
-    useEffect(() => {
-        if (!productDetail.loading && productDetail.data.id!==0){
-          // Zooming img
-          const img = document.querySelector(".product-detail__info-img") as HTMLElement;
-          const imgContainer = document.querySelector('.product-detail__info-img-container') as HTMLElement;
-          const handleMouseMove = (event: MouseEvent) => {
-                  const mouseX = event.clientX - img.getBoundingClientRect().x;
-                  const mouseY = event.clientY - img.getBoundingClientRect().y;
-                  img.style.transformOrigin=`${mouseX}px ${mouseY}px`;
-                  img.style.transform = 'scale(1.4)';
-          }
-          const handleMouseLeave = (event: MouseEvent) => {
-              console.log('leave');
-            img.style.transformOrigin = "center";
-            img.style.transform = "scale(1)";
-          };
-          if (img && imgContainer){
-              img.addEventListener('mousemove', handleMouseMove);
-              imgContainer.addEventListener('mouseleave', handleMouseLeave);
-          }
-          return () => {
-              if (img){
-                  img.removeEventListener('mousemove', handleMouseMove);
-                  imgContainer.removeEventListener('mouseleave',handleMouseLeave);
-              }
-          }
+      return () => {
+        if (img) {
+          img.removeEventListener("mousemove", handleMouseMove);
+          imgContainer.removeEventListener("mouseleave", handleMouseLeave);
         }
-    }, [productDetail.loading]);
-
+      };
+    }
+  }, [productDetail.loading]);
+  // Set document title
+  React.useEffect(() => {
+    document.title = `${productDetail.data.name || "Sản phẩm"} | GreenMart`;
+  }, [productDetail.data.name]);
   return (
     <>
       {modal && (
@@ -195,7 +221,7 @@ const Product = () => {
               <div className="w-100 mt-3">
                 <ProductSlider
                   id={1}
-                  length={productDetail.data.galleries?. length || 0}
+                  length={productDetail.data.galleries?.length || 0}
                   numberShown={[3, 4, 5]}
                   productsJSX={
                     <>
@@ -294,10 +320,10 @@ const Product = () => {
                     <i className="fa-solid fa-cart-shopping"></i>
                     Thêm vào giỏ hàng
                   </button>
-                  <Link className="option__btn" to="/">
+                  <button className="option__btn" onClick={handleAddWishList}>
                     <i className="fa-regular fa-heart"></i>
-                  </Link>
-                  <Link className="option__btn" to="/">
+                  </button>
+                  <Link className="option__btn" to="facebook.com">
                     <i className="fa-solid fa-share"></i>
                   </Link>
                 </div>
@@ -382,12 +408,17 @@ const Product = () => {
                   >
                     Tạo đánh giá mới
                   </button>
-                  {addReview && <ReviewForm id={params?.id || "-1"} />}
+                  {addReview && (
+                    <ReviewForm
+                      id={params?.id || "-1"}
+                      setAddReview={setAddReview}
+                    />
+                  )}
                   {/* list reviews */}
                   <ul className="nav__reviews-list mt-3">
                     {productReview.loading ? (
                       <Skeleton height={60} count={3} />
-                    ) : (
+                    ) : productReview.data.length ? (
                       productReview.data.map((review) => (
                         <li className="nav__reviews-list-item">
                           <div className="product__rating my-2 d-flex align-items-center">
@@ -407,15 +438,14 @@ const Product = () => {
                           </div>
                           <div>
                             <span className="fw-bold">{review.fullname}</span>
-                            <span> - {review.created_at}</span>
+                            <span> - {formatDateTime(review.created_at)}</span>
                           </div>
                           <h4>{review.title}</h4>
-                          <ReadMore
-                            lineShown={2}
-                            txtElement={<p>{review.comment}</p>}
-                          />
+                          <ReadMore lineShown={2} text={review.comment} />
                         </li>
                       ))
+                    ) : (
+                      <p className="text-center">Không có đánh giá</p>
                     )}
                   </ul>
                 </div>
@@ -426,7 +456,7 @@ const Product = () => {
               <h1 className="section-header mb-3">Sản phẩm liên quan</h1>
               <ProductSlider
                 id={2}
-                length={relatedProducts.data?.length || 0 }
+                length={relatedProducts.data?.length || 0}
                 numberShown={[2, 3, 4]}
                 sliding={false}
                 loading={relatedProducts.loading}

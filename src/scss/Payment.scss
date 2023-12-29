@@ -323,6 +323,24 @@
     }
     &__info{
         padding: 1rem 1.2rem 1rem;
+        // .message{
+            p{
+                font-size: .9rem;
+                color: var(--gray-text);
+                margin-bottom: .3rem;
+            }
+            textarea{
+                border-radius: .4rem;
+                width: 100%;
+                min-height: 90px;
+                border: 1px solid var(--gray-border);
+                padding: 0 .5rem;
+                &:focus{
+                    outline: 1px solid var(--green-text);
+                }
+            }
+
+        // }
         ul{
             margin: 0;
             padding: 0;
@@ -341,6 +359,9 @@
                     img{
                         border-radius: .3rem;
                         width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                        object-position: center;
                     }
                     span{
                         position: absolute;
@@ -358,9 +379,11 @@
                 }
                 > p{
                     margin: 0;
-                    width: 60%;
+                    min-width: 50%;
+                    // padding: 0 1rem;
                     @include name-height(2);
                 }
+                
                 > span{
                     font-size: .9rem;
                     color: var(--navy-text);

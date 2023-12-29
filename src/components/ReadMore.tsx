@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react'
 
 interface readmoreProps{
     lineShown: number,
-    txtElement: JSX.Element
+    text: string,
 }
 const ReadMore = (props: readmoreProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -20,11 +20,14 @@ const ReadMore = (props: readmoreProps): JSX.Element => {
 
   useEffect(() => {
     if (ref.current) {
-      const firstChild = ref.current.querySelector(":first-child") as HTMLElement;
+      const firstChild = ref.current.querySelector("p") as HTMLElement;
       if (firstChild){
         if (!flag){
-            console.log(firstChild.scrollHeight, firstChild.clientHeight)
-            setShowReadMore(firstChild.scrollHeight !== firstChild.clientHeight);
+             const lineHeight = parseInt(
+               window.getComputedStyle(firstChild).lineHeight
+             );
+             const maxHeight = lineHeight * 2;
+             setShowReadMore(firstChild.clientHeight > maxHeight);
             setflag(true);
         }
         if (isOpen){
@@ -42,9 +45,9 @@ const ReadMore = (props: readmoreProps): JSX.Element => {
       }
       
     }
-  }, [isOpen]);
+  }, [isOpen, props.text]);
   return <div className='readmore' ref={ref}>
-    {props.txtElement}
+    <p>{props.text}</p>
     {showReadMore && 
         <span onClick={() => setIsOpen(prev => !prev)}>
             {isOpen ? "Thu gọn" : "Đọc thêm"}

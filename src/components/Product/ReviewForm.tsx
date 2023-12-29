@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { tenmien } from "../../utils";
+import { addProductReview } from "../../store/features/Product/productReviewSlice";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { useNavigate } from "react-router-dom";
 
 
 interface ReviewFormData {
-  fullname: string;
-  email: string;
   rating: number;
   title: string;
   comment: string;
   productId: string
 }
 
-const ReviewForm = (props: {id: string}) :JSX.Element => {
+const ReviewForm = (props: {
+  id: string;
+  setAddReview: React.Dispatch<React.SetStateAction<boolean>>;
+}): JSX.Element => {
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<ReviewFormData>({
-    fullname: "",
-    email: "",
     rating: 1,
     title: "",
     comment: "",
-    productId: props.id
+    productId: props.id,
   });
 
   const handleInputChange = (
@@ -41,15 +46,26 @@ const ReviewForm = (props: {id: string}) :JSX.Element => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      // Make a POST request to your PHP backend
-      const response = await axios.post(tenmien+"/api/sanpham/themdanhgia", formData);
-      // Handle the response (e.g., show a success message)
-      console.log("Review submitted successfully:", response.data);
-    } catch (error) {
-      // Handle errors (e.g., show an error message)
-      console.error("Error submitting review:", error);
+    if (!user.data.isLoggedIn) {
+      navigate("/dangnhap");
+      return;
     }
+    dispatch(addProductReview({ ...formData, userId: user.data.id })).then(
+      (res) => {
+        if (res.payload) {
+          alert("Thêm đánh giá thành công!");
+          props.setAddReview(false);
+        } else {
+          alert("Thêm đánh giá không thành công!");
+        }
+      }
+    );
+    // try {
+    //   const response = await axios.post(tenmien+"/api/sanpham/themdanhgia", formData);
+    //   console.log("Review submitted successfully:", response.data);
+    // } catch (error) {
+    //   console.error("Error submitting review:", error);
+    // }
   };
 
   return (
@@ -57,36 +73,6 @@ const ReviewForm = (props: {id: string}) :JSX.Element => {
       onSubmit={handleSubmit}
       className="reviewform border border-secondary rounded-3 p-3 mt-2"
     >
-      <div className="mb-3">
-        <label htmlFor="name" className="form-label">
-          Tên hiển thị
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="name"
-          placeholder="Nhập tên..."
-          name="name"
-          value={formData.fullname}
-          onChange={handleInputChange}
-        />
-      </div>
-
-      <div className="mb-3">
-        <label htmlFor="email" className="form-label">
-          Email
-        </label>
-        <input
-          type="email"
-          className="form-control"
-          id="email"
-          placeholder="Nhập email..."
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-        />
-      </div>
-
       <div className="mb-3">
         <label htmlFor="stars" className="form-label">
           Đánh giá
@@ -110,7 +96,7 @@ const ReviewForm = (props: {id: string}) :JSX.Element => {
 
       <div className="mb-3">
         <label htmlFor="title" className="form-label">
-          Tiêu đề 
+          Tiêu đề
         </label>
         <input
           type="text"
@@ -132,7 +118,7 @@ const ReviewForm = (props: {id: string}) :JSX.Element => {
           id="review"
           rows={4}
           placeholder="Nội dung đánh giá..."
-          name="review"
+          name="comment"
           value={formData.comment}
           onChange={handleInputChange}
         />

@@ -8,26 +8,30 @@ import Skeleton from 'react-loading-skeleton';
 import { deleteCart, updateQuantityCart } from '../../store/features/Cart/cartSlice';
 
 const Cart = () => {
-    const cart = useAppSelector(state => state.cart);
-    const user = useAppSelector(state => state.user);
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(fetchCart(user.data.cartId.toString()));
-    },[])
-    function handleIncrement(isUp: boolean, quantity:number, cartItemId: number){
-      if (isUp){
-        dispatch(updateQuantityCart({cartItemId, quantity: quantity+1}));
-      }
-      else{
-        dispatch(updateQuantityCart({cartItemId, quantity: quantity-1}))
-      }
+  const cart = useAppSelector((state) => state.cart);
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  // useEffect(() => {
+  //     dispatch(fetchCart(user.data.cartId.toString()));
+  // },[user.data.isLoggedIn])
+  function handleIncrement(
+    isUp: boolean,
+    quantity: number,
+    cartItemId: number
+  ) {
+    if (isUp) {
+      dispatch(updateQuantityCart({ cartItemId, quantity: quantity + 1 }));
+    } else {
+      dispatch(updateQuantityCart({ cartItemId, quantity: quantity - 1 }));
     }
-    function handleDelete(cartItemId: number){
-      dispatch(
-        updateQuantityCart({ cartItemId, quantity: 0 })
-      );
-
-    }
+  }
+  function handleDelete(cartItemId: number) {
+    dispatch(updateQuantityCart({ cartItemId, quantity: 0 }));
+  }
+  // Set document title
+  React.useEffect(() => {
+    document.title = "Giỏ hàng | GreenMart";
+  }, []);
   return (
     <>
       <BreadCrumbs crumbTitles={["Giỏ hàng"]} />
@@ -37,7 +41,7 @@ const Cart = () => {
             <div className="cart__data cart__list">
               <div className="row gy-3">
                 <div className="col-12 col-lg-9">
-                  <table className='w-100'>
+                  <table className="w-100">
                     <thead className="">
                       <tr>
                         <td>Sản phẩm</td>
@@ -169,9 +173,7 @@ const Cart = () => {
                   </table>
                 </div>
                 <div className="col-12 col-lg-3">
-                  <div className="cart__list-rightbar">
-                    <p>Tin nhắn cho người bán</p>
-                    <textarea name="" id=""></textarea>
+                  <div className="cart__list-rightbar py-4">
                     <div className="cart__list-rightbar-total">
                       <span>Tổng tiền hàng:</span>
                       <span>đ{priceFormatter(cart.data.total)}</span>
@@ -180,7 +182,9 @@ const Cart = () => {
                       <div className="text-end cart__list-rightbar-saved">
                         Tiết kiệm đ{priceFormatter(cart.data.savings)}
                       </div>
-                    ): <></>}
+                    ) : (
+                      <></>
+                    )}
                     <div className="text-end cart__list-rightbar-more">
                       Thông tin vận chuyển và các thông tin khác hiện ở bước
                       thanh toán

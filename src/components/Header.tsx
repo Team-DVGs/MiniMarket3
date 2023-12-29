@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Link, NavLink, useLocation} from "react-router-dom";
-import { fetchCart } from '../store/features/Cart/cartSlice';
+// import { fetchCart } from '../store/features/Cart/cartSlice';
+import { fetchWishList, deleteItemWishList } from '../store/features/Products/wishlistSlice';
 import { useAppSelector, useAppDispatch } from '../store';
 import { priceFormatter } from '../utils';
 
@@ -156,6 +157,7 @@ const Header = (): JSX.Element=> {
   const [heading, setHeading] = useState<string>("");
   const [wishModal, setWishModal] = useState<boolean>(false);
   const user = useAppSelector(state => state.user);
+  const wishlist = useAppSelector(state => state.wishlist)
   const getName = ():string => {
     const arrName = user.data.fullname.split(" ");
     return arrName[arrName.length - 1];
@@ -163,11 +165,20 @@ const Header = (): JSX.Element=> {
   const closeWish = (): void => {
     setWishModal(false);
   }
+  function handleDeleteWishList(productId: number){
+    dispatch(deleteItemWishList({productId, userId: user.data.id}));
+  }
   useEffect(() => {
-    dispatch(fetchCart(user.data.cartId.toString()));
-    return () =>{
+    if (user.data.isLoggedIn){
+      dispatch(fetchWishList(user.data.id.toString()));
     }
-  },[])
+  },[user.data.isLoggedIn])
+  // useEffect(() => {
+  //   dispatch(fetchCart(user.data.cartId.toString()));
+  //   return () =>{
+  //   }
+  // },[])
+  
   
 
   return (
@@ -181,8 +192,8 @@ const Header = (): JSX.Element=> {
           <Link to="/taikhoan">
             <span>Tài khoản</span>
           </Link>
-          <Link to="/about">
-            <span>Danh sách yêu thích</span>
+          <Link to="/chinhsach">
+            <span>Chính sách</span>
           </Link>
         </div>
         <div className="top-bar-center">
@@ -258,7 +269,7 @@ const Header = (): JSX.Element=> {
                       Danh sách yêu thích
                     </h1>
                     <div className="flex-grow-1 overflow-y-auto overflow-x-hidden">
-                      <table>
+                      <table className="w-100">
                         <thead className="">
                           <tr>
                             <td>Sản phẩm</td>
@@ -267,13 +278,13 @@ const Header = (): JSX.Element=> {
                           </tr>
                         </thead>
                         <tbody>
-                          {cartData.data.list.map((item) => (
+                          {wishlist.data.map((item) => (
                             <tr className="cart__product">
                               {/* Ten va anh*/}
                               <td className="cart__product-name row g-3">
                                 {/* Holder */}
                                 <div className="">
-                                  <Link to="/">
+                                  <Link to={`/sanpham/${item.id}`}>
                                     <img
                                       className="w-100"
                                       src={item.thumbnail}
@@ -288,13 +299,16 @@ const Header = (): JSX.Element=> {
                               {/* Tong gia tien */}
                               <td className="cart__product-total">
                                 <span>
-                                  đ{priceFormatter(cartData.data.total)}
+                                  đ{priceFormatter(item.discount_price)}
                                 </span>
                               </td>
                               <td className="cart__product-delete">
-                                <Link to="/">
+                                <div
+                                  onClick={() => handleDeleteWishList(item.id)}
+                                  style={{ cursor: "pointer" }}
+                                >
                                   <i className="fa-solid fa-trash"></i>
-                                </Link>
+                                </div>
                               </td>
                             </tr>
                           ))}
@@ -305,7 +319,7 @@ const Header = (): JSX.Element=> {
                 }
               />
             )}
-            {location.pathname!=='/giohang' &&
+            {location.pathname !== "/giohang" && (
               <Link
                 to={`${user.data.isLoggedIn ? "/giohang" : "/dangnhap"}`}
                 className="position-relative header-inner-right-cartlink"
@@ -324,9 +338,9 @@ const Header = (): JSX.Element=> {
                   {user.data.isLoggedIn ? (
                     cartData.loading ? (
                       <ul>
-                        <Skeleton height={50} className='my-2' />
-                        <Skeleton height={50} className='my-2' />
-                        <Skeleton height={50} className='my-2' />
+                        <Skeleton height={50} className="my-2" />
+                        <Skeleton height={50} className="my-2" />
+                        <Skeleton height={50} className="my-2" />
                       </ul>
                     ) : cartData.data.list.length ? (
                       <>
@@ -337,6 +351,9 @@ const Header = (): JSX.Element=> {
                                 <div
                                   style={{
                                     backgroundImage: `url(${item.thumbnail})`,
+                                    backgroundSize: "contain",
+                                    backgroundPosition: "center",
+                                    backgroundRepeat: "no-repeat",
                                   }}
                                 ></div>
                               </div>
@@ -374,7 +391,7 @@ const Header = (): JSX.Element=> {
                   )}
                 </div>
               </Link>
-            }
+            )}
             {user.data.isLoggedIn ? (
               <Link to="/taikhoan">
                 <i className="header-inner-right-icon fa-regular fa-user"></i>

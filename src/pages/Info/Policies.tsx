@@ -2,6 +2,10 @@ import React from "react";
 import BreadCrumbs from "../../components/BreadCrumbs";
 
 const Policies = () => {
+  // Set document title
+  React.useEffect(() => {
+    document.title = "Điều khoản và chính sách | GreenMart";
+  }, []);
   return (
     <>
       <BreadCrumbs crumbTitles={["Điều khoản và chính sách"]} />

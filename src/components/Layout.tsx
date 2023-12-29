@@ -9,11 +9,11 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useAppDispatch , useAppSelector} from '../store';
 import { checkLogin } from '../store/features/Auth/userSlice'
 import { fetchCart } from '../store/features/Cart/cartSlice'
+import { fetchOrderList } from '../store/features/Orders/orderListSlice'
 
 
 const Layout = () => {
   const user = useAppSelector((state) => state.user);
-  const [loaded, setLoaded] = useState<boolean>(false);
   const location = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -21,16 +21,19 @@ const Layout = () => {
   const changePath = () => {
     if (["/dangnhap", "/dangky"].includes(location.pathname)) {
       navigate("/taikhoan");
+    } 
+  }
+  const reNavigate = (path1: string, path2:string) => {
+    if (location.pathname === path1){
+      navigate(path2);
     }
-    // else{
-    //   navigate('/');
-    // }
   }
   useEffect(() => {
     window.scrollTo(0,0);
     if (user.data.isLoggedIn) {
       changePath();
     }
+    reNavigate("/taikhoan/donhang", "/taikhoan");
   }, [location])
 
   useEffect(() => {
@@ -38,17 +41,16 @@ const Layout = () => {
       // Successfully signig in
       if (res.payload){
         changePath();
-        setLoaded(true);
       }
     });
   }, [])
 
+  useEffect(() => {
+    dispatch(fetchCart(user.data.cartId.toString()));
+    // dispatch(fetchOrderList(user.data.id.toString()));
 
-  // useEffect(() => {
-  //   if (loaded){
-  //     fetchCart("7");
-  //   }
-  // }, [loaded])
+  }, [user.data.isLoggedIn]);
+
 
   useEffect(() => {
     console.log('cookie deleted')

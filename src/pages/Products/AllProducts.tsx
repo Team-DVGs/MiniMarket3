@@ -22,13 +22,13 @@ const AllProducts = () => {
   const category = useAppSelector((state) => state.category);
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [heading, setHeading]  = useState<string>("Thông tin");
+  const [heading, setHeading] = useState<string>("Thông tin");
   const params = useParams();
   function clearFilter() {
-    setSearchParams(prev => {
-      const keyword = prev.get('keyword');
+    setSearchParams((prev) => {
+      const keyword = prev.get("keyword");
       const newSearchParams = new URLSearchParams();
-      newSearchParams.set('keyword', keyword || "");
+      newSearchParams.set("keyword", keyword || "");
       // newSearchParams.set('page', "1");
       return newSearchParams;
     });
@@ -41,14 +41,12 @@ const AllProducts = () => {
       }) as any
     );
     const keywordVal = searchParams.get("keyword");
-    if (keywordVal==="*"){
-      setHeading("Tất cả sản phẩm")
-    }
-    else if (keywordVal==="sales"){
-      setHeading("Sales")
-    }
-    else{
-      setHeading("Kết quả tìm kiếm: "+keywordVal);
+    if (keywordVal === "*") {
+      setHeading("Tất cả sản phẩm");
+    } else if (keywordVal === "sales") {
+      setHeading("Sales");
+    } else {
+      setHeading("Kết quả tìm kiếm: " + keywordVal);
     }
   }, [searchParams]);
 
@@ -63,10 +61,14 @@ const AllProducts = () => {
       dispatch(fetchBrandCate(parseInt(params.id || "")) as any);
     }
   }, [searchParams.get("categoryId")]);
+  // Set document title
+  React.useEffect(() => {
+    document.title = heading + " | GreenMart";
+  }, [heading]);
 
   return (
     <>
-      <BreadCrumbs crumbTitles={[heading]}/>
+      <BreadCrumbs crumbTitles={[heading]} />
       <div className="products page-margin">
         {category.loading ? (
           <Skeleton height={70} className="mb-2" />

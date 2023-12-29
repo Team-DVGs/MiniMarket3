@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const NotFound = () => {
+  // Set document title
+  React.useEffect(() => {
+    document.title = "404 KHÔNG TÌM THẤY TRANG | GreenMart";
+  }, []);
   return (
     <div className="notfound d-flex flex-column text-center align-items-center">
       <div className="text-center">
@@ -15,7 +19,7 @@ const NotFound = () => {
       <p>Đường link bạn nhấn vào có thể đã bị xoá hoặc không tồn tại.</p>
       <Link to="/">
         <i className="fa-solid fa-house"></i>
-        Quay về trang chủ 
+        Quay về trang chủ
       </Link>
     </div>
   );

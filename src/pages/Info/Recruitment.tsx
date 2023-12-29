@@ -2,6 +2,10 @@ import React from "react";
 import BreadCrumbs from "../../components/BreadCrumbs";
 
 const Recruitment = () => {
+  // Set document title
+  React.useEffect(() => {
+    document.title = "Tuyển dụng | GreenMart";
+  }, []);
   return (
     <>
       <BreadCrumbs crumbTitles={["Tuyển dụng"]} />

@@ -15,29 +15,34 @@ import DailyBest from '../../components/Home/DailyBest';
 
 const Home = () => {
   // States and vars
-  const slider1 = process.env.PUBLIC_URL + '/assets/img/sliders/slider1.webp';
+  const slider1 = process.env.PUBLIC_URL + "/assets/img/sliders/slider1.webp";
   const slider2 = process.env.PUBLIC_URL + "/assets/img/sliders/slider2.webp";
-  const banners = [{
-    id: 0,
-    header: "Đừng bỏ lỡ cơ hội giảm giá sốc",
-    title: "Đăng ký để nhận thông tin mới hàng ngày",
-    imgUrl: slider1
-  },{
-    id: 1,
-    header: "Rau tươi với nhiều ưu đãi",
-    title: "Kiểm tra ngay",
-    imgUrl: slider2
-  }];
+  const banners = [
+    {
+      id: 0,
+      header: "Đừng bỏ lỡ cơ hội giảm giá sốc",
+      title: "Đăng ký để nhận thông tin mới hàng ngày",
+      imgUrl: slider1,
+    },
+    {
+      id: 1,
+      header: "Rau tươi với nhiều ưu đãi",
+      title: "Kiểm tra ngay",
+      imgUrl: slider2,
+    },
+  ];
 
- 
-  
+  // Set document title
+  React.useEffect(() => {
+    document.title = "GreenMart | Đặt và mua thực phẩm sạch, chất lượng";
+  }, []);
   return (
     <>
-      <Sliders banners={banners} /> 
-      <DayDeals/>
+      <Sliders banners={banners} />
+      <DayDeals />
       <Features />
       <Popular />
-      <DailyBest/>
+      <DailyBest />
     </>
   );
 }
