@@ -122,7 +122,7 @@ const AllProducts = () => {
                     },
                     {
                       optionName: "Dưới 50.000đ",
-                      query: "0-20",
+                      query: "0-50",
                     },
                     {
                       optionName: "Từ 50.000đ đến 100.000đ",

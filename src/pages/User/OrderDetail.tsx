@@ -47,7 +47,7 @@ const OrderDetail = () => {
             </div>
             <div className="payment__info-final">
               <span>Trạng thái:</span>
-              <span>{statusConvert(order.data.status)}</span>
+              <span>{order.data.status}</span>
             </div>
             <div className="payment__info-final">
               <span>Phương thức giao hàng</span>

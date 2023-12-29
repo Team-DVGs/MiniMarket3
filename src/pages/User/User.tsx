@@ -97,7 +97,7 @@ const User = () => {
                 onChange={handleChange}
               />
               <input
-                type="text"
+                type="number"
                 placeholder="Số điện thoại"
                 value={formData.phone}
                 name="phone"
