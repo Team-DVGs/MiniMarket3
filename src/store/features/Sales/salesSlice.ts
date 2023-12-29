@@ -56,7 +56,7 @@ const salesSlice = createSlice({
         name: "Săn sales đón lễ",
         description: 'Rất nhiều sản phẩm đang được giảm giá từ 30/11 đến 30/6',
         start_time: "Nov 11, 2023 00:00:00",
-        end_time: "Dec 30, 2023 00:00:00",
+        end_time: "Jan 07, 2024 00:00:00",
       };
       // state.error = "Error happened!";
       state.error = action.error.message || "Some thing wrong!";

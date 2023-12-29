@@ -81,7 +81,7 @@ const Products = () => {
               <Skeleton height={80} />
             ) : (
               <div className="products__categories">
-                {category.data.list.map((item) => (
+                {category.data.list?.map((item) => (
                   <Link
                     className={`${
                       (searchParams.get("categoryId") || "") ===
@@ -148,7 +148,7 @@ const Products = () => {
                         optionName: "Tất cả",
                         query: "",
                       },
-                      ...brand.data.map((brand) => ({
+                      ...brand.data?.map((brand) => ({
                         optionName: brand.name,
                         query: brand.id.toString(),
                       })),
@@ -201,7 +201,7 @@ const Products = () => {
                         <ProductSkeleton />
                       </div>
                     ))
-                : productList.data.map((item) => (
+                : productList.data?.map((item) => (
                     <div className="col-6 col-md-4 col-lg-3">
                       <Product
                         product={{

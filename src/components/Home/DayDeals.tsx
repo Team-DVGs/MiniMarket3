@@ -99,7 +99,7 @@ const DayDeals = () => {
                     ))
                 : productsSales.data.map((productItem) => (
                     <div className="px-1" key={productItem.id}>
-                      <DealProduct dealproduct={productItem} quantity={productItem.quantity}/>
+                      <DealProduct dealproduct={productItem} quantity={productItem.quantity} remaining={productItem?.remaining || productItem.quantity}/>
                     </div>
                   ))}
             </>
