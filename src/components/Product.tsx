@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { JsxElement } from 'typescript';
-import { productHomeInterface } from '../utils';
+import { priceFormatter, productHomeInterface } from '../utils';
 import { Link } from 'react-router-dom';
 
 export interface productsProps {
@@ -15,20 +15,19 @@ const Product = (props: productsProps) : JSX.Element => {
       className="product d-flex flex-column position-relative text-decoration-none"
     >
       {/* Sales Banner */}
-      { Math.round(
-          ((props.product.reg_price - props.product.discount_price) * 100) /
-            props.product.reg_price
-        ) > 0
-        &&
-      <div className="product__banner position-absolute">
-        -
-        {Math.round(
-          ((props.product.reg_price - props.product.discount_price) * 100) /
-            props.product.reg_price
-        )}
-        %
-      </div>
-      }
+      {Math.round(
+        ((props.product.reg_price - props.product.discount_price) * 100) /
+          props.product.reg_price
+      ) > 0 && (
+        <div className="product__banner position-absolute">
+          -
+          {Math.round(
+            ((props.product.reg_price - props.product.discount_price) * 100) /
+              props.product.reg_price
+          )}
+          %
+        </div>
+      )}
 
       <div className="product__img-container mb-2">
         <div
@@ -56,12 +55,10 @@ const Product = (props: productsProps) : JSX.Element => {
           </span>
         </div>
         <div className="product__price my-1">
-          <span>{props.product.discount_price.toFixed(2)}$</span>
-          {
-            props.product.discount_price < props.product.reg_price
-            &&
-            <s>{props.product.reg_price.toFixed(2)}$</s>
-          }
+          <span>{priceFormatter(props.product.discount_price)}đ</span>
+          {props.product.discount_price < props.product.reg_price && (
+            <s>{priceFormatter(props.product.reg_price)}đ</s>
+          )}
         </div>
         <button className="product__btn">
           {/* <i className="fa-solid fa-cart-shopping"></i> */}

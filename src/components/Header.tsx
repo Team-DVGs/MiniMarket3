@@ -342,7 +342,7 @@ const Header = (): JSX.Element=> {
                         <Skeleton height={50} className="my-2" />
                         <Skeleton height={50} className="my-2" />
                       </ul>
-                    ) : cartData.data.list.length ? (
+                    ) : cartData.data.list?.length ? (
                       <>
                         <ul>
                           {cartData.data.list.map((item) => (

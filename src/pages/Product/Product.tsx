@@ -14,7 +14,7 @@ import BreadCrumbs from '../../components/BreadCrumbs';
 import Skeleton from 'react-loading-skeleton';
 import ProductSkeleton from '../../components/ProductSkeleton';
 import ReviewForm from '../../components/Product/ReviewForm';
-import { formatDateTime } from '../../utils';
+import { formatDateTime, priceFormatter } from '../../utils';
 const Product = () => {
   // Redux state
   const loading = useAppSelector((state) => state.productDetail.loading);
@@ -268,8 +268,10 @@ const Product = () => {
                   </span>
                 </div>
                 <div className="product__price my-2">
-                  <span>{productDetail.data.discount_price.toFixed(2)}$</span>
-                  <s>{productDetail.data.reg_price.toFixed(2)}$</s>
+                  <span>
+                    {priceFormatter(productDetail.data.discount_price)}đ
+                  </span>
+                  <s>{priceFormatter(productDetail.data.reg_price)}đ</s>
                 </div>
                 <div className="product-detail__info-desc-notice">
                   <p>{productDetail.data.description}</p>
