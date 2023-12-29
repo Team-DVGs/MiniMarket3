@@ -42,6 +42,7 @@ const Payment = () => {
         if (res.payload) {
           alert("Đặt hàng thành công!");
           // console.log(res.payload);
+          dispatch(fetchCart(user.data.cartId.toString()));
           navigate("/taikhoan/donhang/" + res.payload?.id);
         } else {
           alert("Đặt hàng không thành công! Vui lòng thử lại sau.");
