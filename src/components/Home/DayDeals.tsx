@@ -11,7 +11,7 @@ import  Skeleton  from 'react-loading-skeleton';
 
 
 const DayDeals = () => {
-  const loading = useAppSelector(state => state.productList.loading);
+  const loading = useAppSelector(state => state.productsSales.loading);
   const sales = useAppSelector(state => state.sales);
   const productsSales = useAppSelector(state => state.productsSales);
   const dispatch = useAppDispatch();
@@ -56,7 +56,7 @@ const DayDeals = () => {
           <span>{sales.data.description || <Skeleton width={300} />}</span>
         </div>
         <div className="deals__header-time mb-2 d-flex align-items-center">
-          {!loading && (
+          {!sales.loading && (
             <>
               <span>Kết thúc sau</span>
               <div className="deals__header-time-box mx-1">
@@ -105,7 +105,7 @@ const DayDeals = () => {
             </>
           }
           sliding={false}
-          loading={loading}
+          loading={productsSales.loading}
         />
         {/* <ul className="deals__list list-unstyled">
         </ul> */}

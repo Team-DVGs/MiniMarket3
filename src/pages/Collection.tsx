@@ -32,7 +32,7 @@ const Collection = () :JSX.Element => {
                       <Skeleton height={200} />
                   </div>
                 ))
-            : categories.map((item) => (
+            : categories?.map((item) => (
                 <div className="col-6 col-md-4 col-lg-2" key={item.id}>
                   <Link
                     to={`${item.id}`}

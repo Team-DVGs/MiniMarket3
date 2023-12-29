@@ -3,7 +3,7 @@ import Dropdown from "../../components/Products/Dropdown";
 import { Link, useSearchParams } from "react-router-dom";
 import Product from "../../components/Product";
 import { useAppSelector, useAppDispatch } from "../../store";
-import { fetchCategoryGroupProducts } from "../../store/features/Products/productListSlice";
+import { fetchProductsAll } from "../../store/features/Products/productListSlice";
 import {
   fetchBrandCate,
   fetchBrandCateGroup,
@@ -35,9 +35,8 @@ const AllProducts = () => {
   }
   React.useEffect(() => {
     dispatch(
-      fetchCategoryGroupProducts({
-        id: parseInt(params.id || ""),
-        query: searchParams.toString(),
+      fetchProductsAll({
+        query: searchParams.toString()
       }) as any
     );
     const keywordVal = searchParams.get("keyword");
@@ -50,17 +49,7 @@ const AllProducts = () => {
     }
   }, [searchParams]);
 
-  React.useEffect(() => {
-    setSearchParams((prev) => {
-      prev.delete("brand");
-      return prev;
-    });
-    if (!searchParams.get("categoryId")) {
-      dispatch(fetchBrandCateGroup(parseInt(params.id || "")) as any);
-    } else {
-      dispatch(fetchBrandCate(parseInt(params.id || "")) as any);
-    }
-  }, [searchParams.get("categoryId")]);
+  
   // Set document title
   React.useEffect(() => {
     document.title = heading + " | GreenMart";

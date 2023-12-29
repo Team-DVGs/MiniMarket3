@@ -37,6 +37,21 @@ export const fetchCategoryGroupProducts = createAsyncThunk(
   }
 );
 
+export const fetchProductsAll = createAsyncThunk(
+  "productListSlice/fetchProductsAll",
+  async ({ query }: { query: string }) => {
+    // console.log(`${tenmien}/api/danhmuc/${id}?${query}`);
+    // return axios
+    //   .get(`${tenmien}/api/danhmuc/${id}?${query}`)
+    //   .then((response) => response.data);
+    try {
+      const response = await axios.get(`${tenmien}/api/search?${query}`);
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
+  }
+);
 
 export const fetchRelatedProducts = createAsyncThunk(
   "productListSlice/fetchRelatedProducts",
@@ -63,16 +78,17 @@ const productListSlice = createSlice({
   reducers: {
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchCategoryGroupProducts.pending, (state) => {
+    builder
+    .addCase(fetchCategoryGroupProducts.pending, (state) => {
       state.loading = true;
       state.error = "";
       state.data = [];
-    });
-    builder.addCase(fetchCategoryGroupProducts.fulfilled, (state, action) => {
+    })
+    .addCase(fetchCategoryGroupProducts.fulfilled, (state, action) => {
       state.loading = false;
       state.data = action.payload;
-    });
-    builder.addCase(fetchCategoryGroupProducts.rejected, (state, action) => {
+    })
+    .addCase(fetchCategoryGroupProducts.rejected, (state, action) => {
       state.loading = false;
       state.data = [
         {
@@ -198,6 +214,143 @@ const productListSlice = createSlice({
       ];
       state.error = action.error.message || "Some thing wrong!";
     });
+    // Fetch products all
+    builder
+      .addCase(fetchProductsAll.pending, (state) => {
+        state.loading = true;
+        state.error = "";
+        state.data = [];
+      })
+      .addCase(fetchProductsAll.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchProductsAll.rejected, (state, action) => {
+        state.loading = false;
+        state.data = [
+          {
+            id: 1,
+            thumbnail:
+              "https://boostify-nesst.myshopify.com/cdn/shop/products/product-9-2.jpg?v=1656924060&width=360",
+            name: "Gorton’s Beer Battered Fish Fillets",
+            rating: 4.5,
+            discount_price: 23.85,
+            reg_price: 28,
+            category_name: "Bánh kẹo",
+          },
+          {
+            id: 2,
+            thumbnail:
+              "https://boostify-nesst.myshopify.com/cdn/shop/products/thumbnail-3.jpg?v=1663128562&width=360",
+            name: "Nestle Original Coffee-Mate Coffee Creamer",
+            rating: 4,
+            discount_price: 32.45,
+            reg_price: 37.96,
+            category_name: "Bánh kẹo",
+          },
+          {
+            id: 3,
+            thumbnail:
+              "https://boostify-nesst.myshopify.com/cdn/shop/products/thumbnail-5.jpg?v=1663128373&width=360",
+            name: "Seeds of Change Brown & Red Rice",
+            rating: 3.7,
+            discount_price: 72,
+            reg_price: 80,
+            category_name: "Bánh kẹo",
+          },
+          {
+            id: 4,
+            thumbnail:
+              "https://boostify-nesst.myshopify.com/cdn/shop/products/product-2-2_3f29934d-43f4-497f-a3c5-56b7159c91af.jpg?v=1663051490&width=360",
+            name: "Sahale Crumble Cashew Mix Snacks",
+            rating: 2,
+            discount_price: 45.3,
+            reg_price: 40,
+            category_name: "Bánh kẹo",
+          },
+          {
+            id: 5,
+            thumbnail:
+              "https://boostify-nesst.myshopify.com/cdn/shop/products/product-9-2.jpg?v=1656924060&width=360",
+            name: "Gorton’s Beer Battered Fish Fillets",
+            rating: 4.8,
+            discount_price: 23.85,
+            reg_price: 28,
+            category_name: "Bánh kẹo",
+          },
+          {
+            id: 6,
+            thumbnail:
+              "https://boostify-nesst.myshopify.com/cdn/shop/products/thumbnail-3.jpg?v=1663128562&width=360",
+            name: "Nestle Original Coffee-Mate Coffee Creamer",
+            rating: 5,
+            discount_price: 32.45,
+            reg_price: 37.96,
+            category_name: "Bánh kẹo",
+          },
+          {
+            id: 7,
+            thumbnail:
+              "https://boostify-nesst.myshopify.com/cdn/shop/products/thumbnail-5.jpg?v=1663128373&width=360",
+            name: "Seeds of Change Brown & Red Rice",
+            rating: 4.1,
+            discount_price: 72,
+            reg_price: 80,
+            category_name: "Bánh kẹo",
+          },
+          {
+            id: 8,
+            thumbnail:
+              "https://boostify-nesst.myshopify.com/cdn/shop/products/product-2-2_3f29934d-43f4-497f-a3c5-56b7159c91af.jpg?v=1663051490&width=360",
+            name: "Sahale Crumble Cashew Mix Snacks",
+            rating: 3.9,
+            discount_price: 45.3,
+            reg_price: 40,
+            category_name: "Bánh kẹo",
+          },
+          {
+            id: 9,
+            thumbnail:
+              "https://boostify-nesst.myshopify.com/cdn/shop/products/product-9-2.jpg?v=1656924060&width=360",
+            name: "Gorton’s Beer Battered Fish Fillets",
+            rating: 4.5,
+            discount_price: 23.85,
+            reg_price: 28,
+            category_name: "Bánh kẹo",
+          },
+          {
+            id: 10,
+            thumbnail:
+              "https://boostify-nesst.myshopify.com/cdn/shop/products/thumbnail-3.jpg?v=1663128562&width=360",
+            name: "Nestle Original Coffee-Mate Coffee Creamer",
+            rating: 5,
+            discount_price: 32.45,
+            reg_price: 37.96,
+            category_name: "Bánh kẹo",
+          },
+          {
+            id: 11,
+            thumbnail:
+              "https://boostify-nesst.myshopify.com/cdn/shop/products/thumbnail-5.jpg?v=1663128373&width=360",
+            name: "Seeds of Change Brown & Red Rice",
+            rating: 5,
+            discount_price: 72,
+            reg_price: 80,
+            category_name: "Bánh kẹo",
+          },
+          {
+            id: 12,
+            thumbnail:
+              "https://boostify-nesst.myshopify.com/cdn/shop/products/product-2-2_3f29934d-43f4-497f-a3c5-56b7159c91af.jpg?v=1663051490&width=360",
+            name: "Sahale Crumble Cashew Mix Snacks",
+            rating: 5,
+            discount_price: 45.3,
+            reg_price: 40,
+            category_name: "Bánh kẹo",
+          },
+        ];
+        state.error = action.error.message || "Some thing wrong!";
+      });
     // Fetch related products
     builder.addCase(fetchRelatedProducts.pending, (state) => {
       state.loading = true;

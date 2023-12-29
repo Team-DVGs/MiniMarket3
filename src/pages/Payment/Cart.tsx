@@ -36,7 +36,7 @@ const Cart = () => {
     <>
       <BreadCrumbs crumbTitles={["Giỏ hàng"]} />
       <div className="cart">
-        {cart.data.list.length ? (
+        {cart.data.list?.length ? (
           <>
             <div className="cart__data cart__list">
               <div className="row gy-3">

@@ -10,7 +10,7 @@ const CategoryGroupRight = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
   useEffect(() => {
-    dispatch(fetchCategoryGroupRand(parseInt(params.id || "")) as any);
+    dispatch(fetchCategoryGroupRand(parseInt(params.id || "0")) as any);
   }, [])
   return (
     <div className="products__links box-shadow-style">

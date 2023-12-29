@@ -271,7 +271,10 @@ const Product = () => {
                   <span>
                     {priceFormatter(productDetail.data.discount_price)}đ
                   </span>
-                  <s>{priceFormatter(productDetail.data.reg_price)}đ</s>
+                  {
+                    productDetail.data.discount_price < productDetail.data.reg_price &&
+                    <s>{priceFormatter(productDetail.data.reg_price)}đ</s>
+                  }
                 </div>
                 <div className="product-detail__info-desc-notice">
                   <p>{productDetail.data.description}</p>
