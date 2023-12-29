@@ -37,7 +37,7 @@ export const checkLogin = createAsyncThunk(
   async () => {
     try {
       const userId = getUserIdFromCookie();
-      if( userId==="-1") throw new Error();
+      // if( userId==="-1") throw new Error();
       const response = await axios.get(`${tenmien}/api/taikhoan/${userId}/thongtin`);
       return response.data;
       // return Promise.resolve({
@@ -162,7 +162,8 @@ const userSlice = createSlice({
     });
     builder.addCase(checkLogin.rejected, (state, action) => {
       state.loading = false;
-      state = initialState;
+      state.data = initialState.data;
+      state.error = "Vui lòng đăng nhập lại!"
       document.cookie =
         "userId" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     });

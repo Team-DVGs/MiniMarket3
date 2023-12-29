@@ -42,12 +42,12 @@ const User = () => {
     }
     function handleSignOut(event:React.FormEvent){
         event.preventDefault();
-      /* eslint-disable no-restricted-globals */
-      var userConfirm = confirm("Bạn muốn đăng xuất tài khoản");
-      if (!userConfirm) return;
-      document.cookie =
+        /* eslint-disable no-restricted-globals */
+        var userConfirm = confirm("Bạn muốn đăng xuất tài khoản");
+        if (!userConfirm) return;
+        document.cookie =
         "userId" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      dispatch(checkLogin()).then((res) => {
+        dispatch(checkLogin()).then((res) => {
         if (!res.payload) {
           navigate("/dangnhap");
         }
@@ -55,6 +55,7 @@ const User = () => {
     }
 
     useEffect(() => {
+      if(!document.cookie){
         setLoading(true);
         dispatch(checkLogin()).then((res) => {
           if (!res.payload) {
@@ -63,6 +64,7 @@ const User = () => {
           }
         });
         setLoading(false);
+      }
         
     },[])
 
