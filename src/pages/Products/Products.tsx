@@ -26,7 +26,7 @@ const Products = () => {
   }
   useEffect(() => {
     dispatch(fetchCategory(params.id || "0") as any);
-  },[])
+  },[params.id])
   React.useEffect(() => {
     dispatch(
       fetchCategoryGroupProducts({
@@ -80,7 +80,7 @@ const Products = () => {
         )}
         {/* Products and Sidebar */}
         <div className="row">
-          <div className="col-12 col-md-9">
+          <div className="col-12 col-lg-9">
             {category.loading ? (
               <Skeleton height={80} />
             ) : (
@@ -232,7 +232,7 @@ const Products = () => {
             )}
           </div>
           {/* Categories Link Navs */}
-          <div className="col-0 col-md-3">
+          <div className="col-12 col-lg-3">
             <CategoryGroupRight />
           </div>
         </div>

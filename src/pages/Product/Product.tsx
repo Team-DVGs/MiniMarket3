@@ -94,6 +94,10 @@ const Product = () => {
   function handleAddWishList() {
     const productId = parseInt(params?.id || "-1");
     const userId = user.data.id;
+    if (!user.data.isLoggedIn){
+      alert("Bạn chưa đăng nhập!");
+      return;
+    }
     dispatch(addToWishList({ productId, userId })).then((res) => {
       if (res.payload) {
         alert("Thêm vào danh sách yêu thích thành công");

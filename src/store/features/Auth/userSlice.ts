@@ -179,7 +179,7 @@ const userSlice = createSlice({
     });
     builder.addCase(signupUser.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message || "Lỗi đăng ký";
+      state.error = "Lỗi đăng ký";
     });
     // Update
     builder.addCase(updateUser.pending, (state) => {

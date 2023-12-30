@@ -78,7 +78,7 @@ const DayDeals = () => {
             </>
           )}
         </div>
-        <Link to="/sales" className="deals__header-all mb-1">
+        <Link to="/search?keyword=sales" className="deals__header-all mb-1">
           Xem tất cả ưu đãi
         </Link>
       </div>

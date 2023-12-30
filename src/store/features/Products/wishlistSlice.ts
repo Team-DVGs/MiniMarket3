@@ -54,7 +54,7 @@ export const deleteItemWishList = createAsyncThunk(
   async ({ productId, userId }: { productId: number, userId: number }) => {
     try {
       const response = await axios.post(
-        tenmien + "/api/sanpham/yeuthich",
+        tenmien + "/api/sanpham/yeuthich/xoa",
         {
             productId, 
             userId

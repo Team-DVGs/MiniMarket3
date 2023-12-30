@@ -115,9 +115,7 @@ const productsSalesSlice = createSlice({
           remaining: 112
         },
       ];
-      // state.error = "Error happened!";
       state.error = action.error.message || "Some thing wrong!";
-      // state.error = "Some thing wrong!";
     });
   },
 });
