@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Dropdown from '../../components/Products/Dropdown';
 import { Link, NavLink, useSearchParams } from 'react-router-dom';
 import Product from '../../components/Product';
 import { useAppSelector, useAppDispatch } from '../../store';
 import { fetchCategoryGroupProducts } from '../../store/features/Products/productListSlice';
+import { fetchCategory } from '../../store/features/CategoryProducts/categorySlice';
 import { fetchBrandCate, fetchBrandCateGroup } from '../../store/features/CategoryProducts/brandSlice';
 import { useParams } from 'react-router-dom';
 import PageNav from '../../components/Products/PageNav';
@@ -23,6 +24,9 @@ const Products = () => {
   function clearFilter() {
     setSearchParams({ page: "1" });
   }
+  useEffect(() => {
+    dispatch(fetchCategory(params.id || "0") as any);
+  },[])
   React.useEffect(() => {
     dispatch(
       fetchCategoryGroupProducts({

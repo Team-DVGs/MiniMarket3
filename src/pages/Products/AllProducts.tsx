@@ -154,7 +154,7 @@ const AllProducts = () => {
                         <ProductSkeleton />
                       </div>
                     ))
-                : productList.data.map((item) => (
+                : productList.data?.map((item) => (
                     <div className="col-6 col-md-4 col-lg-3">
                       <Product
                         product={{
