@@ -461,7 +461,7 @@ const Product = () => {
               <h1 className="section-header mb-3">Sản phẩm liên quan</h1>
               <ProductSlider
                 id={2}
-                length={relatedProducts.data?.length || 0}
+                length={relatedProducts.data.data?.length || 0}
                 numberShown={[2, 3, 4]}
                 sliding={false}
                 loading={relatedProducts.loading}
@@ -475,7 +475,7 @@ const Product = () => {
                               <ProductSkeleton />
                             </div>
                           ))
-                      : relatedProducts.data.map((product) => (
+                      : relatedProducts.data.data?.map((product) => (
                           <div className="px-1" key={product.id}>
                             <ProductTemplate product={product} />
                           </div>

@@ -205,7 +205,7 @@ const Products = () => {
                         <ProductSkeleton />
                       </div>
                     ))
-                : productList.data?.map((item) => (
+                : productList.data?.data?.map((item) => (
                     <div className="col-6 col-md-4 col-lg-3">
                       <Product
                         product={{
@@ -223,11 +223,13 @@ const Products = () => {
             </div>
 
             {/* Pagination */}
-            <PageNav
-              total={12}
-              current={parseInt(searchParams.get("page") || "1")}
-              maxShown={5}
-            />
+            {productList.data.page && (
+              <PageNav
+                total={productList.data.page || 0}
+                current={parseInt(searchParams.get("page") || "1")}
+                maxShown={5}
+              />
+            )}
           </div>
           {/* Categories Link Navs */}
           <div className="col-0 col-md-3">

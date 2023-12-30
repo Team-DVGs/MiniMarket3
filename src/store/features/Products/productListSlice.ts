@@ -6,7 +6,10 @@ import { productHomeInterface, tenmien } from "../../../utils";
 interface productListState {
   loading: boolean;
   error: string;
-  data: productHomeInterface[];
+  data: {
+    page: number,
+    data: productHomeInterface[]
+  }
 }
 // Thunk functions
 // export const fetchProductList = createAsyncThunk(
@@ -30,7 +33,7 @@ export const fetchCategoryGroupProducts = createAsyncThunk(
       const response = await axios.get(
         `${tenmien}/api/danhmuc/${id}?${query}`
       );
-      return response.data?.data;
+      return response.data;
     } catch (err) {
       throw err;
     }
@@ -70,7 +73,10 @@ export const fetchRelatedProducts = createAsyncThunk(
 const initialState: productListState = {
   loading: false,
   error: "",
-  data: [],
+  data: {
+    page: 0,
+    data: [],
+  },
 };
 const productListSlice = createSlice({
   name: "productList",
@@ -82,7 +88,7 @@ const productListSlice = createSlice({
     .addCase(fetchCategoryGroupProducts.pending, (state) => {
       state.loading = true;
       state.error = "";
-      state.data = [];
+      state.data = initialState.data
     })
     .addCase(fetchCategoryGroupProducts.fulfilled, (state, action) => {
       state.loading = false;
@@ -90,7 +96,7 @@ const productListSlice = createSlice({
     })
     .addCase(fetchCategoryGroupProducts.rejected, (state, action) => {
       state.loading = false;
-      state.data = [
+      state.data.data = [
         {
           id: 1,
           thumbnail:
@@ -219,7 +225,7 @@ const productListSlice = createSlice({
       .addCase(fetchProductsAll.pending, (state) => {
         state.loading = true;
         state.error = "";
-        state.data = [];
+        state.data = initialState.data;
       })
       .addCase(fetchProductsAll.fulfilled, (state, action) => {
         state.loading = false;
@@ -227,7 +233,7 @@ const productListSlice = createSlice({
       })
       .addCase(fetchProductsAll.rejected, (state, action) => {
         state.loading = false;
-        state.data = [
+        state.data.data = [
           {
             id: 1,
             thumbnail:
@@ -355,7 +361,7 @@ const productListSlice = createSlice({
     builder.addCase(fetchRelatedProducts.pending, (state) => {
       state.loading = true;
       state.error = "";
-      state.data = [];
+      state.data = initialState.data;
     });
     builder.addCase(fetchRelatedProducts.fulfilled, (state, action) => {
       state.loading = false;
