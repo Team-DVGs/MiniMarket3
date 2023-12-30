@@ -378,7 +378,7 @@ const Header = (): JSX.Element=> {
                           <Link to="/giohang" className="btn-normal">
                             Xem giỏ hàng
                           </Link>
-                          <Link to="/thanhtoan" className="btn-normal">
+                          <Link to="/giohang/thanhtoan" className="btn-normal">
                             Thanh toán
                           </Link>
                         </div>

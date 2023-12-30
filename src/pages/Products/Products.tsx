@@ -46,7 +46,7 @@ const Products = () => {
     } else {
       dispatch(fetchBrandCate(parseInt(params.id || "")) as any);
     }
-  }, [searchParams.get("categoryId")]);
+  }, [searchParams.get("categoryId"), params.id]);
 
   // Set document title
   React.useEffect(() => {
