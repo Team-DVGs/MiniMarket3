@@ -15,6 +15,7 @@ const DayDeals = () => {
   const sales = useAppSelector(state => state.sales);
   const productsSales = useAppSelector(state => state.productsSales);
   const dispatch = useAppDispatch();
+  const [noSales, setNoSales] = useState<boolean>(false);
   const [salesTime, setSalesTime] = useState<{
     days: string;
     hours: string;
@@ -27,6 +28,12 @@ const DayDeals = () => {
   }, [])
   useEffect(() => {
     var endDate = new Date(sales.data.end_time).getTime();
+    var now = new Date().getTime();
+    if (now > endDate){
+      setNoSales(true);
+      return;
+    }
+    setNoSales(false);
     var x = setInterval(() => {
       var now = new Date().getTime();
       const distance = endDate - now;
@@ -48,7 +55,7 @@ const DayDeals = () => {
     };
   }, [sales.loading]);
 
-  return (
+  return !noSales ? (
     <div className="deals section-margin overflow-hidden">
       <div className="deals__header mb-2 d-flex align-items-center justify-content-between">
         <div className="deals__header-title mb-2">
@@ -111,7 +118,7 @@ const DayDeals = () => {
         </ul> */}
       </div>
     </div>
-  );
+  ) : <></>;
 };
 
 export default DayDeals
