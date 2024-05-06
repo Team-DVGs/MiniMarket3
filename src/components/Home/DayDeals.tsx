@@ -11,11 +11,13 @@ import  Skeleton  from 'react-loading-skeleton';
 
 
 const DayDeals = () => {
-  const loading = useAppSelector(state => state.productsSales.loading);
-  const sales = useAppSelector(state => state.sales);
-  const productsSales = useAppSelector(state => state.productsSales);
+  const loading = useAppSelector((state) => state.productsSales.loading);
+  const sales = useAppSelector((state) => state.sales);
+  const productsSales = useAppSelector((state) => state.productsSales);
   const dispatch = useAppDispatch();
+  // New
   const [noSales, setNoSales] = useState<boolean>(false);
+  // 
   const [salesTime, setSalesTime] = useState<{
     days: string;
     hours: string;
@@ -25,18 +27,22 @@ const DayDeals = () => {
   useEffect(() => {
     dispatch(fetchSales());
     dispatch(fetchProductSales());
-  }, [])
+  }, []);
   useEffect(() => {
-    var endDate = new Date(sales.data.end_time).getTime();
-    var now = new Date().getTime();
-    if (now > endDate){
-      setNoSales(true);
-      return;
+    var endDate = new Date(sales.data?.end_time).getTime();
+    if (sales.data?.end_time){
+      // New
+      var now = new Date().getTime();
+      if (now > endDate!) {
+        setNoSales(true);
+        return;
+      }
+      setNoSales(false);
+      //
     }
-    setNoSales(false);
     var x = setInterval(() => {
       var now = new Date().getTime();
-      const distance = endDate - now;
+      const distance = endDate! - now;
       var days = Math.floor(distance / (1000 * 60 * 60 * 24));
       var hours = Math.floor(
         (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
@@ -55,7 +61,7 @@ const DayDeals = () => {
     };
   }, [sales.loading]);
 
-  return !noSales ? (
+  return true ? (
     <div className="deals section-margin overflow-hidden">
       <div className="deals__header mb-2 d-flex align-items-center justify-content-between">
         <div className="deals__header-title mb-2">
@@ -100,13 +106,19 @@ const DayDeals = () => {
                 ? Array(4)
                     .fill(0)
                     .map((el) => (
-                      <div className='px-1'>
+                      <div className="px-1">
                         <ProductSkeleton />
                       </div>
                     ))
                 : productsSales.data.map((productItem) => (
                     <div className="px-1" key={productItem.id}>
-                      <DealProduct dealproduct={productItem} quantity={productItem.quantity} remaining={productItem?.remaining || productItem.quantity}/>
+                      <DealProduct
+                        dealproduct={productItem}
+                        quantity={productItem.quantity}
+                        remaining={
+                          productItem?.remaining || productItem.quantity
+                        }
+                      />
                     </div>
                   ))}
             </>
@@ -118,7 +130,9 @@ const DayDeals = () => {
         </ul> */}
       </div>
     </div>
-  ) : <></>;
+  ) : (
+    <></>
+  );
 };
 
 export default DayDeals
