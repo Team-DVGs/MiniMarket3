@@ -31,6 +31,7 @@ const Payment = () => {
       const ward = wardRef.current?.value.toString().split("-")[1];
       const detail = detailRef.current?.value;
       const address = `${detail}, ${ward}, ${district}, ${provice}`;
+      
       dispatch(
         addNewOrder({
           userId: user.data.id,

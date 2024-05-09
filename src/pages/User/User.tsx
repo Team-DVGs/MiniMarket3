@@ -7,11 +7,17 @@ import { checkLogin } from '../../store/features/Auth/userSlice';
 import { addNewOrder } from '../../store/features/Orders/orderSlice';
 import { fetchOrderList } from '../../store/features/Orders/orderListSlice';
 import BreadCrumbs from '../../components/BreadCrumbs';
+import axios from 'axios';
+import { event } from 'jquery';
 
 const User = () => {
     const user = useAppSelector(state => state.user);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const [selectedImage, setSelectedImage] = useState<File | null>(null);
+    const [imageUrl, setImageUrl] = useState<string>("");
+
+    
     const [loading, setLoading] = useState<boolean>(false);
     const [formData, setFormData] = useState<{
       email: string;
@@ -33,7 +39,6 @@ const User = () => {
     }
     function handleSubmit(event: React.FormEvent) {
       event.preventDefault();
-      setFLag(true);
       dispatch(updateUser({id: user.data.id, ...formData})).then((res) => {
         if (res.payload) {
           alert("Cập nhật thành công!");
@@ -53,9 +58,8 @@ const User = () => {
         }
       });
     }
-
     useEffect(() => {
-      if(!document.cookie){
+      if(document.cookie){
         setLoading(true);
         dispatch(checkLogin()).then((res) => {
           if (!res.payload) {
@@ -65,20 +69,101 @@ const User = () => {
         });
         setLoading(false);
       }
+      else{
+        navigate('/dangnhap');
+      }
         
     },[])
 
     useEffect(() => {
-        const { email, fullname, phone, address } = user.data;
+        const { email, fullname, phone, address, img } = user.data;
         setFormData({ email, fullname, phone, address });
+        setImageUrl(img || "");
     }, [user.data.isLoggedIn])
-    
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      
+      if (e.target.files && e.target.files.length > 0) {
+        setSelectedImage(e.target.files[0]);
+      }
+    };
+    const handleUpload = async (event: React.FormEvent) => {
+      event.preventDefault();
+      if (!selectedImage) return;
+      const reader = new FileReader();
+      reader.readAsDataURL(selectedImage);
+      reader.onload = async () => {
+        const base64Image = reader.result?.toString();
+        if (base64Image) {
+          dispatch(updateUser({ img: base64Image, ...user.data })).then(
+            (res) => {
+              if (res.payload) {
+                setImageUrl(base64Image); //  Assuming server returns the image URL
+                alert("Cập nhật ảnh đại diện thành công!");
+              }else{
+                alert("Xảy ra lỗi")
+              }
+            }
+          );
+          
+        }
+      };
+    };
   return !loading ? (
     <>
       <BreadCrumbs crumbTitles={["Thông tin tài khoản"]} />
       <div className="payment row user">
         <div className="col-12 col-md-5 payment__shipinfo">
           <div className="payment__ship">
+            {/* Image uploader */}
+            <h1 className="section-header">Ảnh hồ sơ</h1>
+            <div className="imageuploader container my-2">
+              <div className="row">
+                <div className="col-md-8">
+                  <div className="card">
+                    <div className="card-body">
+                      {/* <h5 className="card-title">Upload Profile Image</h5> */}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="form-control mb-3"
+                        onChange={handleImageChange}
+                      />
+                      <button
+                        className="btn btn-primary border-none"
+                        onClick={handleUpload}
+                        disabled={!selectedImage}
+                        type='button'
+                        style={{ backgroundColor: "#253D4E", color: "white" }}
+                      >
+                        Xác nhận
+                      </button>
+                      {/* Image preview */}
+                      <div className="mt-3">
+                        <h6>Preview:</h6>
+                        <img
+                          src={
+                            imageUrl
+                              ? imageUrl
+                              : process.env.PUBLIC_URL + "/assets/img/bg/user.jpg"
+                          }
+                          className="img-fluid"
+                          style={{
+                            backgroundPosition: "center",
+                            backgroundSize: "cover",
+                            width: "60px",
+                            height: "60px",
+                            borderRadius: "50%",
+                          }}
+                          alt="Profile"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* User Info */}
             <h1 className="section-header">Thông tin cá nhân</h1>
             <form action="" className="d-flex" onSubmit={handleSubmit}>
               <input

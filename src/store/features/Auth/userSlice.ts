@@ -13,7 +13,8 @@ interface userState {
     fullname: string,
     phone: string,
     address: string,
-    isLoggedIn: boolean
+    isLoggedIn: boolean,
+    img?: string
   }
 }
 
@@ -76,20 +77,23 @@ export const updateUser = createAsyncThunk(
     email,
     phone,
     fullname,
-    address
+    address,
+    img
   }: {
     id:number,
     email: string;
     phone: string;
     fullname: string;
-    address: string
+    address: string,
+    img?: string
   }) => {
     try {
       const response = await axios.put(`${tenmien}/api/taikhoan/${id}/capnhat`, {
         email,
         phone,
         fullname,
-        address
+        address,
+        img
       });
       return response.data;
     } catch (err) {
@@ -128,6 +132,7 @@ const initialState: userState = {
     phone: "",
     address: "",
     isLoggedIn:false,
+    img: ""
   },
 };
 
@@ -149,6 +154,20 @@ const userSlice = createSlice({
     builder.addCase(loginUser.rejected, (state, action) => {
       state.loading = false;
       state.error = "Sai tên tài khoản hoặc mật khẩu";
+      // New things
+      // document.cookie = `userId=15`;
+      // state.data = {
+      //   id: 15,
+      //   cartId:34,
+      //   email: "haidu@gmail.cm",
+      //   fullname: "Lỗi rồi",
+      //   phone: "08329328832",
+      //   address: "113 tan hung dao",
+      //   isLoggedIn:true,
+      //   img: ""
+      // }
+
+
     });
     // Check Login
     builder.addCase(checkLogin.pending, (state) => {
@@ -164,6 +183,17 @@ const userSlice = createSlice({
       state.loading = false;
       state.data = initialState.data;
       state.error = "Vui lòng đăng nhập lại!"
+      // state.data = {
+      //    id: 15,
+      //    cartId: 34,
+      //    email: "haidu@gmail.cm",
+      //    fullname: "Lỗi rồi",
+      //    phone: "08329328832",
+      //    address: "113 tan hung dao",
+      //    isLoggedIn: true,
+      //    img: ""
+      //  };
+      // Delete cookies
       document.cookie =
         "userId" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     });
