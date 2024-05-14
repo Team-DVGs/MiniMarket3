@@ -2,6 +2,11 @@
 
 
 
+https://github.com/Team-DVGs/MiniMarket3/assets/100943944/9d12027e-1a3d-4687-bb4c-ee37e4a217e7
+
+
+[Link full video demo](https://drive.google.com/file/d/1-bW9foki7J0zAMiV1C9kgtVZ7Gpc26BB/view?usp=sharing)
+
 ## Overview
 GreenMart  aims to create a seamless and user-friendly online platform for customers to conveniently purchase a wide range of grocery products from the comfort of their homes. This project is driven by the increasing demand for online shopping and the need for a reliable and efficient solution for grocery shopping.
 
