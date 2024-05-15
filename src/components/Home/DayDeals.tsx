@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import DealProduct from '../DealProduct';
 import ProductSlider from '../ProductSlider';
 import { useAppSelector, useAppDispatch } from '../../store';
@@ -61,7 +61,9 @@ const DayDeals = () => {
     };
   }, [sales.loading]);
 
-  return true ? (
+
+  
+  return noSales ? (
     <div className="deals section-margin overflow-hidden">
       <div className="deals__header mb-2 d-flex align-items-center justify-content-between">
         <div className="deals__header-title mb-2">

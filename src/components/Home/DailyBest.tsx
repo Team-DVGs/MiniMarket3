@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Product from "../Product";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { fetchProductsBestSell } from "../../store/features/Home/productsBestSellSlice";
 import ProductSkeleton from "../ProductSkeleton";
 import ProductSlider from "../ProductSlider";
+import { Link } from "react-router-dom";
 
 const DailyBest = (): JSX.Element => {
-  const [index, setIndex] = useState<number>(0);
-  const [numberShown, setNumberShown] = useState<number>(0);
   const [type, setType] = useState<string>("Nổi bật");
   const [reload, setReload] = useState<number>(0);
   const productsBestSell = useAppSelector(state => state.productsBestSell);
@@ -43,18 +42,18 @@ const DailyBest = (): JSX.Element => {
     <div className="dailybest section-margin">
       <div className="d-flex justify-content-between align-items-center header-margin">
         <h1 className="section-header">Bán chạy</h1>
-        <nav className="">
+        <nav className="d-flex">
           {productsBestSell.data.map((category) => (
-            <a
+            <div
               onClick={() => {
                 setType(category.type);
                 setReload(prev => prev+1);
               }}
-              className="cursor-pointer"
+              className="cursor-pointer linkaa"
               style={category.type === type ? styles : { cursor: "pointer" }}
             >
               {category.type}
-            </a>
+            </div>
           ))}
         </nav>
       </div>

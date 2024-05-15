@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosResponse, AxiosError } from "axios";
+import {  createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import { tenmien } from "../../../utils";
 
 interface cartData {

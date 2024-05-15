@@ -15,8 +15,6 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
-  BrowserRouter, 
-  Routes, 
   Route
 } from "react-router-dom";
 // Components

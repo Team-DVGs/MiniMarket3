@@ -1,17 +1,13 @@
 import React, {useState} from "react";
 import Dropdown from "../../components/Products/Dropdown";
-import { Link, useSearchParams } from "react-router-dom";
+import {  useSearchParams } from "react-router-dom";
 import Product from "../../components/Product";
-import { useAppSelector, useAppDispatch } from "../../store";
+import { useAppSelector } from "../../store";
 import { fetchProductsAll } from "../../store/features/Products/productListSlice";
-import {
-  fetchBrandCate,
-  fetchBrandCateGroup,
-} from "../../store/features/CategoryProducts/brandSlice";
+
 import { useParams } from "react-router-dom";
 import PageNav from "../../components/Products/PageNav";
 import Skeleton from "react-loading-skeleton";
-import { getNewSearchParamString } from "../../utils";
 import { useDispatch } from "react-redux";
 import ProductSkeleton from "../../components/ProductSkeleton";
 import CategoryGroupRight from "../../components/Products/CategoryGroupRight";

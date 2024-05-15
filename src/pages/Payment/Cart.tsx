@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import BreadCrumbs from '../../components/BreadCrumbs';
 import { useAppSelector, useAppDispatch } from '../../store';
-import { fetchCart } from '../../store/features/Cart/cartSlice';
 import { Link } from 'react-router-dom';
 import { priceFormatter } from '../../utils';
-import Skeleton from 'react-loading-skeleton';
-import { deleteCart, updateQuantityCart } from '../../store/features/Cart/cartSlice';
+import {  updateQuantityCart } from '../../store/features/Cart/cartSlice';
 
 const Cart = () => {
   const cart = useAppSelector((state) => state.cart);

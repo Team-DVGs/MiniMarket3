@@ -1,4 +1,4 @@
-import React, { useState, useRef ,useEffect, useSyncExternalStore } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../store";
 import { signupUser } from "../../store/features/Auth/userSlice";
@@ -16,7 +16,6 @@ const Register = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleOnChange = (event: React.FormEvent) => {};
   function handleChange(event: React.FormEvent) {
     const { name, value } = event.target as HTMLInputElement;
 

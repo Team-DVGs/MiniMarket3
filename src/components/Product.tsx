@@ -1,5 +1,3 @@
-import React, {useEffect} from 'react'
-import { JsxElement } from 'typescript';
 import { priceFormatter, productHomeInterface } from '../utils';
 import { Link } from 'react-router-dom';
 

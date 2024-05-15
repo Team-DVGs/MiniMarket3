@@ -1,6 +1,4 @@
-import React from 'react'
 import Product from './Product'
-import { JsxElement } from 'typescript';
 import { productHomeInterface } from '../utils';
 
 interface dealProductsProps{

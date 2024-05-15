@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { tenmien } from "../../utils";
 import { addProductReview } from "../../store/features/Product/productReviewSlice";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { useNavigate } from "react-router-dom";

@@ -1,14 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { useAppSelector, useAppDispatch } from '../../store';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { updateUser } from '../../store/features/Auth/userSlice';
 import { checkLogin } from '../../store/features/Auth/userSlice';
-import { addNewOrder } from '../../store/features/Orders/orderSlice';
-import { fetchOrderList } from '../../store/features/Orders/orderListSlice';
 import BreadCrumbs from '../../components/BreadCrumbs';
-import axios from 'axios';
-import { event } from 'jquery';
 
 const User = () => {
     const user = useAppSelector(state => state.user);

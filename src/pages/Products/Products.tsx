@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import Dropdown from '../../components/Products/Dropdown';
-import { Link, NavLink, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Product from '../../components/Product';
-import { useAppSelector, useAppDispatch } from '../../store';
+import { useAppSelector } from '../../store';
 import { fetchCategoryGroupProducts } from '../../store/features/Products/productListSlice';
 import { fetchCategory } from '../../store/features/CategoryProducts/categorySlice';
 import { fetchBrandCate, fetchBrandCateGroup } from '../../store/features/CategoryProducts/brandSlice';

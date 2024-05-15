@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosResponse, AxiosError } from "axios";
+import {  createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import { tenmien } from "../../../utils";
 
 
@@ -113,7 +113,7 @@ function getUserIdFromCookie(): string {
 
   for (var i = 0; i < cookieArray.length; i++) {
     var cookie = cookieArray[i].trim();
-    if (cookie.indexOf(name) == 0) {
+    if (cookie.indexOf(name) === 0) {
       return cookie.substring(name.length, cookie.length);
     }
   }

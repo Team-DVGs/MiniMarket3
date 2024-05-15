@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import {Link, NavLink, useLocation} from "react-router-dom";
+import {useState, useEffect} from 'react'
+import {Link,  useLocation} from "react-router-dom";
 // import { fetchCart } from '../store/features/Cart/cartSlice';
 import { fetchWishList, deleteItemWishList } from '../store/features/Products/wishlistSlice';
 import { useAppSelector, useAppDispatch } from '../store';
@@ -172,7 +172,7 @@ const Header = (): JSX.Element=> {
     if (user.data.isLoggedIn){
       dispatch(fetchWishList(user.data.id.toString()));
     }
-  },[user.data.isLoggedIn])
+  },[user?.data.isLoggedIn])
   // useEffect(() => {
   //   dispatch(fetchCart(user.data.cartId.toString()));
   //   return () =>{
@@ -247,12 +247,13 @@ const Header = (): JSX.Element=> {
               <i className="header-inner-right-icon fa-solid fa-scale-unbalanced"></i>
               <span>So sánh</span>
             </a> */}
-            <a
+            <Link
+              to="#"
               className="d-inline-flex d-lg-none"
               onClick={() => setSearchOpen((prev) => !prev)}
             >
               <i className="header-inner-right-icon fa-solid fa-magnifying-glass"></i>
-            </a>
+            </Link>
             <Link to="#" onClick={() => setWishModal(true)}>
               <i className="header-inner-right-icon fa-regular fa-heart"></i>
               <span className="d-none d-lg-block">Yêu thích</span>
@@ -432,7 +433,7 @@ const Header = (): JSX.Element=> {
                         className={`col-${12 / linkItem.sublinks.length}`}
                         key={subLink.head}
                       >
-                        {subLink.head && <a href="#!">{subLink.head}</a>}
+                        {subLink.head && <Link to="#!">{subLink.head}</Link>}
                         <ul>
                           {subLink.sublink.map((minilink) => (
                             <li key={minilink.name}>
@@ -472,7 +473,7 @@ const Header = (): JSX.Element=> {
                 setHeading(linkItem.submenu ? linkItem.name : "");
               }}
             >
-              <a href={`${linkItem.link}`}>{linkItem.name}</a>
+              <Link to={`${linkItem.link}`}>{linkItem.name}</Link>
               {linkItem.submenu && (
                 <i className="fa-solid fa-chevron-right"></i>
               )}
@@ -487,7 +488,7 @@ const Header = (): JSX.Element=> {
               }}
             >
               <i className="fa-solid fa-chevron-left"></i>
-              <a>Trở lại</a>
+              <Link to="#">Trở lại</Link>
             </li>
             {/* Sub links */}
             {heading &&
@@ -498,7 +499,7 @@ const Header = (): JSX.Element=> {
                     {sLink.head && <h5>{sLink.head}</h5>}
                     {sLink.sublink.map((minilink) => (
                       <li>
-                        <a href={minilink.link}>{minilink.name}</a>
+                        <Link to={minilink.link}>{minilink.name}</Link>
                       </li>
                     ))}
                   </>

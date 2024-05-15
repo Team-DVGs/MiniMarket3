@@ -1,5 +1,4 @@
-import { url } from 'inspector';
-import React, { useEffect, useState, useRef} from 'react'
+import { useEffect, useState, useRef} from 'react'
 
 type SlidersProps = {
   banners: { id: number; header: string; title: string; imgUrl: string }[];

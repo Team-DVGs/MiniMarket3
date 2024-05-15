@@ -1,5 +1,3 @@
-import React, { useEffect } from "react";
-import { JsxElement } from "typescript";
 import Skeleton from "react-loading-skeleton";
 
 

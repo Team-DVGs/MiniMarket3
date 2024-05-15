@@ -1,8 +1,7 @@
-import React, {useState, useEffect, useSyncExternalStore} from 'react';
+import React, {useState} from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from '../../store';
 import { loginUser } from '../../store/features/Auth/userSlice';
-import { setFlagsFromString } from 'v8';
 
 const Login = () => {
   const [formData, setFormData] = useState<{email:string, password: string}>({email:"", password:""})

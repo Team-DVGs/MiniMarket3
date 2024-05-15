@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
@@ -42,32 +41,32 @@ const Footer = () => {
             </div>
             <div className="info__nav col-6 col-md-4 col-lg-2">
               <h2>Tài khoản</h2>
-              <a href="#">Đăng nhập</a>
-              <a href="#">Giỏ hàng</a>
-              <a href="#">Danh sách yêu thích</a>
-              <a href="#">Chi tiết mua hàng</a>
-              <a href="#">So sánh sản phẩm</a>
+              <Link to="">Đăng nhập</Link>
+              <Link to="">Giỏ hàng</Link>
+              <Link to="">Danh sách yêu thích</Link>
+              <Link to="">Chi tiết mua hàng</Link>
+              <Link to="">So sánh sản phẩm</Link>
             </div>
             <div className="info__nav col-6 col-md-4 col-lg-2">
               <h2>Loại sản phẩm</h2>
-              <a href="#">Sữa và sữa chua</a>
-              <a href="#">Nước ngọt và bia</a>
-              <a href="#">Thịt, cá trứng</a>
-              <a href="#">Phô mai</a>
+              <Link to={""}>Sữa và sữa chua</Link>
+              <Link to={""}>Nước ngọt và bia</Link>
+              <Link to={""}>Thịt, cá trứng</Link>
+              <Link to={""}>Phô mai</Link>
             </div>
             <div className="info__nav col-6 col-md-4 col-lg-2">
               <h2>App và Thanh Toán</h2>
               <p>Tải từ AppStore và Google Play</p>
               <div className="info__nav-download d-flex justify-content-between">
-                <a href="#">
+                <Link to="">
                   <img
                     src={
                       process.env.PUBLIC_URL + "/assets/img/logo/app-store.jpg"
                     }
                     alt=""
                   />
-                </a>
-                <a href="#">
+                </Link>
+                <Link to="">
                   <img
                     src={
                       process.env.PUBLIC_URL +
@@ -75,32 +74,32 @@ const Footer = () => {
                     }
                     alt=""
                   />
-                </a>
+                </Link>
               </div>
               <p>Thanh toán liên quốc tế</p>
               <div className="info__nav-payment d-flex justify-content-between">
-                <a href="#">
+                <Link to="">
                   <img
                     src={process.env.PUBLIC_URL + "/assets/img/logo/visa.png"}
                     alt=""
                   />
-                </a>
-                <a href="#">
+                </Link>
+                <Link to="">
                   <img
                     src={
                       process.env.PUBLIC_URL + "/assets/img/logo/mastercard.png"
                     }
                     alt=""
                   />
-                </a>
-                <a href="#">
+                </Link>
+                <Link to="">
                   <img
                     src={
                       process.env.PUBLIC_URL + "/assets/img/logo/maestro.png"
                     }
                     alt=""
                   />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -125,15 +124,15 @@ const Footer = () => {
           <div className="contact__section ">
             <span>
               Theo dõi:
-              <a href="#">
+              <Link to="">
                 <i className="fa-brands fa-facebook-f"></i>
-              </a>
-              <a href="#">
+              </Link>
+              <Link to="">
                 <i className="fa-brands fa-x-twitter"></i>
-              </a>
-              <a href="#">
+              </Link>
+              <Link to="">
                 <i className="fa-brands fa-instagram"></i>
-              </a>
+              </Link>
             </span>
             <p>Khuyến mãi lên đến 15% cho lần đăng ký đầu tiên</p>
           </div>

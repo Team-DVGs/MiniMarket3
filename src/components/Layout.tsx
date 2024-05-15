@@ -1,15 +1,13 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import {Outlet, useLocation, useNavigate} from "react-router-dom"
 import MailFeature from './Home/MailFeature'
-import BreadCrumbs from './BreadCrumbs';
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useAppDispatch , useAppSelector} from '../store';
 import { checkLogin } from '../store/features/Auth/userSlice'
 import { fetchCart } from '../store/features/Cart/cartSlice'
-import { fetchOrderList } from '../store/features/Orders/orderListSlice'
 
 
 const Layout = () => {

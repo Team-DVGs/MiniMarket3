@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import Product from '../Product';
 import { useAppSelector, useAppDispatch } from '../../store';
 import { fetchProductsPopular } from '../../store/features/Home/productsPopularSlice';
