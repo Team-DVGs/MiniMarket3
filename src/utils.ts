@@ -1,5 +1,5 @@
 // Variables
-export const tenmien: string = "http://127.0.0.1:8000";
+export const tenmien: string = "https://greenmart-backend.azurewebsites.net";
 
 // Intefaces
 export interface productHomeInterface { // product xuat hien o home, khong can thong tin ve brand
