@@ -9,8 +9,8 @@ const User = () => {
     const user = useAppSelector(state => state.user);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const [selectedImage, setSelectedImage] = useState<File | null>(null);
-    const [imageUrl, setImageUrl] = useState<string>("");
+    // const [selectedImage, setSelectedImage] = useState<File | null>(null);
+    // const [imageUrl, setImageUrl] = useState<string>("");
 
     
     const [loading, setLoading] = useState<boolean>(false);
@@ -20,7 +20,7 @@ const User = () => {
       phone:string,
       address: string
     }>({ email: "", fullname: "",phone:"", address: ""  });
-    const [flag, setFLag] = useState<boolean>(false);
+    // const [flag, setFLag] = useState<boolean>(false);
 
     function handleChange(event: React.FormEvent) {
       const { name, value } = event.target as HTMLInputElement;
@@ -71,39 +71,39 @@ const User = () => {
     },[])
 
     useEffect(() => {
-        const { email, fullname, phone, address, img } = user.data;
+        const { email, fullname, phone, address } = user.data;
         setFormData({ email, fullname, phone, address });
-        setImageUrl(img || "");
-    }, [user.data.isLoggedIn])
+        // setImageUrl(img || "");
+    }, [user?.data.isLoggedIn])
 
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       
-      if (e.target.files && e.target.files.length > 0) {
-        setSelectedImage(e.target.files[0]);
-      }
-    };
-    const handleUpload = async (event: React.FormEvent) => {
-      event.preventDefault();
-      if (!selectedImage) return;
-      const reader = new FileReader();
-      reader.readAsDataURL(selectedImage);
-      reader.onload = async () => {
-        const base64Image = reader.result?.toString();
-        if (base64Image) {
-          dispatch(updateUser({ img: base64Image, ...user.data })).then(
-            (res) => {
-              if (res.payload) {
-                setImageUrl(base64Image); //  Assuming server returns the image URL
-                alert("Cập nhật ảnh đại diện thành công!");
-              }else{
-                alert("Xảy ra lỗi")
-              }
-            }
-          );
+    //   if (e.target.files && e.target.files.length > 0) {
+    //     setSelectedImage(e.target.files[0]);
+    //   }
+    // };
+    // const handleUpload = async (event: React.FormEvent) => {
+    //   event.preventDefault();
+    //   if (!selectedImage) return;
+    //   const reader = new FileReader();
+    //   reader.readAsDataURL(selectedImage);
+    //   reader.onload = async () => {
+    //     const base64Image = reader.result?.toString();
+    //     if (base64Image) {
+    //       dispatch(updateUser({ img: base64Image, ...user.data })).then(
+    //         (res) => {
+    //           if (res.payload) {
+    //             setImageUrl(base64Image); //  Assuming server returns the image URL
+    //             alert("Cập nhật ảnh đại diện thành công!");
+    //           }else{
+    //             alert("Xảy ra lỗi")
+    //           }
+    //         }
+    //       );
           
-        }
-      };
-    };
+    //     }
+    //   };
+    // };
   return !loading ? (
     <>
       <BreadCrumbs crumbTitles={["Thông tin tài khoản"]} />
@@ -111,13 +111,12 @@ const User = () => {
         <div className="col-12 col-md-5 payment__shipinfo">
           <div className="payment__ship">
             {/* Image uploader */}
-            <h1 className="section-header">Ảnh hồ sơ</h1>
+            {/* <h1 className="section-header">Ảnh hồ sơ</h1>
             <div className="imageuploader container my-2">
               <div className="row">
                 <div className="col-md-8">
                   <div className="card">
                     <div className="card-body">
-                      {/* <h5 className="card-title">Upload Profile Image</h5> */}
                       <input
                         type="file"
                         accept="image/*"
@@ -133,7 +132,6 @@ const User = () => {
                       >
                         Xác nhận
                       </button>
-                      {/* Image preview */}
                       <div className="mt-3">
                         <h6>Preview:</h6>
                         <img
@@ -157,7 +155,7 @@ const User = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             {/* User Info */}
             <h1 className="section-header">Thông tin cá nhân</h1>
             <form action="" className="d-flex" onSubmit={handleSubmit}>
