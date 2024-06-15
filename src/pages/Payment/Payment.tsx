@@ -23,15 +23,15 @@ const Payment = () => {
     if (
       provinceRef.current?.value &&
       districtRef.current?.value &&
-      wardRef.current?.value &&
       detailRef.current?.value
     ) {
-      const provice = provinceRef.current?.value.toString().split("-")[1];
-      const district = districtRef.current?.value.toString().split("-")[1];
-      const ward = wardRef.current?.value.toString().split("-")[1];
+      // const provice = provinceRef.current?.value.toString().split("-")[1];
+      // const district = districtRef.current?.value.toString().split("-")[1];
+      const provice = provinceRef.current?.value.toString();
+      const district = districtRef.current?.value.toString();
+      // const ward = wardRef.current?.value.toString().split("-")[1];
       const detail = detailRef.current?.value;
-      const address = `${detail}, ${ward}, ${district}, ${provice}`;
-      
+      const address = `${detail}, ${district}, ${provice}`;
       dispatch(
         addNewOrder({
           userId: user.data.id,
@@ -54,74 +54,72 @@ const Payment = () => {
     }
   }
 
-  // useEffect(() => {
-  //     dispatch(fetchCart(user.data.cartId.toString()));
-  // },[])
-  function getString(str: string, isLeft: boolean) {
-    if (isLeft) {
-      return str.slice(0, str.indexOf("&"));
-    }
-    return str.slice(str.indexOf("&"));
-  }
-  // Location API handling
-  useEffect(() => {
-    const host = "https://provinces.open-api.vn/api/";
-    var callAPI = (api: string) => {
-      return axios.get(api).then((response) => {
-        renderData(response.data, "province");
-      });
-    };
-    var callApiDistrict = (api: string) => {
-      return axios.get(api).then((response) => {
-        renderData(response.data.districts, "district");
-      });
-    };
-    var callApiWard = (api: string) => {
-      return axios.get(api).then((response) => {
-        renderData(response.data.wards, "ward");
-      });
-    };
-    callAPI("https://provinces.open-api.vn/api/?depth=1");
-    var renderData = (
-      array: { code: string; name: string }[],
-      select: string
-    ) => {
-      let row = `<option disable value="">${
-        select === "province"
-          ? "Tỉnh/TP"
-          : select === "district"
-          ? "Quận/Huyện/Thị xã"
-          : "Phường/Khóm/Ấp"
-      }</option>`;
-      if (array) {
-        array.forEach((element) => {
-          row += `<option value="${element.code}-${element.name}" name="${element.name}">${element.name}</option>`;
-        });
-      }
-      const item = document.querySelector("#" + select) as HTMLElement;
-      if (item) {
-        item.innerHTML = row;
-      }
-    };
 
-    $("#province").change(() => {
-      callApiDistrict(
-        host +
-          "p/" +
-          $("#province").val()?.toString().split("-")[0] +
-          "?depth=2"
-      );
-      renderData([], "ward");
-    });
-    $("#district").change(() => {
-      callApiWard(
-        host +
-          "d/" +
-          $("#district").val()?.toString().split("-")[0] +
-          "?depth=2"
-      );
-    });
-  }, []);
+  // function getString(str: string, isLeft: boolean) {
+  //   if (isLeft) {
+  //     return str.slice(0, str.indexOf("&"));
+  //   }
+  //   return str.slice(str.indexOf("&"));
+  // }
+  // Location API handling
+  // useEffect(() => {
+  //   const host = "https://provinces.open-api.vn/api/";
+  //   var callAPI = (api: string) => {
+  //     return axios.get(api).then((response) => {
+  //       renderData(response.data, "province");
+  //     });
+  //   };
+  //   var callApiDistrict = (api: string) => {
+  //     return axios.get(api).then((response) => {
+  //       renderData(response.data.districts, "district");
+  //     });
+  //   };
+  //   var callApiWard = (api: string) => {
+  //     return axios.get(api).then((response) => {
+  //       renderData(response.data.wards, "ward");
+  //     });
+  //   };
+  //   callAPI("https://provinces.open-api.vn/api/?depth=1");
+  //   var renderData = (
+  //     array: { code: string; name: string }[],
+  //     select: string
+  //   ) => {
+  //     let row = `<option disable value="">${
+  //       select === "province"
+  //         ? "Tỉnh/TP"
+  //         : select === "district"
+  //         ? "Quận/Huyện/Thị xã"
+  //         : "Phường/Khóm/Ấp"
+  //     }</option>`;
+  //     if (array) {
+  //       array.forEach((element) => {
+  //         row += `<option value="${element.code}-${element.name}" name="${element.name}">${element.name}</option>`;
+  //       });
+  //     }
+  //     const item = document.querySelector("#" + select) as HTMLElement;
+  //     if (item) {
+  //       item.innerHTML = row;
+  //     }
+  //   };
+
+  //   $("#province").change(() => {
+  //     callApiDistrict(
+  //       host +
+  //         "p/" +
+  //         $("#province").val()?.toString().split("-")[0] +
+  //         "?depth=2"
+  //     );
+  //     renderData([], "ward");
+  //   });
+  //   $("#district").change(() => {
+  //     callApiWard(
+  //       host +
+  //         "d/" +
+  //         $("#district").val()?.toString().split("-")[0] +
+  //         "?depth=2"
+  //     );
+  //   });
+  // }, []);
   // Set document title
   React.useEffect(() => {
     document.title = "Đặt hàng | GreenMart";
@@ -136,13 +134,40 @@ const Payment = () => {
             <h1 className="section-header">Vận chuyển</h1>
             <p>Vui lòng chọn địa chỉ nhận hàng</p>
             <form action="" className="d-flex">
-              <select name="" id="province" ref={provinceRef}></select>
-              <select name="" id="district" ref={districtRef}>
-                <option value="">Quận/Huyện/Thị xã</option>
-              </select>
-              <select name="" id="ward" ref={wardRef}>
+            <select name="" id="province" ref={provinceRef} value="AAA" disabled>
+              <option value="TP HCM">{"TP HCM (chưa hỗ trợ khu vực khác)"}</option>
+            </select>
+            <select name="" id="district" ref={districtRef}>
+              <option value="">Quận/Huyện</option>
+              <option value="Quận 1">Quận 1</option>
+              <option value="Quận 2">Quận 2</option>
+              <option value="Quận 3">Quận 3</option>
+              <option value="Quận 4">Quận 4</option>
+              <option value="Quận 5">Quận 5</option>
+              <option value="Quận 6">Quận 6</option>
+              <option value="Quận 7">Quận 7</option>
+              <option value="Quận 8">Quận 8</option>
+              <option value="Quận 9">Quận 9</option>
+              <option value="Quận 10">Quận 10</option>
+              <option value="Quận 11">Quận 11</option>
+              <option value="Quận 12">Quận 12</option>
+              <option value="Quận Bình Thạnh">Quận Bình Thạnh</option>
+              <option value="Quận Gò Vấp">Quận Gò Vấp</option>
+              <option value="Quận Phú Nhuận">Quận Phú Nhuận</option>
+              <option value="Quận Tân Bình">Quận Tân Bình</option>
+              <option value="Quận Tân Phú">Quận Tân Phú</option>
+              <option value="Quận Thủ Đức">Quận Thủ Đức</option>
+              <option value="Quận Bình Tân">Quận Bình Tân</option>
+              <option value="Huyện Bình Chánh">Huyện Bình Chánh</option>
+              <option value="Huyện Củ Chi">Huyện Củ Chi</option>
+              <option value="Huyện Cần Giờ">Huyện Cần Giờ</option>
+              <option value="Huyện Hóc Môn">Huyện Hóc Môn</option>
+              <option value="Huyện Nhà Bè">Huyện Nhà Bè</option>              
+            </select>
+
+              {/* <select name="" id="ward" ref={wardRef}>
                 <option value="">Phường/Khóm/Ấp</option>
-              </select>
+              </select> */}
               <input
                 ref={detailRef}
                 type="text"
