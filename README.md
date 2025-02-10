@@ -20,6 +20,26 @@ GreenMart  aims to create a seamless and user-friendly online platform for custo
 
 > Interacting with backend and database through RESTFUL APIs
 
+## Screenshots
+
+![main](https://github.com/user-attachments/assets/0ee48976-897c-4e7b-bfbd-3935776a6e8b)
+
+![main-sales](https://github.com/user-attachments/assets/a610fc52-9346-4ac7-9e79-dc965ee68666)
+
+![search-list](https://github.com/user-attachments/assets/34dcf47f-82a1-4404-9d62-a86ab51ffe17)
+
+![search](https://github.com/user-attachments/assets/36d3b326-5d3e-4b84-aa7c-c0ae7f9cd6a6)
+
+
+![detail](https://github.com/user-attachments/assets/2c9d5fc8-9eca-445f-a921-4a3905f69710)
+
+![payment](https://github.com/user-attachments/assets/43a08563-e2aa-41da-b112-80353666a52e)
+
+![signin](https://github.com/user-attachments/assets/c9a3aa88-48a5-4c1d-85c9-124109cf429d)
+
+![signup](https://github.com/user-attachments/assets/df942353-f5c3-4f12-a3d7-8dfe63657b41)
+
+![info](https://github.com/user-attachments/assets/ae51a6c1-8ab2-4571-92d8-60161ee4098d)
 
 
 ## Installation 
